@@ -28,9 +28,5 @@
 			    'type': 'pkg'
 			}
 		]
-	},
-	'desktop': {
-		'name': 'Bob - The builder',
-		'icon': ''
 	}
 }

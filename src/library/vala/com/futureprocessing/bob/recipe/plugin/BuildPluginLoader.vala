@@ -1,6 +1,6 @@
 using com.futureprocessing.bob.log;
 
-namespace com.futureprocessing.bob.plugin {
+namespace com.futureprocessing.bob.recipe.plugin {
 	
 	public errordomain BuildPluginError {
         MODULE_NOT_FOUND_ERROR, MODULE_TYPE_FUNCTION_MISSING_ERROR
