@@ -1,6 +1,7 @@
 using com.futureprocessing.bob;
 using com.futureprocessing.bob.recipe;
 using com.futureprocessing.bob.log;
+using com.futureprocessing.bob.build.plugin;
 
 namespace com.futureprocessing.bob.build {
 	
@@ -16,8 +17,16 @@ namespace com.futureprocessing.bob.build {
 			this.buildRecipe = buildRecipe;
 		}
 
-		public void addPlugin(string buildPlugin) {
-			LOGGER.logInfo("Initializing plugin: [%s]", buildPlugin);
+		public void addPlugin(string buildPlugin) throws BuildPluginError {
+			try {
+				LOGGER.logInfo("Initializing plugin: [%s]", buildPlugin);
+
+				BuildPluginLoader<BobBuildPlugin> pluginLoader = BuildPluginLoader.loadPlugin(buildPlugin);
+				BobBuildPlugin pluginInstance = pluginLoader.instantiatePlugin();
+			} catch (BuildPluginError pluginError) {
+				LOGGER.logError("An error occurred while loading plugin %s, error message: %s", buildPlugin, pluginError.message);
+				throw pluginError;
+			}
 		}
 
 		public void proceed() {
@@ -25,7 +34,7 @@ namespace com.futureprocessing.bob.build {
 		}
 
 		private void printRecipeSummary() {
-			LOGGER.logInfo("Building project: %s-%s (%s)", buildRecipe.project.shortName ?? "", buildRecipe.project.version ?? "", buildRecipe.project.name ?? "");
+			LOGGER.logInfo("Building project: %s-%s (%s)", buildRecipe.project.shortName, buildRecipe.project.version, buildRecipe.project.name);
 		}
 
 		public bool buildLibrary { get; set; }

@@ -23,14 +23,7 @@ namespace com.futureprocessing.bob.log {
 			printerSession.setColorRed();
 			printerSession.commit(stderr);
 			stderr.vprintf(message, va_list());
-			printerSession.reset(stderr);
-
-			stderr.printf(" ;( but ... Can we fix it? ");
-
-			printerSession = ansiPrinter.startSession();
-			printerSession.setBold(true);
-			printerSession.commit(stderr);
-			stderr.printf("Yes we can!\n");
+			stderr.printf("\n");
 			printerSession.reset(stderr);
 		}
 

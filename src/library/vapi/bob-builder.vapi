@@ -31,10 +31,29 @@ namespace com {
 				}
 			}
 			namespace build {
+				namespace plugin {
+					[CCode (cheader_filename = "bob-builder.h")]
+					public class BuildPluginLoader<T> {
+						public T instantiatePlugin ();
+						public static com.futureprocessing.bob.build.plugin.BuildPluginLoader<com.futureprocessing.bob.build.plugin.BobBuildPlugin> loadPlugin (string name) throws com.futureprocessing.bob.build.plugin.BuildPluginError;
+						public string path { get; private set; }
+					}
+					[CCode (cheader_filename = "bob-builder.h")]
+					public interface BobBuildPlugin : GLib.Object {
+						public abstract string[] getRunAfter ();
+						public abstract void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginConfiguration pluginConfiguration);
+						public abstract void run (com.futureprocessing.bob.build.BobBuildContext buildContext);
+					}
+					[CCode (cheader_filename = "bob-builder.h")]
+					public errordomain BuildPluginError {
+						MODULE_NOT_FOUND_ERROR,
+						MODULE_TYPE_FUNCTION_MISSING_ERROR
+					}
+				}
 				[CCode (cheader_filename = "bob-builder.h")]
 				public class BobBuildContext : GLib.Object {
 					public BobBuildContext ();
-					public void addPlugin (string buildPlugin);
+					public void addPlugin (string buildPlugin) throws com.futureprocessing.bob.build.plugin.BuildPluginError;
 					public void proceed ();
 					public BobBuildContext.withRecipe (com.futureprocessing.bob.recipe.BobBuildRecipe buildRecipe);
 					public bool buildLibrary { get; set; }
@@ -55,6 +74,12 @@ namespace com {
 				public abstract class FileSystemFilteringVisitor : com.futureprocessing.bob.filesystem.FileSystemVisitor {
 					public FileSystemFilteringVisitor (com.futureprocessing.bob.filesystem.FileFilter filter);
 					protected abstract void visitFileFiltered (GLib.File file);
+				}
+				[CCode (cheader_filename = "bob-builder.h")]
+				public class Runtime {
+					public Runtime ();
+					public static string getRuntimeDirectory ();
+					public static string resolveRuntimeRelativePath (string relativePath);
 				}
 				[CCode (cheader_filename = "bob-builder.h")]
 				public interface FileFilter : GLib.Object {
@@ -84,24 +109,6 @@ namespace com {
 					public class BobBuildPluginConfiguration : GLib.Object {
 						public BobBuildPluginConfiguration (string name);
 						public string name { get; set construct; }
-					}
-					[CCode (cheader_filename = "bob-builder.h")]
-					public class BuildPluginLoader<T> {
-						public BuildPluginLoader (string name);
-						public T instantiatePlugin ();
-						public void loadBuildPlugin () throws com.futureprocessing.bob.recipe.plugin.BuildPluginError;
-						public string path { get; private set; }
-					}
-					[CCode (cheader_filename = "bob-builder.h")]
-					public interface BobBuildPlugin {
-						public abstract string[] getRunAfter ();
-						public abstract void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginConfiguration pluginConfiguration);
-						public abstract void run (com.futureprocessing.bob.build.BobBuildContext buildContext);
-					}
-					[CCode (cheader_filename = "bob-builder.h")]
-					public errordomain BuildPluginError {
-						MODULE_NOT_FOUND_ERROR,
-						MODULE_TYPE_FUNCTION_MISSING_ERROR
 					}
 				}
 				namespace project {

@@ -36,6 +36,7 @@ namespace com.futureprocessing.bob.recipe {
 		private void parseProject(Json.Object jsonObject) {
 			if (keyMissing(jsonObject, MEMBER_PROJECT)) {
 				LOGGER.logInfo("No project configuration found, using defaults");
+				builder.project(MEMBER_NAME_DEFAULT, MEMBER_SHORTNAME_DEFAULT, MEMBER_VERSION_DEFAULT);
 				return;
 			}
 			Json.Object projectObject = jsonObject.get_object_member(MEMBER_PROJECT);
@@ -68,7 +69,9 @@ namespace com.futureprocessing.bob.recipe {
 			if (keyMissing(jsonObject, key)) {
 				return defaultIfNull;
 			}
-
+			if (jsonObject.get_null_member(key)) {
+				return defaultIfNull;
+			}
 			return jsonObject.get_string_member(key);
 		}
 	}

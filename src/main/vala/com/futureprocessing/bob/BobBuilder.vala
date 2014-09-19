@@ -1,25 +1,26 @@
 using com.futureprocessing.bob;
 using com.futureprocessing.bob.build;
+using com.futureprocessing.bob.build.plugin;
 using com.futureprocessing.bob.recipe;
 using com.futureprocessing.bob.log;
 
+
 namespace com.futureprocessing.bob {
 	public class BobBuilder {
-
-		private Logger LOGGER = Logger.getLogger("BobBuilder");
+        private Logger LOGGER = Logger.getLogger("BobBuilder");
 		private const string[] DEFAULT_PLUGINS = {"build"};
 
 		private BobBuildContext buildContext;
 		private BobBuildRecipe buildRecipe;
 
-		public BobBuilder(string[] buildPlugins) {
+		public BobBuilder(string[] buildPlugins) throws BuildPluginError {
 			initializeBuildRecipe();
 			initializeBuildContext();
 			initializeBuildContextPlugins(buildPlugins);
 		}
 
 		private void initializeBuildRecipe() {
-			try {
+			try {string
 				buildRecipe = BobBuildRecipeLoader.loadFromJSON();
 				if (buildRecipe == null) {
 					LOGGER.logInfo("Could not find any kind of recipe file, continuing without it");
@@ -38,7 +39,7 @@ namespace com.futureprocessing.bob {
 			}
 		}
 
-		private void initializeBuildContextPlugins(string[] buildPlugins) {
+		private void initializeBuildContextPlugins(string[] buildPlugins) throws BuildPluginError {
 			if (buildPlugins.length == 0) {
 				LOGGER.logInfo("No user defined plugins to run, going with defaults");
 				initializeDefaultBuildContextPlugins();
@@ -49,7 +50,7 @@ namespace com.futureprocessing.bob {
 			}
 		}
 
-		private void initializeDefaultBuildContextPlugins() {
+		private void initializeDefaultBuildContextPlugins() throws BuildPluginError {
 			foreach (string plugin in DEFAULT_PLUGINS) {
 				buildContext.addPlugin(plugin);
 			}
@@ -61,7 +62,12 @@ namespace com.futureprocessing.bob {
 	}
 }
 
-public static void main(string[] args) {
-	BobBuilder builder = new BobBuilder(args[1:args.length]);
-	builder.startBuild();
+public static int main(string[] args) {
+	try {
+		BobBuilder builder = new BobBuilder(args[1:args.length]);
+		builder.startBuild();
+		return 0;
+	} catch (Error e) {
+		return 1;
+	}
 }
