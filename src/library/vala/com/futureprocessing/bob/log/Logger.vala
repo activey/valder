@@ -41,6 +41,7 @@ namespace com.futureprocessing.bob.log {
 		    printerSession.setColorDefault();
 			printerSession.commit(stdout);
 			stdout.vprintf(message, va_list());
+			stdout.printf("\n");
 			
 			printerSession.reset(stdout);
 		}

@@ -1,63 +1,67 @@
 using com.futureprocessing.bob;
+using com.futureprocessing.bob.build;
+using com.futureprocessing.bob.recipe;
 using com.futureprocessing.bob.log;
 
 namespace com.futureprocessing.bob {
 	public class BobBuilder {
 
 		private Logger LOGGER = Logger.getLogger("BobBuilder");
+		private const string[] DEFAULT_PLUGINS = {"build"};
 
-		private BobRecipeProcessor recipeProcessor = new BobRecipeProcessor();
+		private BobBuildContext buildContext;
+		private BobBuildRecipe buildRecipe;
 
-		public void startBuild() {
-			LOGGER.logInfo("Bob is starting his work ...\n");
-			LOGGER.logInfo("Looking for bob recipe file ...\n");
-            
-			FileInfo recipeFile = locateRecipeFile();
-			if (recipeFile == null) {
-				LOGGER.logError("Unable to locate any any build recipe for Bob, quitting.");
+		public BobBuilder(string[] buildPlugins) {
+			initializeBuildRecipe();
+			initializeBuildContext();
+			initializeBuildContextPlugins(buildPlugins);
+		}
+
+		private void initializeBuildRecipe() {
+			try {
+				buildRecipe = BobBuildRecipeLoader.loadFromJSON();
+				if (buildRecipe == null) {
+					LOGGER.logInfo("Could not find any kind of recipe file, continuing without it");
+					return;
+				}
+			} catch (Error e) {
+				LOGGER.logError("An error occurred while processing build recipe: %s", e.message);
+			}
+		}
+
+		private void initializeBuildContext() {
+			if (buildRecipe == null) {
+				buildContext = new BobBuildContext();
+			} else {
+				buildContext = new BobBuildContext.withRecipe(buildRecipe);
+			}
+		}
+
+		private void initializeBuildContextPlugins(string[] buildPlugins) {
+			if (buildPlugins.length == 0) {
+				LOGGER.logInfo("No user defined plugins to run, going with defaults");
+				initializeDefaultBuildContextPlugins();
 				return;
 			}
-			processRecipeFile(recipeFile);
-		}
-
-		private void processRecipeFile(FileInfo recipeFile) {
-			try {
-				recipeProcessor.processRecipe(recipeFile);
-				LOGGER.logSuccess("Bob has finished his work. It's better to do one job well, than to do two jobs not so well.\n");
-			} catch (Error e) {
-				LOGGER.logError("Bob failed at building: %s", e.message);
+			foreach (string plugin in buildPlugins) {
+				buildContext.addPlugin(plugin);
 			}
 		}
-		
-		private FileInfo? locateRecipeFile() {
-			try {
-			    File workDirectory = getBobWorkDirectory();
-		        FileEnumerator enumerator = workDirectory.enumerate_children(FileAttribute.STANDARD_NAME, 0);
 
-		        FileInfo fileInfo;
-		        while ((fileInfo = enumerator.next_file()) != null) {
-		        	if (isBobRecipeFile(fileInfo)) {
-		        		return fileInfo;
-		        	}
-		        }
-		    } catch (Error e) {
-		    	LOGGER.logError("An exception occurred while loading json file: ", e.message);
-		    }
-		    return null;
+		private void initializeDefaultBuildContextPlugins() {
+			foreach (string plugin in DEFAULT_PLUGINS) {
+				buildContext.addPlugin(plugin);
+			}
 		}
 
-		private File getBobWorkDirectory() {
-			return File.new_for_path(".");
-		}
-
-
-		private bool isBobRecipeFile(FileInfo fileInfo) {
-			return fileInfo.get_name() == "receipe.bob";
+		public void startBuild() {
+			buildContext.proceed();
 		}
 	}
 }
 
 public static void main(string[] args) {
-	var builder = new BobBuilder();
+	BobBuilder builder = new BobBuilder(args[1:args.length]);
 	builder.startBuild();
 }
