@@ -1,6 +1,6 @@
 namespace com.futureprocessing.bob.recipe.project {
 
-	public class BobBuildProjectConfiguration {
+	public class BobBuildProjectRecipe {
 
 		public string name { 
 			get; 

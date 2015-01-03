@@ -7,26 +7,31 @@ namespace com.futureprocessing.bob.build.plugin {
         MODULE_NOT_FOUND_ERROR, MODULE_TYPE_FUNCTION_MISSING_ERROR
     }
 
-	public class BuildPluginLoader<T> {
+	public class BuildPluginLoader : TypeModule {
         private Logger LOGGER = Logger.getLogger("BuildPluginLoader");
         private const string PLUGINS_DIRECTORY = "plugins";
         private const string PLUGIN_INIT_METHOD = "getPluginType";
+        private const string PLUGIN_DEPS_METHOD = "getDependencies";
 
 		public string path { get; private set; }
 
-	    private Type type;
 	    private Module module;
+	    private Type type;
+	    private string[] dependencies = {};
 
-	    private delegate Type GetPluginTypeFunction();
+	    private delegate Type GetPluginTypeFunction(TypeModule typeModule);
+	    private delegate string[] GetPluginDependenciesFunction();
 
-	    public static BuildPluginLoader<BobBuildPlugin> loadPlugin(string name) throws BuildPluginError {
-	    	BuildPluginLoader<BobBuildPlugin> pluginLoader = new BuildPluginLoader<BobBuildPlugin>(name);
-	    	pluginLoader.loadBuildPlugin();
-	    	return pluginLoader;
+	    public BuildPluginLoader(string name) {
+	        initializeModulePath(name);
+	    }
+	
+	    public BobBuildPlugin instantiatePlugin() {
+	    	return (BobBuildPlugin) Object.new(type);
 	    }
 
-	    private BuildPluginLoader(string name) {
-	        initializeModulePath(name);
+		public string[] getPluginDependencies() {
+	    	return dependencies;
 	    }
 
 	    private void initializeModulePath(string moduleName) {
@@ -38,34 +43,51 @@ namespace com.futureprocessing.bob.build.plugin {
 	    	assert(Module.supported());
 	    }
 
-	    private void loadBuildPlugin() throws BuildPluginError {
-	        LOGGER.logInfo("Loading Bob build plugin from location: %s", path);
+	    public void loadPlugin() {
+	    	try {
+		        LOGGER.logInfo("Loading Bob build plugin from location: %s", path);
+		    	loadPluginModule();
+		        loadPluginDependencies();
+		        loadPluginModuleType();
+	        } catch (BuildPluginError e) {
+		    	LOGGER.logError("An error occurred while loading plugin: %s", e.message);
+		    }
+	    }
 
-	        loadPluginModule();
-	        loadPluginModuleType();
+	    public override bool load() {
+	        return true;
+	    }
+
+	    public override void unload() {
+	    	//module = null;
 	    }
 
 	    private void loadPluginModule() throws BuildPluginError {
 	    	module = Module.open(path, ModuleFlags.BIND_LAZY);
 	        if (module == null) {
-	            throw new BuildPluginError.MODULE_NOT_FOUND_ERROR("Module not found for given path: '%s'".printf(path));
+	            throw new BuildPluginError.MODULE_NOT_FOUND_ERROR("Module not found for given path: %s".printf(path));
 	        }
-	        LOGGER.logInfo("Loaded build plugin module: '%s'", module.name());
+	        LOGGER.logInfo("Loaded build plugin module: %s", module.name());
 	    }
 
 		private void loadPluginModuleType() throws BuildPluginError {
-			void* getPluginTypeFunctionReference;
-			module.symbol(PLUGIN_INIT_METHOD, out getPluginTypeFunctionReference);
-			if (getPluginTypeFunctionReference == null) {
-				throw new BuildPluginError.MODULE_TYPE_FUNCTION_MISSING_ERROR("'getPluginType' method is missing in plugin module!");
-			}
-			unowned GetPluginTypeFunction getPluginTypeFunction = (GetPluginTypeFunction) getPluginTypeFunctionReference;
-			type = getPluginTypeFunction();
-			LOGGER.logInfo("Build plugin type loaded: %s", type.name());
+			unowned GetPluginTypeFunction getPluginType = (GetPluginTypeFunction) getModuleMethod(module, PLUGIN_INIT_METHOD);
+			type = getPluginType(this);
 	    }
 
-	    public T instantiatePlugin() {
-	        return Object.new(type);
+	    private void loadPluginDependencies() throws BuildPluginError {
+	    	unowned GetPluginDependenciesFunction getDependencies = (GetPluginDependenciesFunction) getModuleMethod(module, PLUGIN_DEPS_METHOD);
+			dependencies = getDependencies();
+	    }
+
+	    private void* getModuleMethod(Module module, string methodName) throws BuildPluginError {
+	    	void* methodReference;
+			module.symbol(methodName, out methodReference);
+			if (methodReference == null) {
+				throw new BuildPluginError.MODULE_TYPE_FUNCTION_MISSING_ERROR("'%s' method is missing in plugin module!".printf(methodName));
+			}
+			return methodReference;
 	    }
 	}
 }
+

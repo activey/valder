@@ -52,13 +52,13 @@ namespace com.futureprocessing.bob.recipe {
 				return;
 			}
 			Json.Object pluginsObject = jsonObject.get_object_member(MEMBER_PLUGINS);
-			pluginsObject.foreach_member(parsePluginConfiguration);
+			pluginsObject.foreach_member(parsePluginRecipe);
 		}
 
-		private void parsePluginConfiguration(Json.Object jsonObject, string pluginName, Json.Node recipeFragmentNode) {
-			LOGGER.logInfo("Parsing plugin configuration: %s", pluginName);
-			BobBuildPluginConfiguration pluginConfiguration = new BobBuildPluginConfiguration(pluginName);
-			builder.plugin(pluginConfiguration);
+		private void parsePluginRecipe(Json.Object jsonObject, string pluginName, Json.Node recipeFragmentNode) {
+			LOGGER.logInfo("Parsing plugin recipe: %s", pluginName);
+			BobBuildPluginRecipe pluginRecipe = new BobBuildPluginRecipe(pluginName);
+			builder.plugin(pluginRecipe);
 		}
 
 		private bool keyMissing(Json.Object jsonObject, string key) {

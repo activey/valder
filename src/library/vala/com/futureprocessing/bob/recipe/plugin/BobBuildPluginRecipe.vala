@@ -1,8 +1,8 @@
 namespace com.futureprocessing.bob.recipe.plugin {
 	
-	public class BobBuildPluginConfiguration : Object {
+	public class BobBuildPluginRecipe : Object {
 		
-		public BobBuildPluginConfiguration(string name) {
+		public BobBuildPluginRecipe(string name) {
 			Object(name: name);
 		}
 

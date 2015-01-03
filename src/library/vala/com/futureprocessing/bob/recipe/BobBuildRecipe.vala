@@ -5,16 +5,16 @@ using com.futureprocessing.bob.recipe.plugin;
 namespace com.futureprocessing.bob.recipe {
 	public class BobBuildRecipe : Object {
 
-		public BobBuildProjectConfiguration project { 
+		public BobBuildProjectRecipe project { 
 			get; 
 			set; 
-			default = new BobBuildProjectConfiguration(); 
+			default = new BobBuildProjectRecipe(); 
 		}
 		
-		public unowned List<BobBuildPluginConfiguration> plugins { 
+		public unowned List<BobBuildPluginRecipe> plugins { 
 			get; 
 			set; 
-			default = new List<BobBuildPluginConfiguration>(); 
+			default = new List<BobBuildPluginRecipe>(); 
 		}
 	}	
 }

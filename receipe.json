@@ -6,6 +6,7 @@
     },
     "plugins": {
         "build": {
+            "verbose": true,
             "dependencies": [
                 {
                     "dependency": "glib",

@@ -5,8 +5,7 @@ namespace com.futureprocessing.bob.build.plugin {
 	
 	public interface BobBuildPlugin : Object {
 
-	    public abstract void initialize(BobBuildPluginConfiguration pluginConfiguration);
+	    public abstract void initialize(BobBuildPluginRecipe pluginRecipe);
 	    public abstract void run(BobBuildContext buildContext);
-	    public abstract string[] getRunAfter();
 	}
 }

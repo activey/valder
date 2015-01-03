@@ -4,11 +4,12 @@ using com.futureprocessing.bob.build.plugin;
 using com.futureprocessing.bob.recipe;
 using com.futureprocessing.bob.log;
 
-
 namespace com.futureprocessing.bob {
+
 	public class BobBuilder {
+
         private Logger LOGGER = Logger.getLogger("BobBuilder");
-		private const string[] DEFAULT_PLUGINS = {"build"};
+		private const string[] DEFAULT_PLUGINS = { "build" };
 
 		private BobBuildContext buildContext;
 		private BobBuildRecipe buildRecipe;
@@ -20,7 +21,7 @@ namespace com.futureprocessing.bob {
 		}
 
 		private void initializeBuildRecipe() {
-			try {string
+			try {
 				buildRecipe = BobBuildRecipeLoader.loadFromJSON();
 				if (buildRecipe == null) {
 					LOGGER.logInfo("Could not find any kind of recipe file, continuing without it");
@@ -42,16 +43,10 @@ namespace com.futureprocessing.bob {
 		private void initializeBuildContextPlugins(string[] buildPlugins) throws BuildPluginError {
 			if (buildPlugins.length == 0) {
 				LOGGER.logInfo("No user defined plugins to run, going with defaults");
-				initializeDefaultBuildContextPlugins();
+				initializeBuildContextPlugins(DEFAULT_PLUGINS);
 				return;
 			}
 			foreach (string plugin in buildPlugins) {
-				buildContext.addPlugin(plugin);
-			}
-		}
-
-		private void initializeDefaultBuildContextPlugins() throws BuildPluginError {
-			foreach (string plugin in DEFAULT_PLUGINS) {
 				buildContext.addPlugin(plugin);
 			}
 		}

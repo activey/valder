@@ -9,4 +9,4 @@ SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")
 PACKAGES_PREFIXED=$(printf " --pkg %s" "${PACKAGES[@]}")
 
 mkdir -p target/lib
-valac -v --library=build $PLUGIN_SOURCES_PREFIXED $SOURCES_PREFIXED -X -fPIC -X --shared $PACKAGES_PREFIXED -o target/lib/libbuild.so
+valac-0.26 -v --library=build $PLUGIN_SOURCES_PREFIXED $SOURCES_PREFIXED -X -fPIC -X --shared $PACKAGES_PREFIXED -o target/lib/libbuild.so
