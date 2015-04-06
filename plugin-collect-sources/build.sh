@@ -10,4 +10,4 @@ SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")
 PACKAGES_PREFIXED=$(printf " --pkg %s" "${PACKAGES[@]}")
 
 mkdir -p target/lib
-valac-0.26 -v --library=build $VAPI_SOURCES_PREFIXED $SOURCES_PREFIXED -X -fPIC -X --shared -X -I$HEADER_LOCATION $PACKAGES_PREFIXED -o target/lib/libbuild.so
+valac -v --library=build $VAPI_SOURCES_PREFIXED $SOURCES_PREFIXED -X -fPIC -X --shared -X -I$HEADER_LOCATION $PACKAGES_PREFIXED -o target/lib/libcollect-sources.so

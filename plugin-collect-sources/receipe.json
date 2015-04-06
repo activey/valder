@@ -1,13 +1,10 @@
 {
     "project": {
-        "name": "Bob the Builder",
-        "shortName": "bob",
+        "name": "Bob the Builder - plugin for gathering source files across project folders",
+        "shortName": "collect-sources",
         "version": "0.0.1"
     },
     "plugins": {
-        "collect-sources": {
-            "verbose": true
-        },
         "build": {
             "verbose": true,
             "dependencies": [

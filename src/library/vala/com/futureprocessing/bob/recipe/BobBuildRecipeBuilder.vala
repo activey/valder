@@ -27,7 +27,7 @@ namespace com.futureprocessing.bob.recipe {
 			BobBuildRecipe buildRecipe = new BobBuildRecipe();
 			buildRecipe.project = projectRecipe;
 			foreach (BobBuildPluginRecipe plugin in plugins) {
-				buildRecipe.plugins.append(plugin);
+				buildRecipe.addPluginRecipe(plugin);
 			}
 			return buildRecipe;
 		}

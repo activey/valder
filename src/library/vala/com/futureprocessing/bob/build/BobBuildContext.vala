@@ -10,8 +10,6 @@ namespace com.futureprocessing.bob.build {
 
         private Logger LOGGER = Logger.getLogger("BobBuildContext");
 
-		public bool buildLibrary { get; set; }
-		public bool buildMain { get; set; }
 		private BobBuildRecipe buildRecipe;
 		private BobBuildPluginExecutionChain pluginChain;
 
@@ -35,18 +33,24 @@ namespace com.futureprocessing.bob.build {
 
 		public void proceed() {
 			printRecipeSummary();
-			prepareBuildPlugins();
+			loadProjectPluginsRecipies();
+			runProjectPlugins();
 		}
 
-		private void prepareBuildPlugins() {
-			LOGGER.logInfo("Preparing plugins");
+		private void printRecipeSummary() {
+			LOGGER.logInfo("Building project: %s-%s (%s)", buildRecipe.project.shortName, buildRecipe.project.version, buildRecipe.project.name);
+		}
+
+		private void loadProjectPluginsRecipies() {
+			LOGGER.logInfo("Loading project plugins recipies...");
 			foreach (BobBuildPluginRecipe pluginRecipe in buildRecipe.plugins) {
 				pluginChain.preparePlugin(pluginRecipe);
 			}
 		}
 
-		private void printRecipeSummary() {
-			LOGGER.logInfo("Building project: %s-%s (%s)", buildRecipe.project.shortName, buildRecipe.project.version, buildRecipe.project.name);
+		private void runProjectPlugins() {
+			LOGGER.logInfo("Running project plugins");
+			pluginChain.runPlugins(buildRecipe.project);
 		}
 	}
 }

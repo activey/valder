@@ -1,0 +1,28 @@
+using com.futureprocessing.bob.recipe.plugin;
+using com.futureprocessing.bob.recipe.project;
+
+namespace com.futureprocessing.bob.build.plugin {
+	public class BobBuildPluginInstance : Object {
+
+		private static BuildPluginLoader pluginLoader;
+		private BobBuildPlugin pluginInstance;
+		public string pluginName {	get; construct set;	}
+		public string[] dependencies { get; private set; }
+
+		public BobBuildPluginInstance(string pluginName) throws BuildPluginError {
+			Object(pluginName: pluginName);
+			pluginLoader = new BuildPluginLoader(pluginName);
+			pluginLoader.load();
+			dependencies = pluginLoader.getPluginDependencies();
+		}
+
+		public void preparePlugin(BobBuildPluginRecipe pluginRecipe) {
+			pluginInstance = pluginLoader.instantiatePlugin();
+			pluginInstance.initialize(pluginRecipe);
+		}
+
+		public void run(BobBuildProjectRecipe projectRecipe) {
+			pluginInstance.run(projectRecipe);
+		}
+	}
+}

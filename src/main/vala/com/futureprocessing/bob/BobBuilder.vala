@@ -9,7 +9,7 @@ namespace com.futureprocessing.bob {
 	public class BobBuilder {
 
         private Logger LOGGER = Logger.getLogger("BobBuilder");
-		private const string[] DEFAULT_PLUGINS = { "build" };
+		private string[] DEFAULT_PLUGINS = { "build" };
 
 		private BobBuildContext buildContext;
 		private BobBuildRecipe buildRecipe;

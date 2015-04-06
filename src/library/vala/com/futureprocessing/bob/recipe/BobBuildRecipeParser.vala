@@ -57,7 +57,9 @@ namespace com.futureprocessing.bob.recipe {
 
 		private void parsePluginRecipe(Json.Object jsonObject, string pluginName, Json.Node recipeFragmentNode) {
 			LOGGER.logInfo("Parsing plugin recipe: %s", pluginName);
-			BobBuildPluginRecipe pluginRecipe = new BobBuildPluginRecipe(pluginName);
+			Json.Object pluginRecipeJson = jsonObject.get_object_member(pluginName);
+
+			BobBuildPluginRecipe pluginRecipe = new BobBuildPluginRecipe(pluginName, pluginRecipeJson);
 			builder.plugin(pluginRecipe);
 		}
 
