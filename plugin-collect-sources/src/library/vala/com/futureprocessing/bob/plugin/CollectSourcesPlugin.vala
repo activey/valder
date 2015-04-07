@@ -8,7 +8,7 @@ namespace com.futureprocessing.bob.build.plugin {
 	public class CollectSourcesPlugin : AbstractBobBuildPlugin {
 
         const string PLUGIN_NAME = "collect-sources";
-		const string SOURCE_APP_FOLDER_LOCATION = "./src/main/vala";
+		const string SOURCE_MAIN_FOLDER_LOCATION = "./src/main/vala";
         const string SOURCE_LIB_FOLDER_LOCATION = "./src/library/vala";
         const string RECIPE_ENTRY_VERBOSE = "verbose";
 
@@ -24,16 +24,20 @@ namespace com.futureprocessing.bob.build.plugin {
         }
 
 		public override void initialize(BobBuildPluginRecipe pluginRecipe) {
-			verbose = pluginRecipe.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
+			verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
 
 			valaLibVisitor = new ValaFilesVisitor(SOURCE_LIB_FOLDER_LOCATION);
-			valaLibVisitor.valaFileFound.connect(this.collectValaSourceFile);
-			valaMainVisitor = new ValaFilesVisitor(SOURCE_LIB_FOLDER_LOCATION);
-			valaLibVisitor.valaFileFound.connect(this.collectValaSourceFile);
+			valaLibVisitor.valaFileFound.connect(this.collectValaLibSourceFile);
+			valaMainVisitor = new ValaFilesVisitor(SOURCE_MAIN_FOLDER_LOCATION);
+			valaMainVisitor.valaFileFound.connect(this.collectValaMainSourceFile);
 		}
 
-		private void collectValaSourceFile(File valaFile) {
-			currentProjectRecipe.addSourceFile(valaFile);
+		private void collectValaLibSourceFile(File valaFile) {
+			currentProjectRecipe.addLibSourceFile(valaFile);
+		}
+
+		private void collectValaMainSourceFile(File valaFile) {
+			currentProjectRecipe.addMainSourceFile(valaFile);
 		}
 
 	    public override void run(BobBuildProjectRecipe projectRecipe) {
@@ -41,7 +45,6 @@ namespace com.futureprocessing.bob.build.plugin {
 	    		currentProjectRecipe = projectRecipe;
 	    		collectValaSourceFiles();
 	    		printValaSourceFiles();
-	    		currentProjectRecipe = null;
     		} catch (Error e) {
     			LOGGER.logError("An error occurred while collecting vala source files: %s", e.message);
     		}
@@ -58,8 +61,17 @@ namespace com.futureprocessing.bob.build.plugin {
 	    	}
 	    	int totalLength = 0;
 	    	uint64 totalSize = 0;
-	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.sourceFiles) {
-	    		LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
+	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.libSourceFiles) {
+	    		if (verbose) {
+	    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
+	    		}
+	    		totalLength++;
+	    		totalSize = totalSize + file.fileSize;
+	    	}
+	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.mainSourceFiles) {
+	    		if (verbose) {
+	    			LOGGER.logInfo("%s (%d bytess)", file.fileLocation, file.fileSize);
+	    		}
 	    		totalLength++;
 	    		totalSize = totalSize + file.fileSize;
 	    	}

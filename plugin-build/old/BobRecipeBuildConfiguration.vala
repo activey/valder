@@ -12,24 +12,6 @@ namespace com.futureprocessing.bob.recipe {
         public string fileName { get; construct; }                
     }
 
-     public class BobRecipeBuildDependency {
-        public static BobRecipeBuildDependency fromJSONObject(Json.Object jsonObject) {
-            BobRecipeBuildDependency dependency = new BobRecipeBuildDependency();
-			dependency.dependency = jsonObject.get_string_member("dependency");
-			dependency.version = jsonObject.get_string_member("version");
-			dependency.dependencyType = jsonObject.get_string_member("type");
-			return dependency;
-        }
-        
-        public string to_string() {
-            return "%s-%s".printf(dependency, version);
-        }
-    
-        public string dependency { get; set; }
-        public string version { get; set; }
-		public string dependencyType { get; set; }
-    }
-
 	public class BobRecipeBuildConfiguration {
 
 		public static BobRecipeBuildConfiguration fromJSONObject(Json.Object jsonObject) {

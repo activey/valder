@@ -1,5 +1,6 @@
 using com.futureprocessing.bob.log;
 using com.futureprocessing.bob.recipe.plugin;
+using com.futureprocessing.bob.json;
 
 namespace com.futureprocessing.bob.recipe {
 	public class BobBuildRecipeParser : Object {
@@ -58,8 +59,7 @@ namespace com.futureprocessing.bob.recipe {
 		private void parsePluginRecipe(Json.Object jsonObject, string pluginName, Json.Node recipeFragmentNode) {
 			LOGGER.logInfo("Parsing plugin recipe: %s", pluginName);
 			Json.Object pluginRecipeJson = jsonObject.get_object_member(pluginName);
-
-			BobBuildPluginRecipe pluginRecipe = new BobBuildPluginRecipe(pluginName, pluginRecipeJson);
+			BobBuildPluginRecipe pluginRecipe = new BobBuildPluginRecipe(pluginName, new JsonObject.fromJsonObject(pluginRecipeJson));
 			builder.plugin(pluginRecipe);
 		}
 

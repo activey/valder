@@ -103,6 +103,24 @@ namespace com {
 					public abstract void visitFile (GLib.File file);
 				}
 			}
+			namespace json {
+				[CCode (cheader_filename = "bob-builder.h")]
+				public class JsonArray : GLib.Object {
+					public delegate void EachMemberDelegate (com.futureprocessing.bob.json.JsonObject jsonObject);
+					public JsonArray ();
+					public void forEachMember (com.futureprocessing.bob.json.JsonArray.EachMemberDelegate eachMemberDelegate);
+					public JsonArray.fromJsonArray (Json.Array jsonArray);
+				}
+				[CCode (cheader_filename = "bob-builder.h")]
+				public class JsonObject : GLib.Object {
+					public JsonObject ();
+					public JsonObject.fromJsonObject (Json.Object jsonObject);
+					public bool getBooleanEntry (string key, bool defaultIfNull);
+					public com.futureprocessing.bob.json.JsonObject? getJsonObjectEntry (string key);
+					public com.futureprocessing.bob.json.JsonArray? getObjectArrayEntry (string key);
+					public string getStringEntry (string key, string? defaultIfNull);
+				}
+			}
 			namespace log {
 				[CCode (cheader_filename = "bob-builder.h")]
 				public class Logger {
@@ -116,9 +134,8 @@ namespace com {
 				namespace plugin {
 					[CCode (cheader_filename = "bob-builder.h")]
 					public class BobBuildPluginRecipe : GLib.Object {
-						public BobBuildPluginRecipe (string name, Json.Object jsonConfiguration);
-						public bool getBooleanEntry (string key, bool defaultIfNull);
-						public string getStringEntry (string key, string defaultIfNull);
+						public BobBuildPluginRecipe (string name, com.futureprocessing.bob.json.JsonObject jsonConfiguration);
+						public com.futureprocessing.bob.json.JsonObject jsonConfiguration { get; set construct; }
 						public string name { get; set construct; }
 					}
 				}
@@ -126,10 +143,12 @@ namespace com {
 					[CCode (cheader_filename = "bob-builder.h")]
 					public class BobBuildProjectRecipe {
 						public BobBuildProjectRecipe ();
-						public void addSourceFile (GLib.File projectSourceFile);
+						public void addLibSourceFile (GLib.File projectSourceFile);
+						public void addMainSourceFile (GLib.File projectSourceFile);
+						public GLib.List<com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile> libSourceFiles { get; }
+						public GLib.List<com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile> mainSourceFiles { get; }
 						public string name { get; set; }
 						public string shortName { get; set; }
-						public GLib.List<com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile> sourceFiles { get; }
 						public string version { get; set; }
 					}
 					[CCode (cheader_filename = "bob-builder.h")]

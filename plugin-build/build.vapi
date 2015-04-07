@@ -5,12 +5,51 @@ namespace com {
 		namespace bob {
 			namespace build {
 				namespace plugin {
-					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildApplicationPlugin.h")]
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
 					public class BuildApplicationPlugin : com.futureprocessing.bob.build.plugin.AbstractBobBuildPlugin {
 						public BuildApplicationPlugin ();
 						public override void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
-						public void readBuildConfiguration (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
 						public override void run (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe);
+					}
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
+					public class BuildConfiguration {
+						public BuildConfiguration ();
+						public void addDependency (com.futureprocessing.bob.build.plugin.BuildDependency dependency);
+						public void addSource (com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile source);
+						public string[] ccOptions { get; set; }
+						public GLib.List<com.futureprocessing.bob.build.plugin.BuildDependency> dependencies { get; }
+						public GLib.List<com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile> sources { get; }
+						public string targetFile { get; set; }
+						public bool verbose { get; set; }
+					}
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
+					public class BuildConfigurationBuilder {
+						public BuildConfigurationBuilder ();
+						public com.futureprocessing.bob.build.plugin.BuildConfigurationBuilder addSource (com.futureprocessing.bob.recipe.project.BobBuildProjectSourceFile source);
+						public com.futureprocessing.bob.build.plugin.BuildConfiguration build ();
+						public com.futureprocessing.bob.build.plugin.BuildConfigurationBuilder ccOptions (string[] ccOptions);
+						public BuildConfigurationBuilder.fromJSONObject (com.futureprocessing.bob.json.JsonObject jsonObject);
+						public com.futureprocessing.bob.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
+						public com.futureprocessing.bob.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
+					}
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
+					public class BuildDependency {
+						public BuildDependency ();
+						public BuildDependency.fromJSONObject (com.futureprocessing.bob.json.JsonObject jsonObject);
+						public string to_string ();
+						public string dependency { get; set; }
+						public string dependencyType { get; set; }
+						public string version { get; set; }
+					}
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
+					public class ValaCodeCompiler {
+						public ValaCodeCompiler (com.futureprocessing.bob.build.plugin.BuildConfiguration buildConfiguration);
+						public void build () throws com.futureprocessing.bob.build.plugin.CompilationError;
+					}
+					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
+					public errordomain CompilationError {
+						PARSING_ERROR,
+						CCOMPILATION_ERROR
 					}
 				}
 			}
