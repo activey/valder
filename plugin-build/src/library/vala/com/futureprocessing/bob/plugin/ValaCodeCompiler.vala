@@ -10,30 +10,30 @@ namespace com.futureprocessing.bob.build.plugin {
     }
 
     public class ValaCodeCompiler {
-        
+
         private const string DEFAULT_COLORS = "error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01";
 
         private Logger LOGGER = Logger.getLogger("ValaCodeCompiler");
-        
+
         private CodeContext codeContext;
         private BuildConfiguration buildConfiguration;
         private bool verbose = false;
-        
+
         public ValaCodeCompiler(BuildConfiguration buildConfiguration) {
             this.buildConfiguration = buildConfiguration;
             this.verbose = verbose;
 
             initializeCodeContext();
             initializeContextDependencies();
-            initializeContextSources();   
+            initializeContextSources();
             initializeContextCodeGenerator();
         }
-        
+
         private void initializeCodeContext() {
             LOGGER.logInfo("Initializing CodeContext");
             codeContext = new CodeContext();
             CodeContext.push(codeContext);
-                        
+
             codeContext.output = buildConfiguration.targetFile;
             codeContext.assert = false;
 		    codeContext.checking = true;
@@ -58,54 +58,54 @@ namespace com.futureprocessing.bob.build.plugin {
                 string dependencyString = dependency.to_string();
                 LOGGER.logInfo(@"Using dependency: $(dependencyString)");
                 codeContext.add_external_package(dependencyString);
-            }                    
+            }
         }
-        
+
         private void initializeContextSources() {
             foreach (BobBuildProjectSourceFile buildSource in buildConfiguration.sources) {
                 if (codeContext.add_source_filename(buildSource.fileLocation, true, true)) {
                     if (verbose) {
-                        LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation)");    
+                        LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation)");
                     }
                 }
-            }                    
+            }
         }
 
         private void initializeContextCodeGenerator() {
             LOGGER.logInfo("Initializing CodeGenerator");
             codeContext.codegen = new GDBusServerModule();
         }
-         
-        public void build() throws CompilationError {
+
+        public void compile() throws CompilationError {
             LOGGER.logInfo("Starting code compilation ...");
             runCodeParsers();
-            runCodeGenerator();            
+            runCodeGenerator();
             runCodeCompiler();
-            
+
             if (hasErrors()) {
 		        throw new CompilationError.CCOMPILATION_ERROR("An error occurred while compiling source code");
 	        }
         }
-        
+
         private void runCodeParsers() throws CompilationError {
             new Parser().parse(codeContext);
 	        new Genie.Parser().parse(codeContext);
 	        new GirParser().parse(codeContext);
-	        
+
             codeContext.check();
-            
+
 	        if (hasErrors()) {
 		        throw new CompilationError.PARSING_ERROR("An error occured while parsing source files");
 	        }
         }
-        
+
         private void runCodeGenerator() throws CompilationError {
             codeContext.codegen.emit(codeContext);
-            if (hasErrors()) {
-		        throw new CompilationError.PARSING_ERROR("An error occured while parsing source files");
-	        }
+    	    if (hasErrors()) {
+    			throw new CompilationError.PARSING_ERROR("An error occured while parsing source files");
+    		}
         }
-        
+
         private void runCodeCompiler() throws CompilationError {
             CCodeCompiler ccompiler = new CCodeCompiler();
             string ccCommand = Environment.get_variable ("CC");
@@ -116,7 +116,7 @@ namespace com.futureprocessing.bob.build.plugin {
 		        throw new CompilationError.PARSING_ERROR("An error occured while compiling C code");
 	        }
         }
-        
+
         private bool hasErrors() {
             return codeContext.report.get_errors () > 0;
         }

@@ -28,7 +28,7 @@ namespace com.futureprocessing.bob.build.plugin {
 			get {
 				return _dependencies;
 			}
-		} 
+		}
 
 		public void addDependency(BuildDependency dependency) {
 			_dependencies.append(dependency);
@@ -38,7 +38,7 @@ namespace com.futureprocessing.bob.build.plugin {
 			get {
 				return _sources;
 			}
-		} 
+		}
 
 		public void addSource(BobBuildProjectSourceFile source) {
 			_sources.append(source);

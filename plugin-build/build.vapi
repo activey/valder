@@ -8,8 +8,8 @@ namespace com {
 					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
 					public class BuildApplicationPlugin : com.futureprocessing.bob.build.plugin.AbstractBobBuildPlugin {
 						public BuildApplicationPlugin ();
-						public override void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
-						public override void run (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe);
+						public override void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
+						public override void run (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
 					}
 					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
 					public class BuildConfiguration {
@@ -44,7 +44,7 @@ namespace com {
 					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
 					public class ValaCodeCompiler {
 						public ValaCodeCompiler (com.futureprocessing.bob.build.plugin.BuildConfiguration buildConfiguration);
-						public void build () throws com.futureprocessing.bob.build.plugin.CompilationError;
+						public void compile () throws com.futureprocessing.bob.build.plugin.CompilationError;
 					}
 					[CCode (cheader_filename = "src/library/vala/com/futureprocessing/bob/plugin/BuildConfiguration.h")]
 					public errordomain CompilationError {

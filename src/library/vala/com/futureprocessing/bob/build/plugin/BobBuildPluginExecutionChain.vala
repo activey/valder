@@ -1,91 +1,93 @@
 using com.futureprocessing.bob.log;
 using com.futureprocessing.bob.recipe.plugin;
 using com.futureprocessing.bob.recipe.project;
+namespace com.futureprocessing.bob.build.plugin
+{
+public class BobBuildPluginExecutionChain {
+   public delegate void PluginToRunDelegate(
+      AbstractBobBuildPlugin pluginToRun);
 
-namespace com.futureprocessing.bob.build.plugin {
-	public class BobBuildPluginExecutionChain {
 
-        private Logger LOGGER = Logger.getLogger("BobBuildPluginExecutionChain");
-        private BobBuildPluginLoader pluginLoader = new BobBuildPluginLoader();
-		private List<string> missingPlugins = new List<string>();
-		private List<string> pluginsToRun = new List<string>();
+   private Logger               LOGGER = Logger.getLogger(
+      "BobBuildPluginExecutionChain");
+   private BobBuildPluginLoader PLUGIN_LOADER = new BobBuildPluginLoader();
+   private List<string>         pluginsToRun  = new List<string>();
+   public void addPlugin(string pluginToRun){
+      LOGGER.logInfo("Using build plugin: %s.", pluginToRun);
+      pluginsToRun.append(pluginToRun);
+   }              /* addPlugin */
 
-		public void addPlugin(string pluginToRun) {
-			LOGGER.logInfo("Using build plugin: %s.", pluginToRun);
-			pluginsToRun.append(pluginToRun);
-		}
+   public void preparePlugins(PluginToRunDelegate pluginToRunDelegate)
+   throws
+   BobBuildPluginError {
+      foreach (string pluginToRun in pluginsToRun)
+      {
+         preparePlugin(pluginToRun, pluginToRunDelegate);
+      }
+   }              /* preparePlugins */
 
-		public void preparePlugin(BobBuildPluginRecipe pluginRecipe) {
-			if (!isPluginToRun(pluginRecipe.name)) {
-				return;
-			}
-			AbstractBobBuildPlugin instantiatedPlugin = getPlugin(pluginRecipe.name);
-			if (instantiatedPlugin == null) {
-				LOGGER.logError("Unable to find plugin: %s. Skipping plugin preparation.", pluginRecipe.name);
-				return;
-			} 
-			LOGGER.logInfo("Initializing plugin '%s' with recipe data.", pluginRecipe.name);
-			instantiatedPlugin.initialize(pluginRecipe);
-		}
+   private void preparePlugin(string              pluginName,
+                              PluginToRunDelegate pluginToRunDelegate)
+   throws
+   BobBuildPluginError {
+      if (!isPluginToRun(pluginName)) {
+         return;
+      }
 
-		private AbstractBobBuildPlugin? getPlugin(string pluginName) {
-			return pluginLoader.getPlugin(pluginName);
-		}
+      AbstractBobBuildPlugin instantiatedPlugin = getPlugin(pluginName);
 
-		public void runPlugins(BobBuildProjectRecipe projectRecipe) {
-			foreach (string pluginToRun in pluginsToRun) {
-				runPlugin(pluginToRun, projectRecipe);
-			}
-		}
+      if (instantiatedPlugin == null) {
+         LOGGER.logError(
+            "Unable to find plugin: %s. Skipping plugin preparation.",
+            pluginName);
+         return;
+      }
 
-		private void runPlugin(string pluginName, BobBuildProjectRecipe projectRecipe) {
-			if (!isPluginToRun(pluginName)) {
-				return;
-			}
-			AbstractBobBuildPlugin instantiatedPlugin = getPlugin(pluginName);
-			if (instantiatedPlugin == null) {
-				LOGGER.logError("Unable to find plugin: %s. Skipping plugin execution.", pluginName);
-				return;
-			}
-			LOGGER.logInfo("Running plugin: %s", pluginName);
-			instantiatedPlugin.run(projectRecipe);
-		}
+      LOGGER.logInfo("Initializing plugin '%s' with recipe data.",
+                     pluginName);
+      pluginToRunDelegate(instantiatedPlugin);
+   }              /* preparePlugin */
 
-		private bool isPluginToRun(string pluginName) {
-			foreach (string pluginToRun in pluginsToRun) {
-				if (pluginName == pluginToRun) {
-					return true;
-				}
-			}
-			return false;
-		}
+   private AbstractBobBuildPlugin ? getPlugin(string pluginName){
+      return PLUGIN_LOADER.getPlugin(pluginName);
+   }
+   public void runPlugins(BobBuildProjectRecipe projectRecipe) throws
+   BobBuildPluginError {
+      foreach (string pluginToRun in pluginsToRun)
+      {
+         runPlugin(pluginToRun, projectRecipe);
+      }
+   }              /* runPlugins */
 
-		// private void resolvePluginDependencies(string pluginName, string[] dependencies) {
-		// 	foreach (string dependency in dependencies) {
-		// 		LOGGER.logInfo("Checking dependency for '%s' plugin - %s", pluginName, dependency);
-		// 		if (isAlreadyMissing(dependency)) {
-		// 			LOGGER.logInfo("'%s' dependency is already marked as missing, skipping further processing", dependency);
-		// 			continue;
-		// 		}
-		// 		if (isAlreadyInstantiated(dependency)) {
-		// 			LOGGER.logInfo("'%s' dependency is already instantiated, skipping further processing", dependency);
-		// 			continue;
-		// 		}
-		// 		collectPlugin(dependency);
-		// 	}
-		// }
+   private void runPlugin(string                pluginName,
+                          BobBuildProjectRecipe projectRecipe) throws
+   BobBuildPluginError {
+      if (!isPluginToRun(pluginName)) {
+         return;
+      }
 
-		// private bool isAlreadyMissing(string pluginName) {
-		// 	foreach (string missingPlugin in missingPlugins) {
-		// 		if (missingPlugin == pluginName) {
-		// 			return true;
-		// 		}
-		// 	}
-		// 	return false;
-		// }
+      AbstractBobBuildPlugin instantiatedPlugin = getPlugin(pluginName);
 
-		// private bool isAlreadyInstantiated(string pluginName) {
-		// 	return getPlugin(pluginName) != null;
-		// }
-	}
+      if (instantiatedPlugin == null) {
+         LOGGER.logError(
+            "Unable to find plugin: %s. Skipping plugin execution.",
+            pluginName);
+         return;
+      }
+
+      LOGGER.logInfo("Running plugin: %s", pluginName);
+      instantiatedPlugin.run(projectRecipe);
+   }              /* runPlugin */
+
+   private bool isPluginToRun(string pluginName){
+      foreach (string pluginToRun in pluginsToRun)
+      {
+         if (pluginName == pluginToRun) {
+            return true;
+         }
+      }
+
+      return false;
+   }              /* isPluginToRun */
+}
 }

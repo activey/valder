@@ -35,16 +35,17 @@ namespace com {
 					[CCode (cheader_filename = "bob-builder.h")]
 					public abstract class AbstractBobBuildPlugin : GLib.Object {
 						public AbstractBobBuildPlugin (string pluginName);
-						public abstract void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
-						public abstract void run (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe);
+						public abstract void initialize (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
+						public abstract void run (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
 						public string name { get; set construct; }
 					}
 					[CCode (cheader_filename = "bob-builder.h")]
 					public class BobBuildPluginExecutionChain {
+						public delegate void PluginToRunDelegate (com.futureprocessing.bob.build.plugin.AbstractBobBuildPlugin pluginToRun);
 						public BobBuildPluginExecutionChain ();
 						public void addPlugin (string pluginToRun);
-						public void preparePlugin (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
-						public void runPlugins (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe);
+						public void preparePlugins (com.futureprocessing.bob.build.plugin.BobBuildPluginExecutionChain.PluginToRunDelegate pluginToRunDelegate) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
+						public void runPlugins (com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe projectRecipe) throws com.futureprocessing.bob.build.plugin.BobBuildPluginError;
 					}
 					[CCode (cheader_filename = "bob-builder.h")]
 					public class BobBuildPluginLoader {
@@ -52,6 +53,11 @@ namespace com {
 						public void addPlugin (com.futureprocessing.bob.build.plugin.AbstractBobBuildPlugin buildPlugin);
 						public BobBuildPluginLoader.for_plugins_directory (string? pluginsDirectoryLocation);
 						public com.futureprocessing.bob.build.plugin.AbstractBobBuildPlugin? getPlugin (string pluginName);
+					}
+					[CCode (cheader_filename = "bob-builder.h")]
+					public errordomain BobBuildPluginError {
+						INITIALIZATION_ERROR,
+						RUN_ERROR
 					}
 					[CCode (cheader_filename = "bob-builder.h")]
 					public errordomain BuildPluginError {
@@ -135,6 +141,7 @@ namespace com {
 					[CCode (cheader_filename = "bob-builder.h")]
 					public class BobBuildPluginRecipe : GLib.Object {
 						public BobBuildPluginRecipe (string name, com.futureprocessing.bob.json.JsonObject jsonConfiguration);
+						public BobBuildPluginRecipe.@default ();
 						public com.futureprocessing.bob.json.JsonObject jsonConfiguration { get; set construct; }
 						public string name { get; set construct; }
 					}
@@ -163,7 +170,7 @@ namespace com {
 				public class BobBuildRecipe : GLib.Object {
 					public BobBuildRecipe ();
 					public void addPluginRecipe (com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe recipe);
-					public GLib.List<com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe> plugins { get; }
+					public com.futureprocessing.bob.recipe.plugin.BobBuildPluginRecipe? getPluginRecipe (string pluginName);
 					public com.futureprocessing.bob.recipe.project.BobBuildProjectRecipe project { get; set; }
 				}
 				[CCode (cheader_filename = "bob-builder.h")]

@@ -1,19 +1,10 @@
 {
     "project": {
-        "name": "Bob the Builder",
-        "shortName": "bob",
+        "name": "Bob the Builder - formatting project source code files with uncrustify.",
+        "shortName": "uncrustify",
         "version": "0.0.1"
     },
     "plugins": {
-        "collect-sources": {
-            "verbose": true
-        },
-        "uncrustify": {
-            "verbose": true,
-            "configuration": "uncrustify.cfg",
-            "replace": true,
-            "backup": false
-        },
         "build": {
             "verbose": true,
             "dependencies": [
@@ -39,17 +30,12 @@
                 },
                 {
                     "dependency": "libvala",
-                    "version": "0.28",
+                    "version": "0.26",
                     "type": "pkg"
                 },
                 {
                     "dependency": "gmodule",
                     "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gee",
-                    "version": "1.0",
                     "type": "pkg"
                 }
             ]

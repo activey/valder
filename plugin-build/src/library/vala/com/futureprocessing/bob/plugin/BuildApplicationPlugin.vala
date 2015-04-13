@@ -20,14 +20,14 @@ namespace com.futureprocessing.bob.build.plugin {
 			base(PLUGIN_NAME);
 		}
 
-		public override void initialize(BobBuildPluginRecipe pluginRecipe) {
+		public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
 			buildConfigurationBuilder = new BuildConfigurationBuilder.fromJSONObject(pluginRecipe.jsonConfiguration);
 		}
 
-		public override void run(BobBuildProjectRecipe projectRecipe) {
+		public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
 	    	ValaCodeCompiler libCompiler = initializeLibraryCodeCompiler(projectRecipe);
 	    	LOGGER.logInfo("Generating library binary.");
-	    	libCompiler.build();
+	    	libCompiler.compile();
 	    }
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {

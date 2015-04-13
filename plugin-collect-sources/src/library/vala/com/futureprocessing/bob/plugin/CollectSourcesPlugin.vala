@@ -23,7 +23,7 @@ namespace com.futureprocessing.bob.build.plugin {
         	base(PLUGIN_NAME);
         }
 
-		public override void initialize(BobBuildPluginRecipe pluginRecipe) {
+		public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
 			verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
 
 			valaLibVisitor = new ValaFilesVisitor(SOURCE_LIB_FOLDER_LOCATION);
@@ -40,7 +40,7 @@ namespace com.futureprocessing.bob.build.plugin {
 			currentProjectRecipe.addMainSourceFile(valaFile);
 		}
 
-	    public override void run(BobBuildProjectRecipe projectRecipe) {
+	    public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
 	    	try {
 	    		currentProjectRecipe = projectRecipe;
 	    		collectValaSourceFiles();

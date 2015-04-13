@@ -1,59 +1,56 @@
-namespace com.futureprocessing.bob.ansi {
+namespace com.futureprocessing.bob.ansi
+{
+public class AnsiPrinterSession {
+   private AnsiColorGenerator colorGenerator   = new AnsiColorGenerator();
+   private string[]           sessionModifiers = {};
+   public AnsiPrinterSession(){
+      startSession();
+   }
 
-	public class AnsiPrinterSession {
+   private void startSession(){
+      collectModifier("\x1B[0");
+   }              /* startSession */
 
-    	private AnsiColorGenerator colorGenerator = new AnsiColorGenerator();
-		private string[] sessionModifiers = {};
+   public void commit(FileStream stream){
+      flush(stream);
+      sessionModifiers = {};
+   }              /* commit */
 
-		public AnsiPrinterSession() {
-			startSession();
-		}
+   public void flush(FileStream stream){
+      stream.printf(string.joinv("", sessionModifiers));
+      stream.printf("m");
+   }              /* flush */
 
-		private void startSession() {
-			collectModifier("\x1B[0");
-		}
+   public void setColorRed(){
+      collectModifier(colorGenerator.getRed());
+   }              /* setColorRed */
 
-		public void commit(FileStream stream) {
-			flush(stream);
-			sessionModifiers = {};
-		}
-		
-		public void flush(FileStream stream) {
-		    stream.printf(string.joinv("", sessionModifiers));
-			stream.printf("m");
-		}
+   public void setColorGreen(){
+      collectModifier(colorGenerator.getGreen());
+   }              /* setColorGreen */
 
-		public void setColorRed() {
-			collectModifier(colorGenerator.getRed());
-		}
+   public void setColorBlue(){
+      collectModifier(colorGenerator.getBlue());
+   }              /* setColorBlue */
 
-		public void setColorGreen() {
-			collectModifier(colorGenerator.getGreen());
-		}
-		
-		public void setColorBlue() {
-			collectModifier(colorGenerator.getBlue());
-		}
-		
-		public void setColorDefault() {
-			collectModifier(colorGenerator.getDefault());
-		}
+   public void setColorDefault(){
+      collectModifier(colorGenerator.getDefault());
+   }              /* setColorDefault */
 
-		public void setBold(bool bold) {
-			if (bold == true) {
-				collectModifier(";1");
-			} else {
-				collectModifier(";22");
-			}
-		}
+   public void setBold(bool bold){
+      if (bold == true) {
+         collectModifier(";1");
+      }else {
+         collectModifier(";22");
+      }
+   }              /* setBold */
 
-		private void collectModifier(string modifier) {
-			sessionModifiers += modifier;
-		}
+   private void collectModifier(string modifier){
+      sessionModifiers += modifier;
+   }              /* collectModifier */
 
-		public void reset(FileStream stream) {
-			stream.printf("\x1B[0m");
-		}
-
-	}
+   public void reset(FileStream stream){
+      stream.printf("\x1B[0m");
+   }              /* reset */
+}
 }
