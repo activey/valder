@@ -56,10 +56,14 @@ a {
 }
 
 a:hover {
+  color: #fff;
+}
+
+.overview a:hover {
   color: #000;
 }
 
-p a {
+.overview p a {
   font-weight: bold;
 }
 
