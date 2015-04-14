@@ -12,7 +12,7 @@ namespace bob.builder.build.plugin {
 		private BobBuildPluginLoader PLUGIN_LOADER = new BobBuildPluginLoader();
 		private List<string> pluginsToRun  = new List<string>();
 
-		public void addPlugin(string pluginToRun) {
+		public void usePlugin(string pluginToRun) {
 			LOGGER.logInfo("Using build plugin: %s.", pluginToRun);
 			pluginsToRun.append(pluginToRun);
 		}

@@ -25,8 +25,8 @@ namespace bob.builder.build {
 			pluginChain = new BobBuildPluginExecutionChain();
 		}
 
-		public void addPlugin(string buildPlugin) {
-			pluginChain.addPlugin(buildPlugin);
+		public void usePlugin(string buildPlugin) {
+			pluginChain.usePlugin(buildPlugin);
 		}
 
 		public void proceed() {

@@ -42,9 +42,9 @@ namespace bob {
 				public class BobBuildPluginExecutionChain {
 					public delegate void PluginToRunDelegate (bob.builder.build.plugin.AbstractBobBuildPlugin pluginToRun) throws bob.builder.build.plugin.BobBuildPluginError;
 					public BobBuildPluginExecutionChain ();
-					public void addPlugin (string pluginToRun);
 					public void preparePlugins (bob.builder.build.plugin.BobBuildPluginExecutionChain.PluginToRunDelegate pluginToRunDelegate) throws bob.builder.build.plugin.BobBuildPluginError;
 					public void runPlugins (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public void usePlugin (string pluginToRun);
 				}
 				[CCode (cheader_filename = "bob-builder.h")]
 				public class BobBuildPluginLoader {
@@ -69,8 +69,8 @@ namespace bob {
 			[CCode (cheader_filename = "bob-builder.h")]
 			public class BobBuildContext : GLib.Object {
 				public BobBuildContext ();
-				public void addPlugin (string buildPlugin);
 				public void proceed ();
+				public void usePlugin (string buildPlugin);
 				public BobBuildContext.withRecipe (bob.builder.recipe.BobBuildRecipe buildRecipe);
 			}
 		}

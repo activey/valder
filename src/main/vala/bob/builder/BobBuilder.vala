@@ -9,14 +9,16 @@ namespace bob.builder {
 	public class BobBuilder {
 
         private Logger LOGGER = Logger.getLogger("BobBuilder");
-		private string[] DEFAULT_PLUGINS = { "build" };
 
 		private BobBuildContext buildContext;
 		private BobBuildRecipe buildRecipe;
 
-		public BobBuilder(string[] buildPlugins) throws BuildPluginError {
+		public BobBuilder() {
 			initializeBuildRecipe();
 			initializeBuildContext();
+		}
+
+		public void usePlugins(string[] buildPlugins) throws BuildPluginError  {
 			initializeBuildContextPlugins(buildPlugins);
 		}
 
@@ -41,26 +43,30 @@ namespace bob.builder {
 		}
 
 		private void initializeBuildContextPlugins(string[] buildPlugins) throws BuildPluginError {
-			if (buildPlugins.length == 0) {
-				LOGGER.logInfo("No user defined plugins to run, going with defaults");
-				initializeBuildContextPlugins(DEFAULT_PLUGINS);
-				return;
-			}
 			foreach (string plugin in buildPlugins) {
-				buildContext.addPlugin(plugin);
+				buildContext.usePlugin(plugin);
 			}
 		}
 
 		public void startBuild() {
 			buildContext.proceed();
 		}
+
+		public void printMetaData() {
+			LOGGER.logInfo("Bob the Builder, version = %s", BobBuilderMetadata.VERSION);
+		}
 	}
 }
 
 public static int main(string[] args) {
 	try {
-		BobBuilder builder = new BobBuilder(args[1:args.length]);
-		builder.startBuild();
+		BobBuilder builder = new BobBuilder();
+		if (args.length > 1) {
+			builder.usePlugins(args[1:args.length]);
+			builder.startBuild();
+		} else {
+			builder.printMetaData();
+		}
 		return 0;
 	} catch (Error e) {
 		return 1;
