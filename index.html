@@ -13,6 +13,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="css/homepage.css">
+  <link rel="stylesheet" type="text/css" href="css/icon.css">
 
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
   <script src="js/semantic.min.js"></script>
@@ -20,7 +21,7 @@
 
 </head>
 <body id="home">
-  <div class="ui inverted page grid masthead purple segment">
+  <div class="ui inverted page grid masthead inverted segment">
     <div class="column">
       <div class="inverted secondary pointing ui menu">
         <div class="right menu">
@@ -126,6 +127,13 @@
               </div>
             </div>
             <div class="item">
+              <i class="folder icon"></i>
+              <div class="content">
+                <div class="header">/target/library</div>
+                ...
+              </div>
+            </div>
+            <div class="item">
               <i class="green folder icon"></i>
               <div class="content">
                 <div class="header">/src/main/vala</div>
@@ -139,6 +147,13 @@
                 Holds all VAPI files referenced in runtime executable binary source code.
               </div>
             </div>
+            <div class="item">
+              <i class="folder inverted icon"></i>
+              <div class="content">
+                <div class="header">/target/main</div>
+                ...
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -146,13 +161,30 @@
 
     <div class="row">
       <div class="sixteen wide column">
-        <h2 class="ui header">Bob project recipe</h2>
+        <h2 class="ui header">Plugins and recipies</h2>
+        <p>As stated earlier Bob design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
 
-        </h2>
-
+        <div class="ui inverted segment">
+          <div class="ui inverted relaxed list">
+            <div class="item">
+              <i class="plug icon"></i>
+              <div class="content">
+                <div class="header">collect-sources</div>
+                Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
+              </div>
+            </div>
+            <div class="item">
+              <i class="plug icon"></i>
+              <div class="content">
+                <div class="header">build</div>
+                It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    
+
     <div class="row" id="section_examples">
       <div class="column">
         <h1 class="ui dividing header">
@@ -164,15 +196,24 @@
       <div class="sixteen wide column">
         <h2 class="ui header">Bob usage scenarios</h2>
         <p>Bob usage is rather straightforward and does not require and specialized terminal user skills. To run Bob with default settings naviage to project directory and type in system shell console:</p>
-        <div class="ui tertiary segment">
-          $> bob
+        <div class="ui purple inverted preformatted segment">
+$> bob
         </div>
         <p>
-          By default Bob will only print out the list of available plugins and some version information as well:
+          By default Bob will only print out the list of parsed plugins recipies and some version information as well:
         </p>
-        <div class="ui tertiary segment">
-          
+        <div class="ui purple inverted preformatted segment">
+[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
+[BobBuildRecipeParser] Parsing plugin recipe: build
+[BobBuildPluginsLoader] Loading plugins from directory: /opt/vala/bob-builder/target/plugins
+[BobBuilder] Bob the Builder, version = 0.0.1
         </div>
+        <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
+        <div class="ui purple inverted preformatted segment">
+$> bob collect-sources build
+        </div>
+        <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
       </div>
     </div>
 
@@ -191,11 +232,18 @@
               <i class="question big icon"></i>
               <div class="content">
                 <div class="header">Why another build tool? Isn't make, Cmake, waf or any other out there enough?</div>
-                Nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Bob is here to make it easier and fit better for Vala.
+                Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Bob is here to make it easier and fit better for Vala.
+              </div>
+            </div>
+            <div class="item">
+              <i class="question big icon"></i>
+              <div class="content">
+                <div class="header">I have an idea for a new possible plugin, how can I contribute?</div>
+                If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) go and for Bob builder source code repository on <a href="https://github.com/activey/bob-builder">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/bob-builder/issues">GitHub</a> issue with short description, I could think of it in spare time.
               </div>
             </div>
           </div>
-
+          </div>
       </div>
     </div>
     

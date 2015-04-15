@@ -70,6 +70,13 @@ a:hover {
 /*******************************
             Global
 *******************************/
+
+.preformatted {
+    font-family: monospace;
+    white-space: pre;
+}
+
+
 /*rtl:ignore*/
 .menu .right.menu > .mobile.item {
   display: none;
