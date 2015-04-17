@@ -14,237 +14,243 @@
   <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="css/homepage.css">
   <link rel="stylesheet" type="text/css" href="css/icon.css">
-
   <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
   <script src="js/semantic.min.js"></script>
   <script src="js/homepage.js"></script>
 
 </head>
 <body id="home">
-  <div class="ui inverted page grid masthead inverted segment">
-    <div class="column">
-      <div class="inverted secondary pointing ui menu">
-        <div class="right menu">
-          <div class="ui top right pointing mobile dropdown link item">
-            Menu
-            <i class="dropdown icon"></i>
-            <div class="menu">
-              <a class="item" href="#section_documentation">Documentation</a>
-              <a class="item" href="#section_examples">Examples</a>
-              <a class="item" href="https://github.com/activey/bob-builder">Code</a>
-              <a class="item" href="#section_qa">Q&A</a>
-            </div>
-          </div>
+  <div class="ui fixed inverted blue menu">
+    <div class="header">Bob the Builder</div>
+    <div class="right menu">
+      <div class="ui mobile dropdown link item">
+        Menu
+        <i class="dropdown icon"></i>
+        <div class="menu">
           <a class="item" href="#section_documentation">Documentation</a>
           <a class="item" href="#section_examples">Examples</a>
           <a class="item" href="https://github.com/activey/bob-builder">Code</a>
           <a class="item" href="#section_qa">Q&A</a>
         </div>
       </div>
-      <img src="images/bob1.png" class="ui image bob">
-      <div class="ui hidden transition information">
-        <h1 class="ui inverted header">
-          Bob the Builder
-        </h1>
-        <p>Build automation for Vala - right tool to get job done.</p>
-        <div class="large basic inverted animated fade ui button">
-          <div class="hidden content">ver 0.0.1</div>
-          <div class="visible content">Download Now</div>
-        </div>
-      </div>
+      <a class="item" href="#section_documentation">Documentation</a>
+      <a class="item" href="#section_examples">Examples</a>
+      <a class="item" href="https://github.com/activey/bob-builder">Code</a>
+      <a class="item" href="#section_qa">Q&A</a>
     </div>
   </div>
-  <div class="ui page grid overview segment">
-    <div class="sixteen wide column">
-      <div class="ui three column center aligned stackable divided grid">
-        <div class="column">
-          <a class="ui icon header" href="#section_documentation">
-            <i class="circular book link icon"></i>
-            Documentation 
-          </a>
-          <p>Read the latest documentation to see what Bob can do for you.</p>
-        </div>
-        <div class="column">
-          <a class="ui icon header" href="#section_examples">
-            <i class="circular code link icon"></i>
-            Examples
-          </a>
-          <p>Go through provided Bob usage scenarios showing a glimpse of possible applications.</p>
-        </div>
-        <div class="column">
-          <a class="ui icon header" href="https://github.com/activey/bob-builder">
-            <i class="circular github link icon"></i>
-            Code
-          </a>
-          <p>Get the latest source code, create pull request, comment changesets.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ui inverted page grid stackable relaxed feature segment">
-    <div class="row" id="section_documentation">
+  <div class="ui masthead inverted vertical segment">
+    <div class="ui page grid">
       <div class="column">
-        <h1 class="ui dividing header">
-          Documentation
-        </h1>
+        <img src="images/bob1.png" class="ui image dropshadow">
+        <div class="ui hidden transition information">
+          <h1 class="ui inverted header">
+            Bob the Builder
+          </h1>
+          <p>Build automation for Vala - right tool to get job done.</p>
+          <div class="large basic inverted animated fade ui button">
+            <div class="hidden content">ver 0.0.1</div>
+            <div class="visible content">Download Now</div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="row">
+  </div>
+  <div class="ui vertical feature segment">
+    <div class="ui centered page grid">
       <div class="sixteen wide column">
-        <h2 class="ui header">Introduction</h2>
-        <div class="content">
+        <div class="ui three column center aligned stackable divided grid">
+          <div class="column">
+            <a class="ui icon header" href="#section_documentation">
+              <i class="circular book link icon"></i>
+              Documentation 
+            </a>
+            <p>Read the latest documentation to see what Bob can do for you.</p>
+          </div>
+          <div class="column">
+            <a class="ui icon header" href="#section_examples">
+              <i class="circular code link icon"></i>
+              Examples
+            </a>
+            <p>Go through provided Bob usage scenarios showing a glimpse of possible applications.</p>
+          </div>
+          <div class="column">
+            <a class="ui icon header" href="https://github.com/activey/bob-builder">
+              <i class="circular github link icon"></i>
+              Code
+            </a>
+            <p>Get the latest source code, create pull request, comment changesets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui inverted content vertical segment">
+    <div class="ui very relaxed stackable page grid">
+      <div class="row" id="section_documentation">
+        <div class="column">
+          <h1 class="ui inverted dividing header">
+            Documentation
+          </h1>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="sixteen wide column">
+          <h2 class="ui inverted header">Introduction</h2>
+          <div class="content">
+            <p>
+            Bob the Builder is intended to be a general purpose build tool dedicated for Vala language based projects. We try to keep Bob as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
+            <p>
+            Bob is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="sixteen wide column">
+          <h2 class="ui inverted header">Bob project structure</h2>
           <p>
-          Bob the Builder is intended to be a general purpose build tool dedicated for Vala language based projects. We try to keep Bob as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
-          <p>
-          Bob is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
+          Every project that is using Bob as a build tool has to share the same meaningful structure with source code located under appropriate folders:
           </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="sixteen wide column">
-        <h2 class="ui header">Bob project structure</h2>
-        <p>
-        Every project that is using Bob as a build tool has to share the same meaningful structure with source code located under appropriate folders:
-        </p>
-        <div class="ui inverted segment">
-          <div class="ui inverted relaxed list">
-            <div class="item">
-              <i class="green folder icon"></i>
-              <div class="content">
-                <div class="header">/src/library/vala</div>
-                Place all the Vala code here for a library related source code. 
+          <div class="ui inverted segment">
+            <div class="ui inverted relaxed list">
+              <div class="item">
+                <i class="green folder icon"></i>
+                <div class="content">
+                  <div class="header">/src/library/vala</div>
+                  Place all the Vala code here for a library related source code. 
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="blue folder icon"></i>
-              <div class="content">
-                <div class="header">/src/library/vapi</div>
-                Holds all VAPI files referenced in library source code.
+              <div class="item">
+                <i class="blue folder icon"></i>
+                <div class="content">
+                  <div class="header">/src/library/vapi</div>
+                  Holds all VAPI files referenced in library source code.
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="folder icon"></i>
-              <div class="content">
-                <div class="header">/target/library</div>
-                Here will lay all the libraries binaries generated by Bob in process of code compilation.
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  <div class="header">/target/library</div>
+                  Here will lay all the libraries binaries generated by Bob in process of code compilation.
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="green folder icon"></i>
-              <div class="content">
-                <div class="header">/src/main/vala</div>
-                Whole source code located here is treated as runtime executable binary related. 
+              <div class="item">
+                <i class="green folder icon"></i>
+                <div class="content">
+                  <div class="header">/src/main/vala</div>
+                  Whole source code located here is treated as runtime executable binary related. 
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="blue folder icon"></i>
-              <div class="content">
-                <div class="header">/src/main/vapi</div>
-                Holds all VAPI files referenced in runtime executable binary source code.
+              <div class="item">
+                <i class="blue folder icon"></i>
+                <div class="content">
+                  <div class="header">/src/main/vapi</div>
+                  Holds all VAPI files referenced in runtime executable binary source code.
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="folder inverted icon"></i>
-              <div class="content">
-                <div class="header">/target/main</div>
-                Bob will put all binaries executables here after process of code compilation or any other activity related.
+              <div class="item">
+                <i class="folder inverted icon"></i>
+                <div class="content">
+                  <div class="header">/target/main</div>
+                  Bob will put all binaries executables here after process of code compilation or any other activity related.
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="sixteen wide column">
-        <h2 class="ui header">Plugins and recipies</h2>
-        <p>As stated earlier Bob design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
+      <div class="row">
+        <div class="sixteen wide column">
+          <h2 class="ui inverted header">Plugins and recipies</h2>
+          <p>As stated earlier Bob design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
 
-        <div class="ui inverted segment">
-          <div class="ui inverted relaxed list">
-            <div class="item">
-              <i class="plug icon"></i>
-              <div class="content">
-                <div class="header">collect-sources</div>
-                Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
+          <div class="ui inverted segment">
+            <div class="ui inverted relaxed list">
+              <div class="item">
+                <i class="plug icon"></i>
+                <div class="content">
+                  <div class="header">collect-sources</div>
+                  Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <i class="plug icon"></i>
-              <div class="content">
-                <div class="header">build</div>
-                It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row" id="section_examples">
-      <div class="column">
-        <h1 class="ui dividing header">
-          Examples
-        </h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="sixteen wide column">
-        <h2 class="ui header">Bob usage scenarios</h2>
-        <p>Bob usage is rather straightforward and does not require and specialized terminal user skills. To run Bob with default settings naviage to project directory and type in system shell console:</p>
-        <div class="ui purple inverted preformatted segment">
-$> bob
-        </div>
-        <p>
-          By default Bob will only print out the list of parsed plugins recipies and some version information as well:
-        </p>
-        <div class="ui purple inverted preformatted segment">
-[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
-[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
-[BobBuildRecipeParser] Parsing plugin recipe: build
-[BobBuildPluginsLoader] Loading plugins from directory: /opt/vala/bob-builder/target/plugins
-[BobBuilder] Bob the Builder, version = 0.0.1
-        </div>
-        <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
-        <div class="ui purple inverted preformatted segment">
-$> bob collect-sources build
-        </div>
-        <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
-      </div>
-    </div>
-
-    <div class="row" id="section_qa">
-      <div class="column">
-        <h1 class="ui dividing header">
-          Questions and Answers
-        </h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="sixteen wide column">
-        
-          <div class="ui inverted relaxed list">
-            <div class="item">
-              <i class="question big icon"></i>
-              <div class="content">
-                <div class="header">Why another build tool? Isn't make, Cmake, waf or any other out there enough?</div>
-                Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Bob is here to make it easier and fit better for Vala.
-              </div>
-            </div>
-            <div class="item">
-              <i class="question big icon"></i>
-              <div class="content">
-                <div class="header">I have an idea for a new possible plugin, how can I contribute?</div>
-                If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) go and for Bob builder source code repository on <a href="https://github.com/activey/bob-builder">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/bob-builder/issues">GitHub</a> issue with short description, I could think of it in spare time.
+              <div class="item">
+                <i class="plug icon"></i>
+                <div class="content">
+                  <div class="header">build</div>
+                  It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
+                </div>
               </div>
             </div>
           </div>
-          </div>
+        </div>
       </div>
+
+      <div class="row" id="section_examples">
+        <div class="column">
+          <h1 class="ui inverted dividing header">
+            Examples
+          </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sixteen wide column">
+          <h2 class="ui inverted header">Bob usage scenarios</h2>
+          <p>Bob usage is rather straightforward and does not require and specialized terminal user skills. To run Bob with default settings naviage to project directory and type in system shell console:</p>
+          <div class="ui purple inverted preformatted segment">
+    $> bob
+          </div>
+          <p>
+            By default Bob will only print out the list of parsed plugins recipies and some version information as well:
+          </p>
+          <div class="ui purple inverted preformatted segment">
+    [BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+    [BobBuildRecipeParser] Parsing plugin recipe: uncrustify
+    [BobBuildRecipeParser] Parsing plugin recipe: build
+    [BobBuildPluginsLoader] Loading plugins from directory: /opt/vala/bob-builder/target/plugins
+    [BobBuilder] Bob the Builder, version = 0.0.1
+          </div>
+          <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
+          <div class="ui purple inverted preformatted segment">
+    $> bob collect-sources build
+          </div>
+          <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
+        </div>
+      </div>
+
+      <div class="row" id="section_qa">
+        <div class="column">
+          <h1 class="ui dividing inverted header">
+            Questions and Answers
+          </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="sixteen wide column">
+          
+            <div class="ui inverted relaxed list">
+              <div class="item">
+                <i class="question big icon"></i>
+                <div class="content">
+                  <div class="header">Why another build tool? Isn't make, Cmake, waf or any other out there enough?</div>
+                  Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Bob is here to make it easier and fit better for Vala.
+                </div>
+              </div>
+              <div class="item">
+                <i class="question big icon"></i>
+                <div class="content">
+                  <div class="header">I have an idea for a new possible plugin, how can I contribute?</div>
+                  If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) go and for Bob builder source code repository on <a href="https://github.com/activey/bob-builder">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/bob-builder/issues">GitHub</a> issue with short description, I could think of it in spare time.
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
 
       
     </div>
