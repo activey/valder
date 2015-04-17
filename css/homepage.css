@@ -52,8 +52,6 @@ html {
   box-shadow: 0px 0px 0px 0px;
   padding: 0rem -6rem;
   border-radius: 0px 0px 0px 0px;
-  -webkit-filter: drop-shadow(0px 3px 3px #222);
-  filter: drop-shadow(0px 3px 5px #222);
 }
 
 
@@ -66,6 +64,10 @@ html {
   margin-bottom: 0em;
   padding-top: 40px;
   /*margin-top: -40px;*/
+}
+
+.plugin.header {
+  padding-top: 45px;
 }
 
 #home .vertical.segment {
@@ -153,4 +155,6 @@ html {
 
 .preformatted {
   white-space: pre-wrap;
+  font-family: "Droid Sans Mono";
+  font-size: small;
 }

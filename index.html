@@ -10,6 +10,7 @@
   <title>Bob the Builder</title>
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
   <link rel="stylesheet" type="text/css" href="css/homepage.css">
@@ -36,6 +37,14 @@
       <a class="item" href="#section_documentation">Documentation</a>
       <a class="item" href="#section_examples">Examples</a>
       <a class="item" href="https://github.com/activey/bob-builder">Code</a>
+      <div class="ui dropdown link item">
+        Plugins
+        <div class="inverted blue menu">
+          <a class="item" href="#plugin_collect_sources">collect-sources</a>
+          <a class="item" href="#plugin_build">build</a>
+          <a class="item" href="#plugin_uncrustify">uncrustify</a>
+        </div>
+      </div>
       <a class="item" href="#section_qa">Q&A</a>
     </div>
   </div>
@@ -174,15 +183,22 @@
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="header">collect-sources</div>
+                  <div class="plugin header" id="plugin_collect_sources">collect-sources</div>
                   Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
                 </div>
               </div>
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="header">build</div>
+                  <div class="plugin header" id="plugin_build">build</div>
                   It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
+                </div>
+              </div>
+              <div class="item">
+                <i class="plug icon"></i>
+                <div class="content">
+                  <div class="plugin header" id="plugin_uncrustify">uncrustify</div>
+                  [TBD] 
                 </div>
               </div>
             </div>
@@ -219,6 +235,37 @@
     $> bob collect-sources build
           </div>
           <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
+          <div class="ui purple inverted preformatted segment">
+[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+[BobBuildRecipeParser] Parsing plugin recipe: build
+[BobBuildPluginsLoader] Loading plugins from directory: /bob/plugins
+[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libbuild.so
+[BobBuildPluginsLoader] Registering new plugin: build
+[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libcollect-sources.so
+[BobBuildPluginsLoader] Registering new plugin: collect-sources
+[BobBuildPluginExecutionChain] Using build plugin: collect-sources.
+[BobBuildPluginExecutionChain] Using build plugin: build.
+[BobBuildContext] Building project: project-0.0.1 (My first project)
+[BobBuildContext] Loading project plugins recipies...
+[BobBuildPluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
+[BobBuildPluginExecutionChain] Initializing plugin 'build' with recipe data.
+[BobBuildContext] Running project plugins
+[BobBuildPluginExecutionChain] Running plugin: collect-sources
+[CollectSourcesPlugin] /project/src/library/vala/project/Class1.vala (100 bytes)
+[CollectSourcesPlugin] /project/src/library/vala/project/Class2.vala (100 bytes)
+[CollectSourcesPlugin] /project/src/library/vala/project/Class3.vala (100 bytes)
+[CollectSourcesPlugin] /project/src/main/vala/project/Main.vala (50 bytes)
+[CollectSourcesPlugin] Using 4 project source files with 350 bytes in total.
+[BobBuildPluginExecutionChain] Running plugin: build
+[ValaCodeCompiler] Initializing CodeContext
+[ValaCodeCompiler] Using dependency: glib-2.0
+[ValaCodeCompiler] Using dependency: gobject-2.0
+[ValaCodeCompiler] Using dependency: gio-2.0
+[ValaCodeCompiler] Initializing CodeGenerator
+[BuildApplicationPlugin] Generating library binary.
+[ValaCodeCompiler] Starting code compilation ...
+[BuildApplicationPlugin] Code compilation finished.
+          </div>
         </div>
       </div>
 
