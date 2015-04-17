@@ -28,6 +28,7 @@ namespace bob.builder.build.plugin {
 	    	ValaCodeCompiler libCompiler = initializeLibraryCodeCompiler(projectRecipe);
 	    	LOGGER.logInfo("Generating library binary.");
 	    	libCompiler.compile();
+	    	LOGGER.logInfo("Code compilation finished.");
 	    }
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {
