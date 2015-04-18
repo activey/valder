@@ -97,9 +97,9 @@
 
   <div class="ui inverted content vertical segment">
     <div class="ui very relaxed stackable page grid">
-      <div class="row" id="section_documentation">
+      <div class="row">
         <div class="column">
-          <h1 class="ui inverted dividing header">
+          <h1 id="section_documentation" class="ui inverted dividing offset header">
             Documentation
           </h1>
         </div>
@@ -183,32 +183,78 @@
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="plugin header" id="plugin_collect_sources">collect-sources</div>
+                  <div class="offset header" id="plugin_collect_sources">collect-sources</div>
                   Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
                 </div>
               </div>
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="plugin header" id="plugin_build">build</div>
+                  <div class="offset header" id="plugin_build">build</div>
                   It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
                 </div>
               </div>
+            </div>
+          </div>
+
+          <p>While having in mind generic nature of all Bob plugins (plugin will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Bob you can provide a project configuration file called Project Recipe - <strong>recipe.bob</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
+
+          <div class="ui purple inverted segment">
+            <div class="preformatted">{
+    "project": {
+        "name": "Test project",
+        "shortName": "test",
+        "version": "0.0.1"
+    },
+    "plugins": {
+        "collect-sources": {
+            "verbose": true
+        },
+        "build": {
+            "verbose": false,
+            "dependencies": [
+                {
+                    "dependency": "glib",
+                    "version": "2.0",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "gobject",
+                    "version": "2.0",
+                    "type": "pkg"
+                }
+            ]
+        }
+    }
+}</div>
+            <div class="ui bottom right attached inverted red label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
+          </div>
+          <p>Additionaly you can find here a list of other plugins being in development at the moment:</p>
+
+          <div class="ui inverted segment" id="plugin_uncrustify">
+            <div class="ui inverted relaxed list">
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="plugin header" id="plugin_uncrustify">uncrustify</div>
+                  <div class="offset header">uncrustify</div>
                   [TBD] 
                 </div>
               </div>
+            </div>
+            <div class="ui bottom right attached inverted red label">
+              <i class="spinner icon"></i>
+              Work in progress
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row" id="section_examples">
+      <div class="row">
         <div class="column">
-          <h1 class="ui inverted dividing header">
+          <h1 id="section_examples" class="ui inverted dividing offset header">
             Examples
           </h1>
         </div>
@@ -217,26 +263,19 @@
         <div class="sixteen wide column">
           <h2 class="ui inverted header">Bob usage scenarios</h2>
           <p>Bob usage is rather straightforward and does not require and specialized terminal user skills. To run Bob with default settings naviage to project directory and type in system shell console:</p>
-          <div class="ui purple inverted preformatted segment">
-    $> bob
-          </div>
+          <div class="ui purple inverted preformatted segment">$/project> bob</div>
           <p>
             By default Bob will only print out the list of parsed plugins recipies and some version information as well:
           </p>
-          <div class="ui purple inverted preformatted segment">
-    [BobBuildRecipeParser] Parsing plugin recipe: collect-sources
-    [BobBuildRecipeParser] Parsing plugin recipe: uncrustify
-    [BobBuildRecipeParser] Parsing plugin recipe: build
-    [BobBuildPluginsLoader] Loading plugins from directory: /opt/vala/bob-builder/target/plugins
-    [BobBuilder] Bob the Builder, version = 0.0.1
-          </div>
+          <div class="ui purple inverted preformatted segment">[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
+[BobBuildRecipeParser] Parsing plugin recipe: build
+[BobBuildPluginsLoader] Loading plugins from directory: /opt/vala/bob-builder/target/plugins
+[BobBuilder] Bob the Builder, version = 0.0.1</div>
           <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
-          <div class="ui purple inverted preformatted segment">
-    $> bob collect-sources build
-          </div>
+          <div class="ui purple inverted preformatted segment">$/project> bob collect-sources build</div>
           <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
-          <div class="ui purple inverted preformatted segment">
-[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+          <div class="ui purple inverted preformatted segment">[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
 [BobBuildRecipeParser] Parsing plugin recipe: build
 [BobBuildPluginsLoader] Loading plugins from directory: /bob/plugins
 [BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libbuild.so
@@ -264,14 +303,13 @@
 [ValaCodeCompiler] Initializing CodeGenerator
 [BuildApplicationPlugin] Generating library binary.
 [ValaCodeCompiler] Starting code compilation ...
-[BuildApplicationPlugin] Code compilation finished.
-          </div>
+[BuildApplicationPlugin] Code compilation finished.</div>
         </div>
       </div>
 
-      <div class="row" id="section_qa">
+      <div class="row">
         <div class="column">
-          <h1 class="ui dividing inverted header">
+          <h1 id="section_qa" class="ui dividing inverted offset header">
             Questions and Answers
           </h1>
         </div>

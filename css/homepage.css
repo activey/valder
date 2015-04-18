@@ -6,7 +6,6 @@ html {
   font-size: 14px;
 }
 
-
 /*******************************
             Global
 *******************************/
@@ -62,12 +61,6 @@ html {
 #home .segment h1 {
   font-size: 3em;
   margin-bottom: 0em;
-  padding-top: 40px;
-  /*margin-top: -40px;*/
-}
-
-.plugin.header {
-  padding-top: 45px;
 }
 
 #home .vertical.segment {
@@ -121,11 +114,13 @@ html {
     font-size: 1.5em;
   }
   #home .masthead.segment .information {
-    margin-left: 170px;
+    margin-left: 270px;
   }
 
   #home .masthead.segment .image {
-    width: 170px;
+    width: 220px;
+    bottom: -150px;
+    left: 20px;
   }
 
   #home .masthead.segment .button {
@@ -144,10 +139,6 @@ html {
     font-size: 0.7rem;
   }
 
-  #home .masthead.segment .column p {
-    display: none;
-  }
-
   #home .selection.list .right.floated {
     display: none;
   }
@@ -157,4 +148,12 @@ html {
   white-space: pre-wrap;
   font-family: "Droid Sans Mono";
   font-size: small;
+}
+
+.offset:before { 
+  display: block; 
+  content: " "; 
+  height: 40px;
+  margin-top: -40px;  
+  visibility: hidden; 
 }
