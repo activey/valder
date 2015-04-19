@@ -1,6 +1,5 @@
-using bob.builder.filesystem;
+namespace bob.builder.filesystem {
 
-namespace bob.builder.build.plugin {
 	public class FileExtensionFilter : FileFilter, Object {
 
 		private string fileExtension;

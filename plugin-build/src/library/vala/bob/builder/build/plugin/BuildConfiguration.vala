@@ -4,7 +4,7 @@ namespace bob.builder.build.plugin {
 
 	public class BuildConfiguration {
 
-		private List<BuildDependency> _dependencies = new List<BuildDependency>();
+		private List<BobBuildProjectDependency> _dependencies = new List<BobBuildProjectDependency>();
 		private List<BobBuildProjectSourceFile> _sources = new List<BobBuildProjectSourceFile>();
 
 		public string targetFile {
@@ -24,13 +24,13 @@ namespace bob.builder.build.plugin {
 			default = new string[0];
 		}
 
-		public List<BuildDependency> dependencies {
+		public List<BobBuildProjectDependency> dependencies {
 			get {
 				return _dependencies;
 			}
 		}
 
-		public void addDependency(BuildDependency dependency) {
+		public void addDependency(BobBuildProjectDependency dependency) {
 			_dependencies.append(dependency);
 		}
 

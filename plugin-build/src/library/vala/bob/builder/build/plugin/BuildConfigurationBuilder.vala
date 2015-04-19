@@ -19,23 +19,15 @@ namespace bob.builder.build.plugin {
 
 		private void readJsonProperties(JsonObject jsonObject) {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
-			readDependencies(jsonObject.getObjectArrayEntry(PROPERTY_DEPENDENCIES));
-		}
-
-		private void readDependencies(JsonArray dependencies) {
-			if (dependencies == null) {
-				return;
-			}
-			dependencies.forEachMember(readDependency);
-		}
-
-		private void readDependency(JsonObject jsonObject) {
-			BuildDependency dependency = new BuildDependency.fromJSONObject(jsonObject);
-			buildConfiguration.addDependency(dependency);
 		}
 
 		public BuildConfigurationBuilder addSource(BobBuildProjectSourceFile source) {
 			buildConfiguration.addSource(source);
+			return this;
+		}
+
+		public BuildConfigurationBuilder addDependency(BobBuildProjectDependency dependency) {
+			buildConfiguration.addDependency(dependency);
 			return this;
 		}
 

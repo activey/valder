@@ -41,27 +41,21 @@ namespace bob.builder.build.plugin {
 			}
 
 			LOGGER.logInfo("Loading plugins from directory: %s", pluginsDirectory.get_path());
-			FileEnumerator directoryEnumerator = pluginsDirectory.enumerate_children(FileAttribute.STANDARD_NAME,0);
-			FileInfo fileInfo;
-
-			while ((fileInfo = directoryEnumerator.next_file()) != null) {
-				File pluginFile = pluginsDirectory.get_child(fileInfo.get_name());
-				try {
-					loadPluginFromFile(pluginFile);
-				} catch (BuildPluginError e) {
-					LOGGER.logError("An error occurred while loading plugin from file: %s.", pluginFile.get_path());
-					throw e;
-				}
-			}
+			DirectoryObject plugins = new DirectoryObject(pluginsDirectory);
+			plugins.accept(new BobBuildPluginVisitor(loadPluginFromFile));
 		}
 
 		private void validateModulesSupported() {
 			assert(Module.supported());
 		}
 
-		private void loadPluginFromFile(File pluginFile) throws BuildPluginError {
-			Module module = loadPluginModule(pluginFile.get_path());
-			loadPluginModuleType(module);
+		private void loadPluginFromFile(File pluginFile) {
+			try {
+				Module module = loadPluginModule(pluginFile.get_path());
+				loadPluginModuleType(module);
+			} catch (BuildPluginError e) {
+				LOGGER.logError("An error occurred while loading plugin from file: %s.", pluginFile.get_path());
+			}
 		}
 
 		private Module loadPluginModule(string modulePath) throws BuildPluginError {

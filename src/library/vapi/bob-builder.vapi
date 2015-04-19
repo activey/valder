@@ -54,6 +54,16 @@ namespace bob {
 					public bob.builder.build.plugin.AbstractBobBuildPlugin? getPlugin (string pluginName);
 				}
 				[CCode (cheader_filename = "bob-builder.h")]
+				public class BobBuildPluginVisitor : bob.builder.filesystem.FileSystemFilteringVisitor {
+					public delegate void LoadPluginLibraryFromFile (GLib.File pluginLibraryFile);
+					public BobBuildPluginVisitor (bob.builder.build.plugin.BobBuildPluginVisitor.LoadPluginLibraryFromFile pluginLoader);
+					public override void visitFileFiltered (GLib.File file);
+				}
+				[CCode (cheader_filename = "bob-builder.h")]
+				public class LibraryFileFilter : bob.builder.filesystem.FileExtensionFilter {
+					public LibraryFileFilter ();
+				}
+				[CCode (cheader_filename = "bob-builder.h")]
 				public errordomain BobBuildPluginError {
 					INITIALIZATION_ERROR,
 					RUN_ERROR
@@ -79,6 +89,10 @@ namespace bob {
 			public class DirectoryObject : bob.builder.filesystem.FileSystemObject {
 				public DirectoryObject (GLib.File directory);
 				public DirectoryObject.fromGivenLocation (string directoryLocation);
+			}
+			[CCode (cheader_filename = "bob-builder.h")]
+			public class FileExtensionFilter : bob.builder.filesystem.FileFilter, GLib.Object {
+				public FileExtensionFilter (string fileExtension);
 			}
 			[CCode (cheader_filename = "bob-builder.h")]
 			public class FileObject : bob.builder.filesystem.FileSystemObject {
@@ -118,12 +132,15 @@ namespace bob {
 			}
 			[CCode (cheader_filename = "bob-builder.h")]
 			public class JsonObject : GLib.Object {
+				public delegate void ForEachMember (string key, bob.builder.json.JsonObject objectMember);
 				public JsonObject ();
+				public void forEachMember (bob.builder.json.JsonObject.ForEachMember forEachMemberDelegate);
 				public JsonObject.fromJsonObject (Json.Object jsonObject);
 				public bool getBooleanEntry (string key, bool defaultIfNull);
 				public bob.builder.json.JsonObject? getJsonObjectEntry (string key);
 				public bob.builder.json.JsonArray? getObjectArrayEntry (string key);
 				public string getStringEntry (string key, string? defaultIfNull);
+				public bool keyMissing (string key);
 			}
 		}
 		namespace log {
@@ -139,18 +156,32 @@ namespace bob {
 			namespace plugin {
 				[CCode (cheader_filename = "bob-builder.h")]
 				public class BobBuildPluginRecipe : GLib.Object {
-					public BobBuildPluginRecipe (string name, bob.builder.json.JsonObject jsonConfiguration);
+					public BobBuildPluginRecipe ();
 					public BobBuildPluginRecipe.@default ();
+					public BobBuildPluginRecipe.fromJSONObject (string name, bob.builder.json.JsonObject jsonConfiguration);
 					public bob.builder.json.JsonObject jsonConfiguration { get; set construct; }
 					public string name { get; set construct; }
 				}
 			}
 			namespace project {
 				[CCode (cheader_filename = "bob-builder.h")]
+				public class BobBuildProjectDependency {
+					public BobBuildProjectDependency ();
+					public BobBuildProjectDependency.fromJSONObject (bob.builder.json.JsonObject jsonObject);
+					public string to_string ();
+					public string dependency { get; set; }
+					public string dependencyType { get; set; }
+					public string version { get; set; }
+				}
+				[CCode (cheader_filename = "bob-builder.h")]
 				public class BobBuildProjectRecipe {
 					public BobBuildProjectRecipe ();
-					public void addLibSourceFile (GLib.File projectSourceFile) throws GLib.Error;
-					public void addMainSourceFile (GLib.File projectSourceFile) throws GLib.Error;
+					public void addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+					public void addLibSourceFile (bob.builder.recipe.project.BobBuildProjectSourceFile projectSourceFile);
+					public void addMainSourceFile (bob.builder.recipe.project.BobBuildProjectSourceFile projectSourceFile);
+					public BobBuildProjectRecipe.@default ();
+					public BobBuildProjectRecipe.fromJSONObject (bob.builder.json.JsonObject jsonObject);
+					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> libSourceFiles { get; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> mainSourceFiles { get; }
 					public string name { get; set; }
@@ -176,8 +207,8 @@ namespace bob {
 			public class BobBuildRecipeBuilder : GLib.Object {
 				public BobBuildRecipeBuilder ();
 				public bob.builder.recipe.BobBuildRecipe build ();
-				public bob.builder.recipe.BobBuildRecipeBuilder plugin (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
-				public bob.builder.recipe.BobBuildRecipeBuilder project (string name, string shortName, string version);
+				public bob.builder.recipe.BobBuildRecipeBuilder pluginRecipe (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe);
+				public bob.builder.recipe.BobBuildRecipeBuilder projectRecipe (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe);
 			}
 			[CCode (cheader_filename = "bob-builder.h")]
 			public class BobBuildRecipeLoader {
@@ -187,7 +218,7 @@ namespace bob {
 			[CCode (cheader_filename = "bob-builder.h")]
 			public class BobBuildRecipeParser : GLib.Object {
 				public static bob.builder.recipe.BobBuildRecipe parseFromJSONFile (GLib.FileInfo jsonFile) throws GLib.Error;
-				public bob.builder.recipe.BobBuildRecipe parseFromJSONObject (Json.Object jsonObject);
+				public bob.builder.recipe.BobBuildRecipe parseFromJSONObject (bob.builder.json.JsonObject jsonObject);
 			}
 		}
 	}

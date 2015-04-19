@@ -4,7 +4,7 @@ namespace bob.builder.filesystem {
 
 		private FileFilter filter;
 
-		public FileSystemFilteringVisitor (FileFilter filter) {
+		public FileSystemFilteringVisitor(FileFilter filter) {
 			this.filter = filter;
 		}
 
@@ -15,6 +15,5 @@ namespace bob.builder.filesystem {
 				visitFileFiltered(file);
 			}
 		}
-
 	}
 }

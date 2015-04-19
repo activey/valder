@@ -17,11 +17,9 @@ namespace bob.builder.build.plugin {
 
         private CodeContext codeContext;
         private BuildConfiguration buildConfiguration;
-        private bool verbose = false;
 
         public ValaCodeCompiler(BuildConfiguration buildConfiguration) {
             this.buildConfiguration = buildConfiguration;
-            this.verbose = verbose;
 
             initializeCodeContext();
             initializeContextDependencies();
@@ -46,7 +44,7 @@ namespace bob.builder.build.plugin {
 		    codeContext.report.enable_warnings = true;
 		    codeContext.report.set_verbose_errors(true);
             codeContext.report.set_colors(DEFAULT_COLORS);
-            codeContext.verbose_mode = verbose;
+            codeContext.verbose_mode = buildConfiguration.verbose;
             codeContext.version_header = true;
             codeContext.basedir = CodeContext.realpath(".");
             codeContext.profile = Profile.GOBJECT;
@@ -54,7 +52,7 @@ namespace bob.builder.build.plugin {
         }
 
         private void initializeContextDependencies() {
-            foreach (BuildDependency dependency in buildConfiguration.dependencies) {
+            foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
                 string dependencyString = dependency.to_string();
                 LOGGER.logInfo(@"Using dependency: $(dependencyString)");
                 codeContext.add_external_package(dependencyString);
@@ -64,7 +62,7 @@ namespace bob.builder.build.plugin {
         private void initializeContextSources() {
             foreach (BobBuildProjectSourceFile buildSource in buildConfiguration.sources) {
                 if (codeContext.add_source_filename(buildSource.fileLocation, true, true)) {
-                    if (verbose) {
+                    if (buildConfiguration.verbose) {
                         LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation)");
                     }
                 }

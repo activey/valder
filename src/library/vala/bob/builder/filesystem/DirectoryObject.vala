@@ -1,10 +1,14 @@
+using bob.builder.log;
+
 namespace bob.builder.filesystem {
 
 	public class DirectoryObject : FileSystemObject {
 
+		private Logger LOGGER = Logger.getLogger("DirectoryObject");
+
 		private File directory;
 
-		public DirectoryObject (File directory) {
+		public DirectoryObject(File directory) {
 			this.directory = directory;
 		}
 
@@ -26,13 +30,12 @@ namespace bob.builder.filesystem {
 				}
 			}
 			catch(Error e) {
-				stderr.printf(@"An error occurred $(e.message)");
+				LOGGER.logError("An error occurred: %s", e.message);
 			}
 		}
 
 		private bool isDirectory(FileInfo fileInfo) {
 			return fileInfo.get_file_type() == FileType.DIRECTORY;
 		}
-
 	}
 }

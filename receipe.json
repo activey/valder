@@ -2,7 +2,38 @@
     "project": {
         "name": "Bob the Builder",
         "shortName": "bob",
-        "version": "0.0.1"
+        "version": "0.0.1",
+        "dependencies": [
+            {
+                "dependency": "glib",
+                "version": "2.0",
+                "type": "pkg"
+            }, {
+                "dependency": "gobject",
+                "version": "2.0",
+                "type": "pkg"
+            }, {
+                "dependency": "gio",
+                "version": "2.0",
+                "type": "pkg"
+            }, {
+                "dependency": "json-glib",
+                "version": "1.0",
+                "type": "pkg"
+            }, {
+                "dependency": "libvala",
+                "version": "0.28",
+                "type": "pkg"
+            }, {
+                "dependency": "gmodule",
+                "version": "2.0",
+                "type": "pkg"
+            }, {
+                "dependency": "gee",
+                "version": "1.0",
+                "type": "pkg"
+            }
+        ]
     },
     "plugins": {
         "collect-sources": {
@@ -15,44 +46,7 @@
             "backup": false
         },
         "build": {
-            "verbose": true,
-            "dependencies": [
-                {
-                    "dependency": "glib",
-                    "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gobject",
-                    "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gio",
-                    "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "json-glib",
-                    "version": "1.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "libvala",
-                    "version": "0.28",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gmodule",
-                    "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gee",
-                    "version": "1.0",
-                    "type": "pkg"
-                }
-            ]
+            "verbose": true
         }
     }
 }

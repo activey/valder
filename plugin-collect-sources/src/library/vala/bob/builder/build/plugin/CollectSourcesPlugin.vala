@@ -34,11 +34,19 @@ namespace bob.builder.build.plugin {
 		}
 
 		private void collectValaLibSourceFile(File valaFile) {
-			currentProjectRecipe.addLibSourceFile(valaFile);
+			try {
+				currentProjectRecipe.addLibSourceFile(new BobBuildProjectSourceFile.fromFileSystem(valaFile));
+			} catch (Error e) {
+				LOGGER.logError("An error occurred while adding Vala source file: %s", e.message);
+			}
 		}
 
 		private void collectValaMainSourceFile(File valaFile) {
-			currentProjectRecipe.addMainSourceFile(valaFile);
+			try {
+				currentProjectRecipe.addMainSourceFile(new BobBuildProjectSourceFile.fromFileSystem(valaFile));
+			} catch (Error e) {
+				LOGGER.logError("An error occurred while adding Vala source file: %s", e.message);
+			}
 		}
 
 	    public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
@@ -51,7 +59,7 @@ namespace bob.builder.build.plugin {
     		}
 	    }
 
-	    private void collectValaSourceFiles() {
+	    private void collectValaSourceFiles() throws Error {
 	    	valaLibVisitor.collectSourceFiles();
     		valaMainVisitor.collectSourceFiles();
 	    }

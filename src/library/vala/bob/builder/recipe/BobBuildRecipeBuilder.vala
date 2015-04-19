@@ -5,30 +5,24 @@ namespace bob.builder.recipe {
 
 	public class BobBuildRecipeBuilder : Object {
 
-		private List<BobBuildPluginRecipe> plugins;
-		private BobBuildProjectRecipe projectRecipe;
+		private List<BobBuildPluginRecipe> _plugins = new List<BobBuildPluginRecipe>();
+		private BobBuildProjectRecipe _projectRecipe = new BobBuildProjectRecipe.default();
 
-		public BobBuildRecipeBuilder plugin(BobBuildPluginRecipe pluginRecipe) {
-			if (plugins == null) {
-				plugins = new List<BobBuildPluginRecipe>();
-			}
-			plugins.append(pluginRecipe);
+		public BobBuildRecipeBuilder pluginRecipe(BobBuildPluginRecipe pluginRecipe) {
+			_plugins.append(pluginRecipe);
 			return this;
 		}
 
-		public BobBuildRecipeBuilder project(string name, string shortName, string version) {
-			projectRecipe = new BobBuildProjectRecipe();
-			projectRecipe.name = name;
-			projectRecipe.shortName = shortName;
-			projectRecipe.version = version;
+		public BobBuildRecipeBuilder projectRecipe(BobBuildProjectRecipe projectRecipe) {
+			_projectRecipe = projectRecipe;
 			return this;
 		}
 
 		public BobBuildRecipe build() {
 			BobBuildRecipe buildRecipe = new BobBuildRecipe();
 
-			buildRecipe.project = projectRecipe;
-			foreach (BobBuildPluginRecipe plugin in plugins) {
+			buildRecipe.project = _projectRecipe;
+			foreach (BobBuildPluginRecipe plugin in _plugins) {
 				buildRecipe.addPluginRecipe(plugin);
 			}
 			return buildRecipe;

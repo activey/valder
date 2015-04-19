@@ -1,6 +1,8 @@
 namespace bob.builder.json {
 
 	public class JsonObject : Object {
+
+		public delegate void ForEachMember(string key, JsonObject objectMember);
 	
 		private Json.Object jsonObject;
 	
@@ -26,18 +28,28 @@ namespace bob.builder.json {
 			return jsonObject.get_boolean_member(key);
 		}
 
-		public JsonObject ? getJsonObjectEntry(string key) {
+		public JsonObject? getJsonObjectEntry(string key) {
 			if (keyMissingOrNull(key)) {
 				return null;
 			}
 			return new JsonObject.fromJsonObject(jsonObject.get_object_member(key));
 		}
 
-		public JsonArray ? getObjectArrayEntry(string key) {
+		public JsonArray? getObjectArrayEntry(string key) {
 			if (keyMissingOrNull(key)) {
 				return null;
 			}
 			return new JsonArray.fromJsonArray(jsonObject.get_array_member(key));
+		}
+
+		public void forEachMember(ForEachMember forEachMemberDelegate) {
+			jsonObject.foreach_member((jsonObject, key, jsonNode) => {
+				forEachMemberDelegate(key, new JsonObject.fromJsonObject(jsonObject));
+			});
+		}
+
+		public bool keyMissing(string key) {
+			return keyMissingOrNull(key);
 		}
 
 		private bool keyMissingOrNull(string key) {

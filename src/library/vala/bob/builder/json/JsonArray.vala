@@ -12,8 +12,7 @@ namespace bob.builder.json {
 
 		public void forEachMember(EachMemberDelegate eachMemberDelegate) {
 			foreach (Json.Node memberNode in jsonArray.get_elements()) {
-				JsonObject jsonObject = new JsonObject.fromJsonObject(
-				        memberNode.get_object());
+				JsonObject jsonObject = new JsonObject.fromJsonObject(memberNode.get_object());
 				eachMemberDelegate(jsonObject);
 			}
 		} 

@@ -27,12 +27,20 @@ namespace bob.builder.build.plugin {
 		public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
 	    	ValaCodeCompiler libCompiler = initializeLibraryCodeCompiler(projectRecipe);
 	    	LOGGER.logInfo("Generating library binary.");
-	    	libCompiler.compile();
+	    	try {
+	    		libCompiler.compile();
+	    	} catch (CompilationError e) {
+	    		LOGGER.logError("Compilation failed with message: %s.", e.message);
+	    		return;
+	    	}
 	    	LOGGER.logInfo("Code compilation finished.");
 	    }
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {
-			BuildConfiguration buildConfiguration = appendSourceFiles(projectRecipe.libSourceFiles)
+	    	appendSourceFiles(projectRecipe.libSourceFiles);
+	    	appendDependencies(projectRecipe.dependencies);
+
+			BuildConfiguration buildConfiguration = buildConfigurationBuilder
 				.targetDirectory(LIB_TARGET_DEFAULT)
 				.targetFileName("lib%s.so".printf(projectRecipe.shortName))
 				.ccOptions({"-fPIC", "-shared"})
@@ -40,11 +48,16 @@ namespace bob.builder.build.plugin {
 			return new ValaCodeCompiler(buildConfiguration);
 		}
 
-	    private BuildConfigurationBuilder appendSourceFiles(List<BobBuildProjectSourceFile> sourceFiles) {
+		private void appendDependencies(List<BobBuildProjectDependency> dependencies) {
+			foreach (BobBuildProjectDependency dependency in dependencies) {
+				buildConfigurationBuilder.addDependency(dependency);
+			}
+		}
+
+	    private void appendSourceFiles(List<BobBuildProjectSourceFile> sourceFiles) {
 			foreach (BobBuildProjectSourceFile source in sourceFiles) {
 				buildConfigurationBuilder.addSource(source);
 			}
-			return buildConfigurationBuilder;
 	    }
 	}
 }
