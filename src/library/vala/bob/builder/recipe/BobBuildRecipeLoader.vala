@@ -4,7 +4,7 @@ namespace bob.builder.recipe {
 
 	public class BobBuildRecipeLoader {
 	
-		private const string JSON_RECEIPE = "receipe.json";
+		private const string JSON_RECEIPE = "recipe.bob";
 		private Logger LOGGER = Logger.getLogger("BobBuildRecipeLoader");
 	
 		public static BobBuildRecipe loadFromJSON() throws Error {

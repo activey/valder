@@ -20,7 +20,7 @@ namespace bob.builder.build.plugin {
 		private delegate void ModuleInitFunction(BobBuildPluginLoader pluginLoader);
 		private delegate string[] GetPluginDependenciesFunction();
 
-		public BobBuildPluginLoader.for_plugins_directory(string ? pluginsDirectoryLocation) {
+		public BobBuildPluginLoader.for_plugins_directory(string? pluginsDirectoryLocation) {
 			try {
 				loadPluginsFromDirectory(pluginsDirectoryLocation ?? PLUGINS_DIRECTORY);
 			}
@@ -73,7 +73,7 @@ namespace bob.builder.build.plugin {
 			loadedPlugins.set(buildPlugin.name, buildPlugin);
 		}
 
-		public AbstractBobBuildPlugin ? getPlugin(string pluginName) {
+		public AbstractBobBuildPlugin? getPlugin(string pluginName) {
 			return loadedPlugins.get(pluginName);
 		}
 
@@ -90,6 +90,5 @@ namespace bob.builder.build.plugin {
 			}
 			return methodReference;
 		}
-
 	}
 }
