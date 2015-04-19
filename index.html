@@ -204,26 +204,25 @@
     "project": {
         "name": "Test project",
         "shortName": "test",
-        "version": "0.0.1"
+        "version": "0.0.1",
+        "dependencies": [
+            {
+                "dependency": "glib",
+                "version": "2.0",
+                "type": "pkg"
+            }, {
+                "dependency": "gobject",
+                "version": "2.0",
+                "type": "pkg"
+            }
+        ]
     },
     "plugins": {
         "collect-sources": {
             "verbose": true
         },
         "build": {
-            "verbose": false,
-            "dependencies": [
-                {
-                    "dependency": "glib",
-                    "version": "2.0",
-                    "type": "pkg"
-                },
-                {
-                    "dependency": "gobject",
-                    "version": "2.0",
-                    "type": "pkg"
-                }
-            ]
+            "verbose": false
         }
     }
 }</div>
