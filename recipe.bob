@@ -30,7 +30,7 @@
                 "type": "pkg"
             }, {
                 "dependency": "gee",
-                "version": "1.0",
+                "version": "0.8",
                 "type": "pkg"
             }
         ]

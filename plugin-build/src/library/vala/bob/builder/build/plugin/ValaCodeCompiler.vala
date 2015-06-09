@@ -32,6 +32,7 @@ namespace bob.builder.build.plugin {
             codeContext = new CodeContext();
             CodeContext.push(codeContext);
 
+            codeContext.header_filename = buildConfiguration.outputHFile;
             codeContext.output = buildConfiguration.targetFile;
             codeContext.assert = false;
 		    codeContext.checking = true;
@@ -78,6 +79,7 @@ namespace bob.builder.build.plugin {
             LOGGER.logInfo("Starting code compilation ...");
             runCodeParsers();
             runCodeGenerator();
+            runVapiGenerator();
             runCodeCompiler();
 
             if (hasErrors()) {
@@ -104,10 +106,21 @@ namespace bob.builder.build.plugin {
     		}
         }
 
+        private void runVapiGenerator() {
+            if (!buildConfiguration.generateVapi) {
+                return;
+            }
+            CodeWriter interfaceWriter = new CodeWriter();
+            interfaceWriter.set_cheader_override(buildConfiguration.outputHFile, buildConfiguration.outputHFile);
+            
+            LOGGER.logInfo("Generating VAPI file.");
+            interfaceWriter.write_file(codeContext, buildConfiguration.outputVapiFile);
+        }
+
         private void runCodeCompiler() throws CompilationError {
             CCodeCompiler ccompiler = new CCodeCompiler();
-            string ccCommand = Environment.get_variable ("CC");
-            string pkgConfigCommand = Environment.get_variable ("PKG_CONFIG");
+            string ccCommand = Environment.get_variable("CC");
+            string pkgConfigCommand = Environment.get_variable("PKG_CONFIG");
             ccompiler.compile(codeContext, ccCommand, buildConfiguration.ccOptions, pkgConfigCommand);
 
             if (hasErrors()) {
@@ -116,11 +129,11 @@ namespace bob.builder.build.plugin {
         }
 
         private bool hasErrors() {
-            return codeContext.report.get_errors () > 0;
+            return codeContext.report.get_errors() > 0;
         }
 
         private bool hasWarnings() {
-            return codeContext.report.get_warnings () > 0;
+            return codeContext.report.get_warnings() > 0;
         }
     }
 }

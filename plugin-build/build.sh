@@ -2,7 +2,7 @@
 
 LIBRARY_NAME='build'
 VAPI_SOURCES=(`find ../src/library/vapi -type f -name "**.vapi"`)
-HEADER_LOCATION=('../src/library/vapi')
+HEADER_LOCATION=('../src/library/c')
 SOURCES=(`find src/library/vala -type f -name "**.vala"`)
 PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'gmodule-2.0' 'libvala-0.28')
 

@@ -46,10 +46,11 @@ namespace bob.builder.build {
 		private void prepareProjectPlugins() throws BobBuildPluginError {
 			LOGGER.logInfo("Loading project plugins recipies...");
 			pluginChain.preparePlugins((pluginToRun) => {
-					BobBuildPluginRecipe ? pluginRecipe = buildRecipe.getPluginRecipe(pluginToRun.name);
+					BobBuildPluginRecipe? pluginRecipe = buildRecipe.getPluginRecipe(pluginToRun.name);
 					if (pluginRecipe == null) {
-					        pluginRecipe = new BobBuildPluginRecipe.default ();
+				        pluginRecipe = new BobBuildPluginRecipe.default();
 					}
+					
 					pluginToRun.initialize(pluginRecipe);
 				}
 	        );

@@ -17,6 +17,9 @@ namespace bob {
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
 					public string[] ccOptions { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
+					public bool generateVapi { get; set; }
+					public string outputHFile { get; set; }
+					public string outputVapiFile { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources { get; }
 					public string targetFile { get; set; }
 					public bool verbose { get; set; }
@@ -27,10 +30,15 @@ namespace bob {
 					public bob.builder.build.plugin.BuildConfigurationBuilder addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public bob.builder.build.plugin.BuildConfigurationBuilder addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
 					public bob.builder.build.plugin.BuildConfiguration build ();
+					public bob.builder.build.plugin.BuildConfigurationBuilder cHeaderFileName (string cHeaderFileName);
+					public bob.builder.build.plugin.BuildConfigurationBuilder cOutputDirectory (string cOutputDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder ccOptions (string[] ccOptions);
 					public BuildConfigurationBuilder.fromJSONObject (bob.builder.json.JsonObject jsonObject);
+					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapi ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
+					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputDirectory (string vapiOutputDirectory);
+					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputFileName (string vapiOutputFileName);
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class ValaCodeCompiler {

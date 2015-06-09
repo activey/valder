@@ -44,7 +44,14 @@ namespace bob.builder.json {
 
 		public void forEachMember(ForEachMember forEachMemberDelegate) {
 			jsonObject.foreach_member((jsonObject, key, jsonNode) => {
-				forEachMemberDelegate(key, new JsonObject.fromJsonObject(jsonObject));
+				if (jsonNode.get_node_type() != Json.NodeType.OBJECT) {
+					return;
+				}
+				Json.Object? memberObject = jsonNode.dup_object();
+				if (memberObject == null) {
+					return;
+				}
+				forEachMemberDelegate(key, new JsonObject.fromJsonObject(memberObject));
 			});
 		}
 
@@ -55,6 +62,5 @@ namespace bob.builder.json {
 		private bool keyMissingOrNull(string key) {
 			return !jsonObject.has_member(key) || jsonObject.get_null_member(key);
 		}
-
 	}
 }

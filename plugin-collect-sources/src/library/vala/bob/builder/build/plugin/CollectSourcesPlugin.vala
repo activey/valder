@@ -14,6 +14,7 @@ namespace bob.builder.build.plugin {
         const string RECIPE_ENTRY_VERBOSE = "verbose";
 
         private Logger LOGGER = Logger.getLogger("CollectSourcesPlugin");
+
         private bool verbose = false; 
         private ValaFilesVisitor valaLibVisitor;
         private ValaFilesVisitor valaMainVisitor;
@@ -52,6 +53,7 @@ namespace bob.builder.build.plugin {
 	    public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
 	    	try {
 	    		currentProjectRecipe = projectRecipe;
+
 	    		collectValaSourceFiles();
 	    		printValaSourceFiles();
     		} catch (Error e) {
@@ -66,21 +68,18 @@ namespace bob.builder.build.plugin {
 
 	    private void printValaSourceFiles() {
 	    	if (!verbose) {
+	    		LOGGER.logInfo("ble");
 	    		return;
 	    	}
 	    	int totalLength = 0;
 	    	uint64 totalSize = 0;
 	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.libSourceFiles) {
-	    		if (verbose) {
-	    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
-	    		}
+    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
 	    		totalLength++;
 	    		totalSize = totalSize + file.fileSize;
 	    	}
 	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.mainSourceFiles) {
-	    		if (verbose) {
-	    			LOGGER.logInfo("%s (%d bytess)", file.fileLocation, file.fileSize);
-	    		}
+    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
 	    		totalLength++;
 	    		totalSize = totalSize + file.fileSize;
 	    	}

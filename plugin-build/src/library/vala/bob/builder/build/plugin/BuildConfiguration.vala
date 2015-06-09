@@ -12,6 +12,21 @@ namespace bob.builder.build.plugin {
 			set;
 		}
 
+		public bool generateVapi {
+			get;
+			set;
+		}
+
+		public string outputVapiFile {
+			get;
+			set;
+		}
+
+		public string outputHFile {
+			get;
+			set;
+		}
+
 		public bool verbose {
 			get;
 			set;

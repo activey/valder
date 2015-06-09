@@ -18,7 +18,7 @@ namespace bob.builder.recipe {
 			pluginsRecipies.append(recipe);
 		}
 
-		public BobBuildPluginRecipe ? getPluginRecipe(string pluginName) {
+		public BobBuildPluginRecipe? getPluginRecipe(string pluginName) {
 			foreach (BobBuildPluginRecipe pluginRecipe in pluginsRecipies) {
 				if (pluginRecipe.name == pluginName) {
 					return pluginRecipe;

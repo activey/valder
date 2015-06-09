@@ -11,11 +11,9 @@ namespace bob.builder.recipe {
 			return new BobBuildRecipeLoader().loadFromJSONFile(JSON_RECEIPE);
 		}
 
-		private BobBuildRecipeLoader () {
-		}
+		private BobBuildRecipeLoader () {}
 
-		public BobBuildRecipe ? loadFromJSONFile(string jsonFileName)
-		throws Error {
+		public BobBuildRecipe ? loadFromJSONFile(string jsonFileName) throws Error {
 			FileInfo ? jsonFile = locateRecipeFile(jsonFileName);
 			if (jsonFile == null) {
 				LOGGER.logError("Unable to locate %s file", JSON_RECEIPE);

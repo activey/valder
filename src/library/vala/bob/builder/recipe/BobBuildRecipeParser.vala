@@ -49,7 +49,8 @@ namespace bob.builder.recipe {
 		}
 
 		private void parsePluginRecipe(string pluginName, JsonObject pluginRecipeJson) {
-			LOGGER.logInfo("Parsing plugin recipe: %s", pluginName);
+			LOGGER.logInfo("Parsing plugin recipe: %s", pluginName);	
+
 			builder.pluginRecipe(new BobBuildPluginRecipe.fromJSONObject(pluginName, pluginRecipeJson));
 		}
 	}
