@@ -1,1 +1,3 @@
 target/*
+src/library/c/
+src/library/vapi
