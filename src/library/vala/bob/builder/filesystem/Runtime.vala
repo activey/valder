@@ -17,8 +17,12 @@ namespace bob.builder.filesystem {
 
 		public static string resolveRuntimeRelativePath(string relativePath) {
 			string runtimeDirectory = getRuntimeDirectory();
-
 			return "%s/%s".printf(runtimeDirectory, relativePath);
+		}
+
+		public static string resolveRelativePath(string relativePath) {
+			string thisDirectory = File.new_for_path(DEFAULT_DIRECTORY).get_path();
+			return "%s/%s".printf(thisDirectory, relativePath);	
 		}
 
 	}

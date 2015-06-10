@@ -16,5 +16,10 @@ namespace bob.builder.recipe.project {
 			FileInfo fileInfo = projectSourceFile.query_info("*", FileQueryInfoFlags.NONE);
 			fileSize = fileInfo.get_size();
 		}
+
+		public BobBuildProjectSourceFile.fromLocation(string sourceFileLocation) {
+			base(fileLocation: sourceFileLocation);
+			fileSize = -1;
+		}
 	}
 }

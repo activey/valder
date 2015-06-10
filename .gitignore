@@ -1,4 +1,4 @@
 target/*
 src/library/c/
 src/library/vapi/
-**/target/**/*.so
+**/target/lib/*.so

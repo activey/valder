@@ -62,14 +62,9 @@ namespace bob.builder.build.plugin {
 	    }
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {
-	    	foreach (BobBuildProjectDependency dependency in projectRecipe.dependencies) {
-				libraryBuildConfigurationBuilder.addDependency(dependency);
-			}
-	    	foreach (BobBuildProjectSourceFile source in projectRecipe.libSourceFiles) {
-				libraryBuildConfigurationBuilder.addSource(source);
-			}
-
 			BuildConfiguration buildConfiguration = libraryBuildConfigurationBuilder
+				.dependencies(projectRecipe.dependencies)
+				.sources(projectRecipe.libSourceFiles)
 				.targetDirectory(TARGET_LIB_FOLDER_DEFAULT)
 				.targetFileName("lib%s.so".printf(projectRecipe.shortName))
 				.generateVapi()
@@ -83,16 +78,12 @@ namespace bob.builder.build.plugin {
 		}
 
 		private ValaCodeCompiler initializeRuntimeCodeCompiler(BobBuildProjectRecipe projectRecipe) {
-	    	foreach (BobBuildProjectDependency dependency in projectRecipe.dependencies) {
-				runtimeBuildConfigurationBuilder.addDependency(dependency);
-			}
-	    	foreach (BobBuildProjectSourceFile source in projectRecipe.mainSourceFiles) {
-				runtimeBuildConfigurationBuilder.addSource(source);
-			}
-
 			// TODO - add library generated vapi file on source list
 
 			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder
+				.dependencies(projectRecipe.dependencies)
+				.sources(projectRecipe.mainSourceFiles)
+				.addSourceFromRelativeLocation("%s%s%s.vapi".printf(LIB_VAPI_OUTPUT_DEFAULT, PATH_SEPARATOR, projectRecipe.shortName))
 				.targetDirectory(TARGET_FOLDER_DEFAULT)
 				.targetFileName(projectRecipe.shortName)
 				.ccOptions({"-Wl,-rpath=\\$ORIGIN/%s".printf(LIB_FOLDER_DEFAULT), "-L%s".printf(TARGET_LIB_FOLDER_DEFAULT), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(LIB_C_OUTPUT_DEFAULT)})

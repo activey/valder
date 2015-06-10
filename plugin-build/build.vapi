@@ -15,6 +15,7 @@ namespace bob {
 					public BuildConfiguration ();
 					public void addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
+					public void dump ();
 					public string[] ccOptions { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
 					public bool generateVapi { get; set; }
@@ -28,13 +29,15 @@ namespace bob {
 				public class BuildConfigurationBuilder {
 					public BuildConfigurationBuilder ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
-					public bob.builder.build.plugin.BuildConfigurationBuilder addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
+					public bob.builder.build.plugin.BuildConfigurationBuilder addSourceFromRelativeLocation (string sourceFileLocation);
 					public bob.builder.build.plugin.BuildConfiguration build ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder cHeaderFileName (string cHeaderFileName);
 					public bob.builder.build.plugin.BuildConfigurationBuilder cOutputDirectory (string cOutputDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder ccOptions (string[] ccOptions);
+					public bob.builder.build.plugin.BuildConfigurationBuilder dependencies (GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies);
 					public BuildConfigurationBuilder.fromJSONObject (bob.builder.json.JsonObject jsonObject);
 					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapi ();
+					public bob.builder.build.plugin.BuildConfigurationBuilder sources (GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
 					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputDirectory (string vapiOutputDirectory);

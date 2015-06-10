@@ -1,5 +1,6 @@
 using bob.builder.recipe.project;
 using bob.builder.json;
+using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin {
 
@@ -26,13 +27,27 @@ namespace bob.builder.build.plugin {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
 		}
 
-		public BuildConfigurationBuilder addSource(BobBuildProjectSourceFile source) {
-			buildConfiguration.addSource(source);
+		public BuildConfigurationBuilder addSourceFromRelativeLocation(string sourceFileLocation) {
+			buildConfiguration.addSource(new BobBuildProjectSourceFile.fromLocation(Runtime.resolveRelativePath(sourceFileLocation)));
+			return this;			
+		}
+
+		public BuildConfigurationBuilder sources(List<BobBuildProjectSourceFile> sources) {
+			foreach (BobBuildProjectSourceFile source in sources) {
+				buildConfiguration.addSource(source);
+			}
 			return this;
 		}
 
 		public BuildConfigurationBuilder addDependency(BobBuildProjectDependency dependency) {
 			buildConfiguration.addDependency(dependency);
+			return this;
+		}
+
+		public BuildConfigurationBuilder dependencies(List<BobBuildProjectDependency> dependencies) {
+			foreach (BobBuildProjectDependency dependency in dependencies) {
+				addDependency(dependency);
+			}
 			return this;
 		}
 
@@ -83,6 +98,9 @@ namespace bob.builder.build.plugin {
 				buildConfiguration.outputVapiFile = "%s%C%s".printf(_outputVapiDirectory, Path.DIR_SEPARATOR, _outputVapiFileName);
 				buildConfiguration.outputHFile = "%s%C%s".printf(_cOutputDirectory, Path.DIR_SEPARATOR, _cHeaderFileName);
 			}
+
+			buildConfiguration.dump();
+
 			return buildConfiguration;
 		}
 	}

@@ -22,6 +22,7 @@ namespace bob.builder.build.plugin {
             this.buildConfiguration = buildConfiguration;
 
             initializeCodeContext();
+            // initializeCodeContextDefines();
             initializeContextDependencies();
             initializeContextSources();
             initializeContextCodeGenerator();
@@ -32,6 +33,7 @@ namespace bob.builder.build.plugin {
             codeContext = new CodeContext();
             CodeContext.push(codeContext);
 
+            codeContext.codegen = new GDBusServerModule();
             codeContext.header_filename = buildConfiguration.outputHFile;
             codeContext.output = buildConfiguration.targetFile;
             codeContext.assert = false;
@@ -47,10 +49,31 @@ namespace bob.builder.build.plugin {
             codeContext.report.set_colors(DEFAULT_COLORS);
             codeContext.verbose_mode = buildConfiguration.verbose;
             codeContext.version_header = true;
+            
             codeContext.basedir = CodeContext.realpath(".");
+            codeContext.directory = codeContext.basedir;
+
             codeContext.profile = Profile.GOBJECT;
 			codeContext.add_define("GOBJECT");
         }
+
+        // private void initializeCodeContextDefines() {
+        //     for (int i = 2; i <= 28; i += 2) {
+        //         codeContext.add_define ("VALA_0_%d".printf (i));
+        //     }
+
+        //     int glib_major = 2;
+        //     int glib_minor = 24;
+        //     codeContext.target_glib_major = glib_major;
+        //     codeContext.target_glib_minor = glib_minor;
+        //     if (codeContext.target_glib_major != 2) {
+        //         LOGGER.logError("This version of valac only supports GLib 2");
+        //     }
+
+        //     for (int i = 16; i <= glib_minor; i += 2) {
+        //         codeContext.add_define("GLIB_2_%d".printf(i));
+        //     }
+        // }
 
         private void initializeContextDependencies() {
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
@@ -62,7 +85,7 @@ namespace bob.builder.build.plugin {
 
         private void initializeContextSources() {
             foreach (BobBuildProjectSourceFile buildSource in buildConfiguration.sources) {
-                if (codeContext.add_source_filename(buildSource.fileLocation, true, true)) {
+                if (codeContext.add_source_filename(buildSource.fileLocation, false, true)) {
                     if (buildConfiguration.verbose) {
                         LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation)");
                     }
@@ -72,7 +95,6 @@ namespace bob.builder.build.plugin {
 
         private void initializeContextCodeGenerator() {
             LOGGER.logInfo("Initializing CodeGenerator");
-            codeContext.codegen = new GDBusServerModule();
         }
 
         public void compile() throws CompilationError {
@@ -85,11 +107,20 @@ namespace bob.builder.build.plugin {
             if (hasErrors()) {
 		        throw new CompilationError.CCOMPILATION_ERROR("An error occurred while compiling source code");
 	        }
+
+            CodeContext.pop();
         }
 
         private void runCodeParsers() throws CompilationError {
+            LOGGER.logInfo("Running code parsers.");
+
+            LOGGER.logInfo("Running general parser.");
             new Parser().parse(codeContext);
+
+            LOGGER.logInfo("Running GENIE parser.");
 	        new Genie.Parser().parse(codeContext);
+
+            LOGGER.logInfo("Running GIR parser.");
 	        new GirParser().parse(codeContext);
 
             codeContext.check();
@@ -111,7 +142,7 @@ namespace bob.builder.build.plugin {
                 return;
             }
             CodeWriter interfaceWriter = new CodeWriter();
-            interfaceWriter.set_cheader_override(buildConfiguration.outputHFile, buildConfiguration.outputHFile);
+            //interfaceWriter.set_cheader_override(buildConfiguration.outputHFile, buildConfiguration.outputHFile);
             
             LOGGER.logInfo("Generating VAPI file.");
             interfaceWriter.write_file(codeContext, buildConfiguration.outputVapiFile);
