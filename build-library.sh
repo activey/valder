@@ -7,4 +7,4 @@ SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")
 PACKAGES_PREFIXED=$(printf " --pkg %s" "${PACKAGES[@]}")
 
 mkdir -p target/lib
-valac -g -v --library=bob-builder -H src/library/c/bob.h --vapi=src/library/vapi/bob.vapi $SOURCES_PREFIXED -X -fPIC -X -shared $PACKAGES_PREFIXED -o target/lib/libbobb.so
+valac -g -v --library=bob-builder -H src/library/c/bob.h --vapi=src/library/vapi/bob.vapi $SOURCES_PREFIXED -X -fPIC -X -shared $PACKAGES_PREFIXED -o target/lib/libbob.so
