@@ -22,7 +22,6 @@ namespace bob.builder.build.plugin {
             this.buildConfiguration = buildConfiguration;
 
             initializeCodeContext();
-            // initializeCodeContextDefines();
             initializeContextDependencies();
             initializeContextSources();
             initializeContextCodeGenerator();
@@ -56,24 +55,6 @@ namespace bob.builder.build.plugin {
             codeContext.profile = Profile.GOBJECT;
 			codeContext.add_define("GOBJECT");
         }
-
-        // private void initializeCodeContextDefines() {
-        //     for (int i = 2; i <= 28; i += 2) {
-        //         codeContext.add_define ("VALA_0_%d".printf (i));
-        //     }
-
-        //     int glib_major = 2;
-        //     int glib_minor = 24;
-        //     codeContext.target_glib_major = glib_major;
-        //     codeContext.target_glib_minor = glib_minor;
-        //     if (codeContext.target_glib_major != 2) {
-        //         LOGGER.logError("This version of valac only supports GLib 2");
-        //     }
-
-        //     for (int i = 16; i <= glib_minor; i += 2) {
-        //         codeContext.add_define("GLIB_2_%d".printf(i));
-        //     }
-        // }
 
         private void initializeContextDependencies() {
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
@@ -142,7 +123,6 @@ namespace bob.builder.build.plugin {
                 return;
             }
             CodeWriter interfaceWriter = new CodeWriter();
-            //interfaceWriter.set_cheader_override(buildConfiguration.outputHFile, buildConfiguration.outputHFile);
             
             LOGGER.logInfo("Generating VAPI file.");
             interfaceWriter.write_file(codeContext, buildConfiguration.outputVapiFile);

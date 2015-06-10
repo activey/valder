@@ -78,15 +78,13 @@ namespace bob.builder.build.plugin {
 		}
 
 		private ValaCodeCompiler initializeRuntimeCodeCompiler(BobBuildProjectRecipe projectRecipe) {
-			// TODO - add library generated vapi file on source list
-
 			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.mainSourceFiles)
 				.addSourceFromRelativeLocation("%s%s%s.vapi".printf(LIB_VAPI_OUTPUT_DEFAULT, PATH_SEPARATOR, projectRecipe.shortName))
 				.targetDirectory(TARGET_FOLDER_DEFAULT)
 				.targetFileName(projectRecipe.shortName)
-				.ccOptions({"-Wl,-rpath=\\$ORIGIN/%s".printf(LIB_FOLDER_DEFAULT), "-L%s".printf(TARGET_LIB_FOLDER_DEFAULT), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(LIB_C_OUTPUT_DEFAULT)})
+				.ccOptions({"-Wl,-rpath=\$ORIGIN/%s".printf(LIB_FOLDER_DEFAULT), "-L%s".printf(TARGET_LIB_FOLDER_DEFAULT), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(LIB_C_OUTPUT_DEFAULT)})
 				.build();
 			return new ValaCodeCompiler(buildConfiguration);
 		}
