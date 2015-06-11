@@ -15,7 +15,6 @@ namespace bob {
 					public BuildConfiguration ();
 					public void addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
-					public void dump ();
 					public string[] ccOptions { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
 					public bool generateVapi { get; set; }

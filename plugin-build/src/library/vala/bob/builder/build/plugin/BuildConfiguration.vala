@@ -58,9 +58,5 @@ namespace bob.builder.build.plugin {
 		public void addSource(BobBuildProjectSourceFile source) {
 			_sources.append(source);
 		}
-
-		public void dump() {
-			stdout.printf("ccOptions = {%s} \n", string.joinv("|", ccOptions));
-		}
 	}
 }

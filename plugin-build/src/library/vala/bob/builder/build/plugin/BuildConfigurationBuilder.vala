@@ -98,9 +98,6 @@ namespace bob.builder.build.plugin {
 				buildConfiguration.outputVapiFile = "%s%C%s".printf(_outputVapiDirectory, Path.DIR_SEPARATOR, _outputVapiFileName);
 				buildConfiguration.outputHFile = "%s%C%s".printf(_cOutputDirectory, Path.DIR_SEPARATOR, _cHeaderFileName);
 			}
-
-			buildConfiguration.dump();
-
 			return buildConfiguration;
 		}
 	}

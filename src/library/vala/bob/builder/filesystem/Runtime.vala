@@ -24,6 +24,5 @@ namespace bob.builder.filesystem {
 			string thisDirectory = File.new_for_path(DEFAULT_DIRECTORY).get_path();
 			return "%s/%s".printf(thisDirectory, relativePath);	
 		}
-
 	}
 }
