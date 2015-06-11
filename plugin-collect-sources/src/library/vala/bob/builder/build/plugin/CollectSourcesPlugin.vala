@@ -68,7 +68,6 @@ namespace bob.builder.build.plugin {
 
 	    private void printValaSourceFiles() {
 	    	if (!verbose) {
-	    		LOGGER.logInfo("ble");
 	    		return;
 	    	}
 	    	int totalLength = 0;
