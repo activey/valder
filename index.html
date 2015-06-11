@@ -274,13 +274,17 @@
           <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
           <div class="ui purple inverted preformatted segment">$/project> bob collect-sources build</div>
           <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
-          <div class="ui purple inverted preformatted segment">[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+          <div class="ui purple inverted preformatted segment">[BobBuildProjectRecipe] Parsing project dependencies.
+[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
+[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
 [BobBuildRecipeParser] Parsing plugin recipe: build
 [BobBuildPluginsLoader] Loading plugins from directory: /bob/plugins
 [BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libbuild.so
 [BobBuildPluginsLoader] Registering new plugin: build
 [BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libcollect-sources.so
 [BobBuildPluginsLoader] Registering new plugin: collect-sources
+[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libuncrustify.so
+[BobBuildPluginsLoader] Registering new plugin: uncrustify
 [BobBuildPluginExecutionChain] Using build plugin: collect-sources.
 [BobBuildPluginExecutionChain] Using build plugin: build.
 [BobBuildContext] Building project: project-0.0.1 (My first project)
@@ -289,11 +293,6 @@
 [BobBuildPluginExecutionChain] Initializing plugin 'build' with recipe data.
 [BobBuildContext] Running project plugins
 [BobBuildPluginExecutionChain] Running plugin: collect-sources
-[CollectSourcesPlugin] /project/src/library/vala/project/Class1.vala (100 bytes)
-[CollectSourcesPlugin] /project/src/library/vala/project/Class2.vala (100 bytes)
-[CollectSourcesPlugin] /project/src/library/vala/project/Class3.vala (100 bytes)
-[CollectSourcesPlugin] /project/src/main/vala/project/Main.vala (50 bytes)
-[CollectSourcesPlugin] Using 4 project source files with 350 bytes in total.
 [BobBuildPluginExecutionChain] Running plugin: build
 [ValaCodeCompiler] Initializing CodeContext
 [ValaCodeCompiler] Using dependency: glib-2.0
@@ -302,6 +301,22 @@
 [ValaCodeCompiler] Initializing CodeGenerator
 [BuildApplicationPlugin] Generating library binary.
 [ValaCodeCompiler] Starting code compilation ...
+[ValaCodeCompiler] Running code parsers.
+[ValaCodeCompiler] Running general parser.
+[ValaCodeCompiler] Running GENIE parser.
+[ValaCodeCompiler] Running GIR parser.
+[ValaCodeCompiler] Generating VAPI file.
+[ValaCodeCompiler] Initializing CodeContext
+[ValaCodeCompiler] Using dependency: glib-2.0
+[ValaCodeCompiler] Using dependency: gobject-2.0
+[ValaCodeCompiler] Using dependency: gio-2.0
+[ValaCodeCompiler] Initializing CodeGenerator
+[BuildApplicationPlugin] Generating runtime binary.
+[ValaCodeCompiler] Starting code compilation ...
+[ValaCodeCompiler] Running code parsers.
+[ValaCodeCompiler] Running general parser.
+[ValaCodeCompiler] Running GENIE parser.
+[ValaCodeCompiler] Running GIR parser.
 [BuildApplicationPlugin] Code compilation finished.</div>
         </div>
       </div>
