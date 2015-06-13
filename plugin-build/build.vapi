@@ -8,7 +8,7 @@ namespace bob {
 				public class BuildApplicationPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public BuildApplicationPlugin ();
 					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
-					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class BuildConfiguration {

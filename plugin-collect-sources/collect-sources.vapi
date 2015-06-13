@@ -8,7 +8,7 @@ namespace bob {
 				public class CollectSourcesPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public CollectSourcesPlugin ();
 					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
-					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/CollectSourcesPlugin.h")]
 				public class ValaFilesVisitor : bob.builder.filesystem.FileSystemFilteringVisitor {

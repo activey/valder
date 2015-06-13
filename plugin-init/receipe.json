@@ -1,0 +1,43 @@
+{
+    "project": {
+        "name": "Bob the Builder - plugin initializes base Bob project folder structure",
+        "shortName": "collect-sources",
+        "version": "0.0.1"
+    },
+    "plugins": {
+        "build": {
+            "dependencies": [
+                {
+                    "dependency": "glib",
+                    "version": "2.0",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "gobject",
+                    "version": "2.0",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "gio",
+                    "version": "2.0",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "json-glib",
+                    "version": "1.0",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "libvala",
+                    "version": "0.26",
+                    "type": "pkg"
+                },
+                {
+                    "dependency": "gmodule",
+                    "version": "2.0",
+                    "type": "pkg"
+                }
+            ]
+        }
+    }
+}

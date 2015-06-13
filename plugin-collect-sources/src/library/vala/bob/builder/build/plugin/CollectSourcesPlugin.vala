@@ -50,7 +50,7 @@ namespace bob.builder.build.plugin {
 			}
 		}
 
-	    public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
+	    public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
 	    	try {
 	    		currentProjectRecipe = projectRecipe;
 

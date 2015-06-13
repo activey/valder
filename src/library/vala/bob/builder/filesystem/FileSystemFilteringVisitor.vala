@@ -15,5 +15,7 @@ namespace bob.builder.filesystem {
 				visitFileFiltered(file);
 			}
 		}
+
+		public void visitDirectory(File directory) {}
 	}
 }

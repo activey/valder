@@ -1,6 +1,7 @@
 using bob.builder.build;
 using bob.builder.recipe.plugin;
 using bob.builder.recipe.project;
+using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.json;
 
@@ -32,7 +33,7 @@ namespace bob.builder.build.plugin {
 			runtimeBuildConfigurationBuilder = new BuildConfigurationBuilder.fromJSONObject(pluginRecipe.jsonConfiguration);
 		}
 
-		public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
+		public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
 			compileLibraryBinary(projectRecipe);
 			compileRuntimeBinary(projectRecipe);	    	
 

@@ -1,6 +1,7 @@
 using bob.builder.build;
 using bob.builder.recipe.plugin;
 using bob.builder.recipe.project;
+using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.json;
 
@@ -36,6 +37,7 @@ namespace bob.builder.build.plugin {
 			} else {
 				outputPreffix = pluginRecipe.jsonConfiguration.getStringEntry(RECIPE_OUTPUT_PREFFIX_CONFIGURATION, "");
 			}
+
 			uncrustifyConfiguration = pluginRecipe.jsonConfiguration.getStringEntry(RECIPE_ENTRY_CONFIGURATION, null);
 			if (uncrustifyConfiguration == null) {
 				throw new BobBuildPluginError.INITIALIZATION_ERROR("Uncrustify configuration file not set!");
@@ -44,7 +46,7 @@ namespace bob.builder.build.plugin {
 			}
 		}
 
-	    public override void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError {
+	    public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
 	    	try {
 	    		UncrustifyRunner runner = new UncrustifyRunner(uncrustifyConfiguration, verbose);
 	    		runner.checkUncrustifyAvailable();
