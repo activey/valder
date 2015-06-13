@@ -1,4 +1,4 @@
-namespace bob.builder.filesystem {
+namespace bob.builder.filesystem.visitor {
 
 	public abstract class FileSystemFilteringVisitor : FileSystemVisitor {
 

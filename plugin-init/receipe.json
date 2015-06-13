@@ -1,7 +1,7 @@
 {
     "project": {
-        "name": "Bob the Builder - plugin initializes base Bob project folder structure",
-        "shortName": "collect-sources",
+        "name": "Bob the Builder - plugin initializes base Bob project folder structure and creates default recipe file",
+        "shortName": "initialize",
         "version": "0.0.1"
     },
     "plugins": {

@@ -38,7 +38,11 @@ namespace bob.builder.build.plugin {
 				_directory = _parentDirectory.getDirectoryChild(_name);
 			} else {
 				LOGGER.logInfo(@"Creating new directory: $(_name).");
-				_directory = _parentDirectory.newDirectoryChild(_name);
+				try {
+					_directory = _parentDirectory.newDirectoryChild(_name);
+				} catch (Error e) {
+					LOGGER.logError("An error occurred while creating new directory with name %s: %s.", _name, e.message);
+				}
 			}
 			return _directory;
 		}

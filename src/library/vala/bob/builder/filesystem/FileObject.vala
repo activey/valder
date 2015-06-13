@@ -1,6 +1,8 @@
+using bob.builder.filesystem.visitor;
+
 namespace bob.builder.filesystem {
 
-	public class FileObject : FileSystemObject {
+	public class FileObject {
 
 		private File file;
 

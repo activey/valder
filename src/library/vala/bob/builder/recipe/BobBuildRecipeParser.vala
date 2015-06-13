@@ -14,9 +14,9 @@ namespace bob.builder.recipe {
 
 		private BobBuildRecipeBuilder builder;
 		
-		public static BobBuildRecipe parseFromJSONFile(FileInfo jsonFile) throws Error {
+		public static BobBuildRecipe parseFromJSONFile(File jsonFile) throws Error {
 			Json.Parser parser = new Json.Parser();
-			parser.load_from_file(jsonFile.get_name());
+			parser.load_from_file(jsonFile.get_path());
 			return new BobBuildRecipeParser().parseFromJSONObject(new JsonObject.fromJsonObject(parser.get_root().get_object()));
 		}
 

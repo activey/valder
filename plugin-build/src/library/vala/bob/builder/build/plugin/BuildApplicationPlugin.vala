@@ -11,13 +11,6 @@ namespace bob.builder.build.plugin {
 
 		private const string PATH_SEPARATOR = Path.DIR_SEPARATOR_S;
 		private const string PLUGIN_NAME = "build";
-		private const string TARGET_FOLDER_DEFAULT = "target";
-		private const string SRC_FOLDER_DEFAULT = "src";
-		private const string LIB_FOLDER_DEFAULT = "lib";
-		private const string TARGET_LIB_FOLDER_DEFAULT = TARGET_FOLDER_DEFAULT + PATH_SEPARATOR + LIB_FOLDER_DEFAULT;
-		private const string SRC_FOLDER_LIBRARY = SRC_FOLDER_DEFAULT + PATH_SEPARATOR + "library";
-		private const string LIB_VAPI_OUTPUT_DEFAULT = SRC_FOLDER_LIBRARY + PATH_SEPARATOR + "vapi";
-		private const string LIB_C_OUTPUT_DEFAULT = SRC_FOLDER_LIBRARY + PATH_SEPARATOR + "c";
 		
         private Logger LOGGER = Logger.getLogger("BuildApplicationPlugin");
 
@@ -66,12 +59,12 @@ namespace bob.builder.build.plugin {
 			BuildConfiguration buildConfiguration = libraryBuildConfigurationBuilder
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.libSourceFiles)
-				.targetDirectory(TARGET_LIB_FOLDER_DEFAULT)
+				.targetDirectory(BobDirectories.DIRECTORY_TARGET_LIB)
 				.targetFileName("lib%s.so".printf(projectRecipe.shortName))
 				.generateVapi()
-				.vapiOutputDirectory(LIB_VAPI_OUTPUT_DEFAULT)
+				.vapiOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI)
 				.vapiOutputFileName("%s.vapi".printf(projectRecipe.shortName))
-				.cOutputDirectory(LIB_C_OUTPUT_DEFAULT)
+				.cOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)
 				.cHeaderFileName("%s.h".printf(projectRecipe.shortName))
 				.ccOptions({"-fPIC", "-shared"})
 				.build();
@@ -82,10 +75,10 @@ namespace bob.builder.build.plugin {
 			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.mainSourceFiles)
-				.addSourceFromRelativeLocation("%s%s%s.vapi".printf(LIB_VAPI_OUTPUT_DEFAULT, PATH_SEPARATOR, projectRecipe.shortName))
-				.targetDirectory(TARGET_FOLDER_DEFAULT)
+				.addSourceFromRelativeLocation("%s%s%s.vapi".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI, PATH_SEPARATOR, projectRecipe.shortName))
+				.targetDirectory(BobDirectories.DIRECTORY_TARGET)
 				.targetFileName(projectRecipe.shortName)
-				.ccOptions({"-Wl,-rpath=\$ORIGIN/%s".printf(LIB_FOLDER_DEFAULT), "-L%s".printf(TARGET_LIB_FOLDER_DEFAULT), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(LIB_C_OUTPUT_DEFAULT)})
+				.ccOptions({"-Wl,-rpath=\$ORIGIN/%s".printf(BobDirectories.DIRECTORY_LIB), "-L%s".printf(BobDirectories.DIRECTORY_TARGET_LIB), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)})
 				.build();
 			return new ValaCodeCompiler(buildConfiguration);
 		}

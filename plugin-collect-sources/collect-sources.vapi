@@ -11,7 +11,7 @@ namespace bob {
 					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/CollectSourcesPlugin.h")]
-				public class ValaFilesVisitor : bob.builder.filesystem.FileSystemFilteringVisitor {
+				public class ValaFilesVisitor : bob.builder.filesystem.visitor.FileSystemFilteringVisitor {
 					public ValaFilesVisitor (string valaFilesDirectory);
 					public void collectSourceFiles () throws GLib.Error;
 					public override void visitFileFiltered (GLib.File file);

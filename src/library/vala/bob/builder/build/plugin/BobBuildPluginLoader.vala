@@ -11,7 +11,7 @@ namespace bob.builder.build.plugin {
 
 	public class BobBuildPluginLoader {
 		private Logger LOGGER = Logger.getLogger("BobBuildPluginsLoader");
-		private const string PLUGINS_DIRECTORY  = "plugins";
+		private const string PLUGINS_DIRECTORY  = BobDirectories.DIRECTORY_PLUGINS;
 		private const string PLUGIN_INIT_METHOD = "initializePlugin";
 		private const string PLUGIN_DEPS_METHOD = "getDependencies";
 

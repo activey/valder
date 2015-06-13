@@ -3,7 +3,7 @@ using bob.builder.filesystem.visitor;
 
 namespace bob.builder.filesystem {
 
-	public class DirectoryObject : FileSystemObject {
+	public class DirectoryObject {
 
 		private const string CURRENT_DIRECTORY = ".";
 

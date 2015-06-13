@@ -1,10 +1,13 @@
 using bob.builder.log;
+using bob.builder.filesystem;
+using bob.builder.filesystem.visitor;
 
 namespace bob.builder.recipe {
 
 	public class BobBuildRecipeLoader {
 	
 		private const string JSON_RECEIPE = "recipe.bob";
+
 		private Logger LOGGER = Logger.getLogger("BobBuildRecipeLoader");
 	
 		public static BobBuildRecipe loadFromJSON() throws Error {
@@ -13,34 +16,19 @@ namespace bob.builder.recipe {
 
 		private BobBuildRecipeLoader () {}
 
-		public BobBuildRecipe ? loadFromJSONFile(string jsonFileName) throws Error {
-			FileInfo ? jsonFile = locateRecipeFile(jsonFileName);
+		public BobBuildRecipe? loadFromJSONFile(string jsonFileName) throws Error {
+			File? jsonFile = locateRecipeFile(jsonFileName);
 			if (jsonFile == null) {
-				LOGGER.logError("Unable to locate %s file", JSON_RECEIPE);
 				return null;
 			}
 			return BobBuildRecipeParser.parseFromJSONFile(jsonFile);
 		}
 
-		private FileInfo ? locateRecipeFile(string recipeFileName) {
-			try {
-				File workDirectory = getBobWorkDirectory();
-				FileEnumerator enumerator = workDirectory.enumerate_children(FileAttribute.STANDARD_NAME, 0);
-				FileInfo fileInfo;
-				while ((fileInfo = enumerator.next_file()) != null) {
-					if (fileInfo.get_name() == recipeFileName) {
-						return fileInfo;
-					}
-				}
-			}
-			catch(Error e) {
-				LOGGER.logError("An exception occurred while loading json file: ", e.message);
-			}
-			return null;
-		}
-
-		private File getBobWorkDirectory() {
-			return File.new_for_path(".");
+		private File? locateRecipeFile(string recipeFileName) {
+			DirectoryObject workDirectory = new DirectoryObject.fromCurrentLocation();
+			BobBuildRecipeLocatingVisitor recipeVisitor = new BobBuildRecipeLocatingVisitor(recipeFileName);
+			workDirectory.accept(recipeVisitor);
+			return recipeVisitor.getRecipeFile();
 		}
 	}
 }
