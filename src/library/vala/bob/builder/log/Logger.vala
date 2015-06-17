@@ -47,6 +47,7 @@ namespace bob.builder.log {
 			printerSession.setColorGreen();
 			printerSession.commit(stdout);
 			stdout.vprintf(message, va_list());
+			stdout.printf("\n");
 			printerSession.reset(stdout);
 		}
 

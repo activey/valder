@@ -4,6 +4,8 @@ namespace bob.builder.recipe.project {
 
     public class BobBuildProjectDependency {
 
+        private const string VERSION_NONE = "-";
+
         private const string MEMBER_DEPENDENCY = "dependency";
         private const string MEMBER_VERSION = "version";
         private const string MEMBER_TYPE = "type";
@@ -12,7 +14,7 @@ namespace bob.builder.recipe.project {
 
         public BobBuildProjectDependency.fromJsonObject(JsonObject jsonObject) {
     		dependency = jsonObject.getStringEntry(MEMBER_DEPENDENCY, null);
-    		version = jsonObject.getStringEntry(MEMBER_VERSION, null);
+    		version = jsonObject.getStringEntry(MEMBER_VERSION, VERSION_NONE);
     		dependencyType = jsonObject.getStringEntry(MEMBER_TYPE, null);
         }
 
@@ -21,6 +23,9 @@ namespace bob.builder.recipe.project {
         }
         
         public string to_string() {
+            if (isNonVersion()) {
+                return dependency;
+            }
             return "%s-%s".printf(dependency, version);
         }
 
@@ -28,12 +33,17 @@ namespace bob.builder.recipe.project {
         public string version { get; set; }
     	public string dependencyType { get; set; }
 
+        private bool isNonVersion() {
+            return version == VERSION_NONE;
+        }
+
         public JsonObject toJsonObject() {
             JsonObject jsonObject = new JsonObject();
             jsonObject.setStringEntry(MEMBER_DEPENDENCY, dependency);
-            jsonObject.setStringEntry(MEMBER_VERSION, version);
             jsonObject.setStringEntry(MEMBER_TYPE, dependencyType);
-
+            if (!isNonVersion()) {
+                jsonObject.setStringEntry(MEMBER_VERSION, version);
+            }
             return jsonObject; 
         }
     }
