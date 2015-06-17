@@ -6,7 +6,7 @@ using bob.builder.log;
 
 namespace bob.builder.build.plugin {
 
-	public class InitializeProjectStructurePlugin : AbstractBobBuildPlugin {
+    public class InitializeProjectStructurePlugin : AbstractBobBuildPlugin {
 
         const string PLUGIN_NAME = "initialize:structure";
         const string RECIPE_ENTRY_VERBOSE = "verbose";
@@ -16,35 +16,37 @@ namespace bob.builder.build.plugin {
         private bool verbose = false; 
 
         public InitializeProjectStructurePlugin() {
-        	base(PLUGIN_NAME);
+            base(PLUGIN_NAME);
         }
 
-		public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
-			verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
-		}
+        public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
+            verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
+        }
 
-	    public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
-	    	LOGGER.logInfo("Initializing project directory structure.");
+        public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
+            LOGGER.logInfo("Initializing project directory structure.");
 
-	    	ProjectDirectoryStructureBuilder
-	    		.projectDirectory(projectDirectory)
-	    		.directory(src => {
-	    			src.name(BobDirectories.DIRECTORY_SOURCE);
+            ProjectDirectoryStructureBuilder
+                .projectDirectory(projectDirectory)
+                .directory(src => {
+                    src.name(BobDirectories.DIRECTORY_SOURCE);
 
-    				src.directory(library => {
-    					library.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_NAME);
-    					
-    					library.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VALA_NAME));
-    					library.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
-    					library.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME));	
-					});
+                    src.directory(library => {
+                        library.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_NAME);
+                        
+                        library.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VALA_NAME));
+                        library.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
+                        library.directory(c => c.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME)); 
+                    });
 
-	    			src.directory(main => {
-	    				main.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_NAME);
+                    src.directory(main => {
+                        main.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_NAME);
 
-	    				main.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME));
-    				});
-    			});
-	    }
-	}
+                        main.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME));
+                    });
+                });
+
+            LOGGER.logSuccess("Base project directory structure created.");
+        }
+    }
 }

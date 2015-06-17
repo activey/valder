@@ -48,8 +48,12 @@ namespace bob.builder.filesystem {
 		}
 
 		public bool hasChildWithName(string childName) {
-			return getDirectoryChild(childName) != null;
+			ObjectExistenceLookupVisitor existenceLookup = new ObjectExistenceLookupVisitor(childName);
+			accept(existenceLookup);
+
+			return existenceLookup.exists();
 		}
+
 
 		public DirectoryObject? getDirectoryChild(string childName) {
 			DirectoryObjectLookupVisitor directoryLookup = new DirectoryObjectLookupVisitor(childName);
@@ -58,11 +62,21 @@ namespace bob.builder.filesystem {
 			return directoryLookup.getDirectory();
 		}
 
-		public DirectoryObject newDirectoryChild(string childName) throws GLib.Error {
+		public DirectoryObject newDirectoryChild(string childName) throws Error {
 			File directoryChild = File.new_for_path("%s%C%s".printf(directory.get_path(), Path.DIR_SEPARATOR, childName));
 			directoryChild.make_directory();
 
 			return new DirectoryObject(directoryChild);
+		}
+
+		public FileObject newFileChild(string childName) throws Error {
+			File fileChild = newChild(childName);
+			
+			return new FileObject(fileChild);
+		}
+
+		private File newChild(string childName) {
+			return File.new_for_path("%s%C%s".printf(directory.get_path(), Path.DIR_SEPARATOR, childName));
 		}
 	}
 }

@@ -37,7 +37,7 @@ namespace bob.builder.build.plugin {
 			pluginToRunDelegate(instantiatedPlugin);
 		}
 
-		private AbstractBobBuildPlugin ? getPlugin(string pluginName) {
+		private AbstractBobBuildPlugin? getPlugin(string pluginName) {
 			return PLUGIN_LOADER.getPlugin(pluginName);
 		}
 
@@ -68,6 +68,5 @@ namespace bob.builder.build.plugin {
 			}
 			return false;
 		}
-
 	}
 }

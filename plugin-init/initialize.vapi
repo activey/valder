@@ -13,6 +13,12 @@ namespace bob {
 					public bob.builder.build.plugin.DirectoryBuilder name (string directoryName);
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
+				public class EnvironmentPackagesDependenciesParser {
+					public delegate void ParsedDependencyDelegate (string name, string version);
+					public EnvironmentPackagesDependenciesParser ();
+					public void parseDependencies (bob.builder.build.plugin.EnvironmentPackagesDependenciesParser.ParsedDependencyDelegate parsedDependencyDelegate);
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
 				public class InitializeProjectRecipePlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public InitializeProjectRecipePlugin ();
 					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;

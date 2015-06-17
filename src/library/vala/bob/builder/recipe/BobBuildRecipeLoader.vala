@@ -1,4 +1,4 @@
-using bob.builder.log;
+using bob.builder.json;
 using bob.builder.filesystem;
 using bob.builder.filesystem.visitor;
 
@@ -6,12 +6,8 @@ namespace bob.builder.recipe {
 
 	public class BobBuildRecipeLoader {
 	
-		private const string JSON_RECEIPE = "recipe.bob";
-
-		private Logger LOGGER = Logger.getLogger("BobBuildRecipeLoader");
-	
 		public static BobBuildRecipe loadFromJSON() throws Error {
-			return new BobBuildRecipeLoader().loadFromJSONFile(JSON_RECEIPE);
+			return new BobBuildRecipeLoader().loadFromJSONFile(BobFiles.FILE_PROJECT_RECIPE);
 		}
 
 		private BobBuildRecipeLoader () {}
@@ -21,7 +17,10 @@ namespace bob.builder.recipe {
 			if (jsonFile == null) {
 				return null;
 			}
-			return BobBuildRecipeParser.parseFromJSONFile(jsonFile);
+			
+			Json.Parser parser = new Json.Parser();
+			parser.load_from_file(jsonFile.get_path());
+			return new BobBuildRecipe.fromJsonObject(new JsonObject.fromJsonObject(parser.get_root().get_object()));
 		}
 
 		private File? locateRecipeFile(string recipeFileName) {

@@ -15,7 +15,7 @@ namespace bob.builder.build.plugin {
 
         private Logger LOGGER = Logger.getLogger("CollectSourcesPlugin");
 
-        private bool verbose = false; 
+        private bool verbose = true; 
         private ValaFilesVisitor valaLibVisitor;
         private ValaFilesVisitor valaMainVisitor;
         
@@ -26,7 +26,7 @@ namespace bob.builder.build.plugin {
         }
 
 		public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
-			verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
+			verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, true);
 
 			valaLibVisitor = new ValaFilesVisitor(SOURCE_LIB_FOLDER_LOCATION);
 			valaLibVisitor.valaFileFound.connect(this.collectValaLibSourceFile);
