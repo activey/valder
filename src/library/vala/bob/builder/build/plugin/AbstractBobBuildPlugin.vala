@@ -1,6 +1,7 @@
 using bob.builder.build;
 using bob.builder.recipe.plugin;
 using bob.builder.recipe.project;
+using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin {
 
@@ -21,6 +22,6 @@ namespace bob.builder.build.plugin {
 
 		public abstract void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError;
 
-		public abstract void run(BobBuildProjectRecipe projectRecipe) throws BobBuildPluginError;
+		public abstract void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError;
 	}
 }

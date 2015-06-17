@@ -6,8 +6,20 @@ namespace bob.builder.json {
 
 		private Json.Array jsonArray;
 
+		public JsonArray() {
+			jsonArray = new Json.Array();
+		}
+
 		public JsonArray.fromJsonArray(Json.Array jsonArray) {
 			this.jsonArray = jsonArray;
+		}
+
+		public void addToParent(string key, JsonObject parent) {
+			parent.addObjectArrayEntry(key, jsonArray);
+		}
+
+		public void addEntry(Json.Object entry) {
+			jsonArray.add_object_element(entry);
 		}
 
 		public void forEachMember(EachMemberDelegate eachMemberDelegate) {

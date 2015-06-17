@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LIBRARY_NAME='uncrustify'
+LIBRARY_NAME='initialize'
 VAPI_SOURCES=(`find ../src/library/vapi -type f -name "**.vapi"`)
 HEADER_LOCATION=('../src/library/c')
 SOURCES=(`find src/library/vala -type f -name "**.vala"`)

@@ -1,4 +1,4 @@
-using bob.builder.filesystem;
+using bob.builder.filesystem.visitor;
 
 namespace bob.builder.build.plugin {
 

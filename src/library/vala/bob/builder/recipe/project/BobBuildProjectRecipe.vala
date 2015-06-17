@@ -55,7 +55,7 @@ namespace bob.builder.recipe.project {
 			}
 		}
 
-		public BobBuildProjectRecipe.fromJSONObject(JsonObject jsonObject) {
+		public BobBuildProjectRecipe.fromJsonObject(JsonObject jsonObject) {
 			name = jsonObject.getStringEntry(MEMBER_NAME, MEMBER_NAME_DEFAULT);
 			shortName = jsonObject.getStringEntry(MEMBER_SHORTNAME, MEMBER_SHORTNAME_DEFAULT);
 	        version = jsonObject.getStringEntry(MEMBER_VERSION, MEMBER_VERSION_DEFAULT);
@@ -63,7 +63,7 @@ namespace bob.builder.recipe.project {
 	        parseProjectDependencies(jsonObject);
 		}
 
-		public BobBuildProjectRecipe.default() {}
+		public BobBuildProjectRecipe() {}
 
 		private void parseProjectDependencies(JsonObject projectJsonObject) {
 			LOGGER.logInfo("Parsing project dependencies.");
@@ -76,7 +76,7 @@ namespace bob.builder.recipe.project {
 		}
 
 		private void parseProjectDependency(JsonObject dependencyJsonObject) {
-			_dependencies.append(new BobBuildProjectDependency.fromJSONObject(dependencyJsonObject));
+			_dependencies.append(new BobBuildProjectDependency.fromJsonObject(dependencyJsonObject));
 		}
 
 		public void addDependency(BobBuildProjectDependency dependency) {
@@ -89,6 +89,22 @@ namespace bob.builder.recipe.project {
 
 		public void addMainSourceFile(BobBuildProjectSourceFile projectSourceFile) {
 			_mainSourceFiles.append(projectSourceFile);
+		}
+
+		public JsonObject toJsonObject() {
+			JsonObject jsonObject = new JsonObject();
+			jsonObject.setStringEntry(MEMBER_NAME, name);
+			jsonObject.setStringEntry(MEMBER_SHORTNAME, shortName);
+			jsonObject.setStringEntry(MEMBER_VERSION, version);
+
+			JsonArray dependenciesArray = new JsonArray();
+			foreach (BobBuildProjectDependency dependency in _dependencies) {
+				JsonObject dependencyJson = dependency.toJsonObject();
+				dependencyJson.addToArray(dependenciesArray);
+			}
+			dependenciesArray.addToParent(MEMBER_DEPENDENCIES, jsonObject);
+
+			return jsonObject;
 		}
 	}
 }

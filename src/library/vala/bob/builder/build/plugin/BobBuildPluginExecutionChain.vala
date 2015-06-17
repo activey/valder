@@ -1,6 +1,7 @@
 using bob.builder.log;
 using bob.builder.recipe.plugin;
 using bob.builder.recipe.project;
+using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin {
 
@@ -36,7 +37,7 @@ namespace bob.builder.build.plugin {
 			pluginToRunDelegate(instantiatedPlugin);
 		}
 
-		private AbstractBobBuildPlugin ? getPlugin(string pluginName) {
+		private AbstractBobBuildPlugin? getPlugin(string pluginName) {
 			return PLUGIN_LOADER.getPlugin(pluginName);
 		}
 
@@ -56,7 +57,7 @@ namespace bob.builder.build.plugin {
 				return;
 			}
 			LOGGER.logInfo("Running plugin: %s", pluginName);
-			instantiatedPlugin.run(projectRecipe);
+			instantiatedPlugin.run(projectRecipe, new DirectoryObject.fromCurrentLocation());
 		}
 
 		private bool isPluginToRun(string pluginName) {
@@ -67,6 +68,5 @@ namespace bob.builder.build.plugin {
 			}
 			return false;
 		}
-
 	}
 }

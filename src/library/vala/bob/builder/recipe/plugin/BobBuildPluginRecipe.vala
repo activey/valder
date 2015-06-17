@@ -16,12 +16,12 @@ namespace bob.builder.recipe.plugin {
 			set construct;
 		}
 	
-		public BobBuildPluginRecipe.fromJSONObject(string name, JsonObject jsonConfiguration) {
+		public BobBuildPluginRecipe.fromJsonObject(string name, JsonObject jsonConfiguration) {
 			Object(name: name, jsonConfiguration: jsonConfiguration);
 		}
 
 		public BobBuildPluginRecipe.default() {
-			this.fromJSONObject(NAME_DEFAULT, new JsonObject());
+			this.fromJsonObject(NAME_DEFAULT, new JsonObject());
 		}
 	}
 }
