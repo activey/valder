@@ -44,6 +44,11 @@ namespace bob.builder.build.plugin {
 
                         main.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME));
                     });
+                })
+                .directory(target => {
+                    target.name(BobDirectories.DIRECTORY_TARGET);
+                    
+                    target.directory(lib => lib.name(BobDirectories.DIRECTORY_LIB));
                 });
 
             LOGGER.logSuccess("Base project directory structure created.");
