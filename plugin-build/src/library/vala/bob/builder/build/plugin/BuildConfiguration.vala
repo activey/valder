@@ -6,6 +6,7 @@ namespace bob.builder.build.plugin {
 
 		private List<BobBuildProjectDependency> _dependencies = new List<BobBuildProjectDependency>();
 		private List<BobBuildProjectSourceFile> _sources = new List<BobBuildProjectSourceFile>();
+		private string[] _ccOptions = new string[0];
 
 		public string targetFile {
 			get;
@@ -34,9 +35,12 @@ namespace bob.builder.build.plugin {
 		}
 
 		public string[] ccOptions {
-			get;
-			set;
-			default = new string[0];
+			get {
+				return _ccOptions;
+			}
+			set {
+				_ccOptions = value;
+			}
 		}
 
 		public List<BobBuildProjectDependency> dependencies {
@@ -57,6 +61,19 @@ namespace bob.builder.build.plugin {
 
 		public void addSource(BobBuildProjectSourceFile source) {
 			_sources.append(source);
+		}
+
+		public void addCcOption(string ccOption) {
+			_ccOptions += ccOption;
+		}
+
+		public bool hasAnySources(string fileSuffix) {
+			foreach (BobBuildProjectSourceFile sourceFile in _sources) {
+				if (sourceFile.fileLocation.has_suffix(fileSuffix)) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

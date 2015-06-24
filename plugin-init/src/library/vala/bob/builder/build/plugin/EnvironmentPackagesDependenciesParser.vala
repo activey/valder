@@ -13,7 +13,7 @@ namespace bob.builder.build.plugin {
         public void parseDependencies(ParsedDependencyDelegate parsedDependencyDelegate) {
             string dependencyPackages = Environment.get_variable(VAR_DEPS_PKGS);
             if (dependencyPackages == null) {
-                LOGGER.logInfo("No environment packages passed.");
+                LOGGER.logInfo("No environment dependencies packages passed.");
                 return;
             }
 
@@ -28,6 +28,5 @@ namespace bob.builder.build.plugin {
                 parsedDependencyDelegate(dependencyName, version);
             }
         }
-
     }   
 }

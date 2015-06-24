@@ -11,7 +11,6 @@ namespace bob.builder.build.plugin {
 
         const string PLUGIN_NAME = "initialize:recipe";
         const string RECIPE_ENTRY_VERBOSE = "verbose";
-        const string VAR_DEPS_PKGS = "DEPS_PKGS";
 
         private Logger LOGGER = Logger.getLogger("InitializeProjectRecipePlugin");
 

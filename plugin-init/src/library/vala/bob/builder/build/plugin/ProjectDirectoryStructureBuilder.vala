@@ -14,11 +14,13 @@ namespace bob.builder.build.plugin {
 			return new ProjectDirectoryStructureBuilder(projectDirectory);
 		}
 
-		public void directory(DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate) {
+		public ProjectDirectoryStructureBuilder directory(DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate) {
 			DirectoryBuilder directoryBuilder = new DirectoryBuilder(_projectDirectory);
 			directoryBuilderDelegate(directoryBuilder);
 
 			directoryBuilder.getOrCreate();
+
+			return this;
 		}
 	}
 }

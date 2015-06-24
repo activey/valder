@@ -6,6 +6,8 @@ namespace bob.builder.build.plugin {
 
 	public class BuildConfigurationBuilder {
 
+		public delegate void BuildConfigurationLibraryUsageBuilderDelegate(BuildConfigurationLibraryUsageBuilder libraryUsageBuilder);
+
 		private const string PROPERTY_VERBOSE = "verbose";
 
 		private string _targetDirectory = "";
@@ -61,7 +63,7 @@ namespace bob.builder.build.plugin {
 			return this;
 		} 
 
-		public BuildConfigurationBuilder generateVapi() {
+		public BuildConfigurationBuilder generateVapiAndC() {
 			_generateVapi = true;
 			return this;
 		}
@@ -81,6 +83,11 @@ namespace bob.builder.build.plugin {
 			return this;
 		} 
 
+		public BuildConfigurationBuilder ccOption(string ccOption) {
+			buildConfiguration.addCcOption(ccOption);
+			return this;
+		}
+
 		public BuildConfigurationBuilder cOutputDirectory(string cOutputDirectory) {
 			_cOutputDirectory = cOutputDirectory;
 			return this;
@@ -88,6 +95,15 @@ namespace bob.builder.build.plugin {
 
 		public BuildConfigurationBuilder cHeaderFileName(string cHeaderFileName) {
 			_cHeaderFileName = cHeaderFileName;
+			return this;
+		}
+
+		public BuildConfigurationBuilder useLibrary(BuildConfigurationLibraryUsageBuilderDelegate libraryUsageDelegate) {
+			BuildConfigurationLibraryUsageBuilder libraryUsageBuilder = new BuildConfigurationLibraryUsageBuilder();
+			libraryUsageDelegate(libraryUsageBuilder);
+
+			libraryUsageBuilder.addLibraryUsageCcOptions(this);
+
 			return this;
 		}
 

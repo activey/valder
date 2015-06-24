@@ -30,6 +30,8 @@ namespace bob.builder.build {
 		}
 
 		public void proceed() {
+			Timer executionTimer = new Timer();
+
 			printRecipeSummary();
 			try {
 				prepareProjectPlugins();
@@ -37,6 +39,10 @@ namespace bob.builder.build {
 			} catch(Error e) {
 				LOGGER.logError("Build process failed because of unforseen problem: %s.", e.message);
 			}
+
+			executionTimer.stop();
+			double seconds = executionTimer.elapsed();
+			LOGGER.logInfo("Took time: %s seconds.", seconds.to_string());
 		}
 
 		private void printRecipeSummary() {

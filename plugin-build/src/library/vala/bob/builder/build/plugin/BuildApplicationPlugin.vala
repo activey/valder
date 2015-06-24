@@ -27,32 +27,33 @@ namespace bob.builder.build.plugin {
 		}
 
 		public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
-			compileLibraryBinary(projectRecipe);
-			compileRuntimeBinary(projectRecipe);	    	
-
-	    	LOGGER.logInfo("Code compilation finished.");
+			try {
+				ValaCodeCompilerOutcome libraryCompilationOutcome = compileLibraryBinary(projectRecipe);
+				compileRuntimeBinary(projectRecipe, libraryCompilationOutcome);
+			} catch (CompilationError e) {
+	    		LOGGER.logError("Compilation failed with message: %s.", e.message);
+	    		return;
+	    	}
+	    	LOGGER.logSuccess("Code compilation finished.");
 	    }
 
-	    private void compileLibraryBinary(BobBuildProjectRecipe projectRecipe) {
+	    private ValaCodeCompilerOutcome compileLibraryBinary(BobBuildProjectRecipe projectRecipe) throws CompilationError {
+    		LOGGER.logInfo("Generating library binary.");
 	    	ValaCodeCompiler libCompiler = initializeLibraryCodeCompiler(projectRecipe);
-	    	try {
-	    		LOGGER.logInfo("Generating library binary.");
-	    		libCompiler.compile();
-	    	} catch (CompilationError e) {
-	    		LOGGER.logError("Compilation failed with message: %s.", e.message);
-	    		return;
-	    	}
+    		ValaCodeCompilerOutcome libraryCompilationOutcome = libCompiler.compile();
+    		if (libraryCompilationOutcome.binaryGenerated) {
+    			LOGGER.logSuccess("Library binary compilation finished.");
+    		}
+    		return libraryCompilationOutcome;
 	    }
 
-	    private void compileRuntimeBinary(BobBuildProjectRecipe projectRecipe) {
-	    	ValaCodeCompiler runtimeCompiler = initializeRuntimeCodeCompiler(projectRecipe);
-	    	try {
-	    		LOGGER.logInfo("Generating runtime binary.");
-	    		runtimeCompiler.compile();
-	    	} catch (CompilationError e) {
-	    		LOGGER.logError("Compilation failed with message: %s.", e.message);
-	    		return;
-	    	}
+	    private void compileRuntimeBinary(BobBuildProjectRecipe projectRecipe, ValaCodeCompilerOutcome libraryCompilationOutcome) throws CompilationError {
+    		LOGGER.logInfo("Generating runtime binary.");
+	    	ValaCodeCompiler runtimeCompiler = initializeRuntimeCodeCompiler(projectRecipe, libraryCompilationOutcome);
+    		ValaCodeCompilerOutcome binaryCompilationOutcome = runtimeCompiler.compile();
+    		if (binaryCompilationOutcome.binaryGenerated) {
+	    		LOGGER.logSuccess("Runtime binary compilation finished.");
+    		}
 	    }
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {
@@ -61,7 +62,7 @@ namespace bob.builder.build.plugin {
 				.sources(projectRecipe.libSourceFiles)
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET_LIB)
 				.targetFileName("lib%s.so".printf(projectRecipe.shortName))
-				.generateVapi()
+				.generateVapiAndC()
 				.vapiOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI)
 				.vapiOutputFileName("%s.vapi".printf(projectRecipe.shortName))
 				.cOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)
@@ -71,15 +72,26 @@ namespace bob.builder.build.plugin {
 			return new ValaCodeCompiler(buildConfiguration);
 		}
 
-		private ValaCodeCompiler initializeRuntimeCodeCompiler(BobBuildProjectRecipe projectRecipe) {
-			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder
+		private ValaCodeCompiler initializeRuntimeCodeCompiler(BobBuildProjectRecipe projectRecipe, ValaCodeCompilerOutcome libraryCompilationOutcome) {
+			runtimeBuildConfigurationBuilder
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.mainSourceFiles)
-				.addSourceFromRelativeLocation("%s%s%s.vapi".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI, PATH_SEPARATOR, projectRecipe.shortName))
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET)
 				.targetFileName(projectRecipe.shortName)
-				.ccOptions({"-Wl,-rpath=\$ORIGIN/%s".printf(BobDirectories.DIRECTORY_LIB), "-L%s".printf(BobDirectories.DIRECTORY_TARGET_LIB), "-l%s".printf(projectRecipe.shortName), "-I%s".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)})
-				.build();
+				.ccOption("-Wl,-rpath=\$ORIGIN/%s".printf(BobDirectories.DIRECTORY_LIB))
+				.ccOption("-L%s".printf(BobDirectories.DIRECTORY_TARGET_LIB));
+
+			if (libraryCompilationOutcome.binaryGenerated) {
+				LOGGER.logInfo("Using generated library as dependency.");
+
+				runtimeBuildConfigurationBuilder.useLibrary(bobLibrary => {
+					bobLibrary.name = projectRecipe.shortName;
+					bobLibrary.cHeadersDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_C;
+					bobLibrary.vapiFile = "%s%s%s.vapi".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI, PATH_SEPARATOR, projectRecipe.shortName);
+				});
+			}
+				
+			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder.build();
 			return new ValaCodeCompiler(buildConfiguration);
 		}
 	}

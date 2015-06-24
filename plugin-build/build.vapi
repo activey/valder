@@ -13,8 +13,10 @@ namespace bob {
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class BuildConfiguration {
 					public BuildConfiguration ();
+					public void addCcOption (string ccOption);
 					public void addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
+					public bool hasAnySources (string fileSuffix);
 					public string[] ccOptions { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
 					public bool generateVapi { get; set; }
@@ -26,26 +28,44 @@ namespace bob {
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class BuildConfigurationBuilder {
+					public delegate void BuildConfigurationLibraryUsageBuilderDelegate (bob.builder.build.plugin.BuildConfigurationLibraryUsageBuilder libraryUsageBuilder);
 					public BuildConfigurationBuilder ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public bob.builder.build.plugin.BuildConfigurationBuilder addSourceFromRelativeLocation (string sourceFileLocation);
 					public bob.builder.build.plugin.BuildConfiguration build ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder cHeaderFileName (string cHeaderFileName);
 					public bob.builder.build.plugin.BuildConfigurationBuilder cOutputDirectory (string cOutputDirectory);
+					public bob.builder.build.plugin.BuildConfigurationBuilder ccOption (string ccOption);
 					public bob.builder.build.plugin.BuildConfigurationBuilder ccOptions (string[] ccOptions);
 					public bob.builder.build.plugin.BuildConfigurationBuilder dependencies (GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies);
 					public BuildConfigurationBuilder.fromJSONObject (bob.builder.json.JsonObject jsonObject);
-					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapi ();
+					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapiAndC ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder sources (GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
+					public bob.builder.build.plugin.BuildConfigurationBuilder useLibrary (bob.builder.build.plugin.BuildConfigurationBuilder.BuildConfigurationLibraryUsageBuilderDelegate libraryUsageDelegate);
 					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputDirectory (string vapiOutputDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputFileName (string vapiOutputFileName);
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
+				public class BuildConfigurationLibraryUsageBuilder {
+					public BuildConfigurationLibraryUsageBuilder ();
+					public void addLibraryUsageCcOptions (bob.builder.build.plugin.BuildConfigurationBuilder buildConfigurationBuilder);
+					public string cHeadersDirectory { get; set; }
+					public string name { get; set; }
+					public string vapiFile { get; set; }
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class ValaCodeCompiler {
 					public ValaCodeCompiler (bob.builder.build.plugin.BuildConfiguration buildConfiguration);
-					public void compile () throws bob.builder.build.plugin.CompilationError;
+					public bob.builder.build.plugin.ValaCodeCompilerOutcome compile () throws bob.builder.build.plugin.CompilationError;
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
+				public class ValaCodeCompilerOutcome {
+					public ValaCodeCompilerOutcome ();
+					public ValaCodeCompilerOutcome.@default ();
+					public ValaCodeCompilerOutcome.noBinaryGenerated ();
+					public bool binaryGenerated { get; set; }
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public errordomain CompilationError {

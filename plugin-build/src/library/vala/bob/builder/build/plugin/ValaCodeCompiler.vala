@@ -59,7 +59,7 @@ namespace bob.builder.build.plugin {
         private void initializeContextDependencies() {
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
                 string dependencyString = dependency.to_string();
-                LOGGER.logInfo(@"Using dependency: $(dependencyString)");
+                LOGGER.logInfo(@"Using dependency: $(dependencyString).");
                 codeContext.add_external_package(dependencyString);
             }
         }
@@ -67,29 +67,37 @@ namespace bob.builder.build.plugin {
         private void initializeContextSources() {
             foreach (BobBuildProjectSourceFile buildSource in buildConfiguration.sources) {
                 if (codeContext.add_source_filename(buildSource.fileLocation, false, true)) {
+                    
                     if (buildConfiguration.verbose) {
-                        LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation)");
+                        LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation).");
                     }
                 }
             }
         }
 
         private void initializeContextCodeGenerator() {
-            LOGGER.logInfo("Initializing CodeGenerator");
+            LOGGER.logInfo("Initializing CodeGenerator.");
         }
 
-        public void compile() throws CompilationError {
+        public ValaCodeCompilerOutcome compile() throws CompilationError {
+            if (!hasAnyValaSourceFiles()) {
+                LOGGER.logInfo("No VALA source files available, skipping code compilation.");
+                return new ValaCodeCompilerOutcome.noBinaryGenerated();
+            }
+
             LOGGER.logInfo("Starting code compilation ...");
             runCodeParsers();
             runCodeGenerator();
             runVapiGenerator();
             runCodeCompiler();
+            
+            CodeContext.pop();
 
             if (hasErrors()) {
-		        throw new CompilationError.CCOMPILATION_ERROR("An error occurred while compiling source code");
-	        }
+                throw new CompilationError.CCOMPILATION_ERROR("An error occurred while compiling source code");
+            }
 
-            CodeContext.pop();
+            return new ValaCodeCompilerOutcome.default();
         }
 
         private void runCodeParsers() throws CompilationError {
@@ -107,14 +115,14 @@ namespace bob.builder.build.plugin {
             codeContext.check();
 
 	        if (hasErrors()) {
-		        throw new CompilationError.PARSING_ERROR("An error occured while parsing source files");
+		        throw new CompilationError.PARSING_ERROR("An error occured while parsing source files.");
 	        }
         }
 
         private void runCodeGenerator() throws CompilationError {
             codeContext.codegen.emit(codeContext);
     	    if (hasErrors()) {
-    			throw new CompilationError.PARSING_ERROR("An error occured while parsing source files");
+    			throw new CompilationError.PARSING_ERROR("An error occured while parsing source files.");
     		}
         }
 
@@ -135,7 +143,7 @@ namespace bob.builder.build.plugin {
             ccompiler.compile(codeContext, ccCommand, buildConfiguration.ccOptions, pkgConfigCommand);
 
             if (hasErrors()) {
-		        throw new CompilationError.PARSING_ERROR("An error occured while compiling C code");
+		        throw new CompilationError.CCOMPILATION_ERROR("An error occured while compiling C code.");
 	        }
         }
 
@@ -145,6 +153,10 @@ namespace bob.builder.build.plugin {
 
         private bool hasWarnings() {
             return codeContext.report.get_warnings() > 0;
+        }
+
+        private bool hasAnyValaSourceFiles() {
+            return buildConfiguration.hasAnySources(".vala");
         }
     }
 }
