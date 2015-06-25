@@ -1,4 +1,4 @@
-# bob-builder
-Bob the Builder - Vala build tool
+# roger-forger
+Roger the Forger - Vala build tool
 
-Please refer to http://activey.github.io/bob-builder
+Please refer to http://activey.github.io/roger-forger
