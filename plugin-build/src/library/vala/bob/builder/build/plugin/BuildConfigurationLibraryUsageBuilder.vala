@@ -14,17 +14,18 @@ namespace bob.builder.build.plugin {
 			get; set;
 		}
 
-		public string vapiFile {
+		public string vapiDirectory {
 			get; set;
 		}
 
 		public void addLibraryUsageCcOptions(BuildConfigurationBuilder buildConfigurationBuilder) {
 			buildConfigurationBuilder
+				.dependencyByName(name)
 				.ccOption("-l%s".printf(name))
 				.ccOption("-I%s".printf(cHeadersDirectory));
 
-			if (vapiFile != null) {
-				buildConfigurationBuilder.addSourceFromRelativeLocation(vapiFile);
+			if (vapiDirectory != null) {
+				buildConfigurationBuilder.vapiDirectoryLocation(vapiDirectory);
 			}
 		}
 	}

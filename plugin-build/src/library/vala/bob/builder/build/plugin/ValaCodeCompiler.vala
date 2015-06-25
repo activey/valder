@@ -22,6 +22,7 @@ namespace bob.builder.build.plugin {
             this.buildConfiguration = buildConfiguration;
 
             initializeCodeContext();
+            initializeContextVapiDirectories();
             initializeContextDependencies();
             initializeContextSources();
             initializeContextCodeGenerator();
@@ -54,6 +55,14 @@ namespace bob.builder.build.plugin {
 
             codeContext.profile = Profile.GOBJECT;
 			codeContext.add_define("GOBJECT");
+        }
+
+        private void initializeContextVapiDirectories() {
+            string[] vapiDirectoriesLocations = buildConfiguration.getVapiDirectoriesLocations();
+            foreach (string vapiDirectoryLocation in vapiDirectoriesLocations) {
+                LOGGER.logInfo("Using VAPI directory: %s.", vapiDirectoryLocation);
+            }
+            codeContext.vapi_directories = vapiDirectoriesLocations;
         }
 
         private void initializeContextDependencies() {

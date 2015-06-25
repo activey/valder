@@ -87,12 +87,11 @@ namespace bob.builder.build.plugin {
 				runtimeBuildConfigurationBuilder.useLibrary(bobLibrary => {
 					bobLibrary.name = projectRecipe.shortName;
 					bobLibrary.cHeadersDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_C;
-					bobLibrary.vapiFile = "%s%s%s.vapi".printf(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI, PATH_SEPARATOR, projectRecipe.shortName);
+					bobLibrary.vapiDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI;
 				});
 			}
 				
-			BuildConfiguration buildConfiguration = runtimeBuildConfigurationBuilder.build();
-			return new ValaCodeCompiler(buildConfiguration);
+			return new ValaCodeCompiler(runtimeBuildConfigurationBuilder.build());
 		}
 	}
 }

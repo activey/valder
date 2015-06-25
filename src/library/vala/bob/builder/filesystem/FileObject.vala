@@ -2,12 +2,10 @@ using bob.builder.filesystem.visitor;
 
 namespace bob.builder.filesystem {
 
-	public class FileObject {
-
-		private File file;
+	public class FileObject : FileSystemObject {
 
 		public FileObject(File file) {
-			this.file = file;
+			base(file);
 		}
 
 		public void accept(FileSystemVisitor visitor) {
