@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properities -->
-  <title>Bob the Builder</title>
+  <title>Roger the Forger</title>
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
@@ -22,7 +22,7 @@
 </head>
 <body id="home">
   <div class="ui fixed inverted blue menu">
-    <div class="header">Bob the Builder</div>
+    <div class="header">Roger the Forger</div>
     <div class="right menu">
       <div class="ui mobile dropdown link item">
         Menu
@@ -30,18 +30,18 @@
         <div class="menu">
           <a class="item" href="#section_documentation">Documentation</a>
           <a class="item" href="#section_examples">Examples</a>
-          <a class="item" href="https://github.com/activey/bob-builder">Code</a>
+          <a class="item" href="https://github.com/activey/roger-forger">Code</a>
           <a class="item" href="#section_qa">Q&A</a>
         </div>
       </div>
       <a class="item" href="#section_documentation">Documentation</a>
       <a class="item" href="#section_examples">Examples</a>
-      <a class="item" href="https://github.com/activey/bob-builder">Code</a>
+      <a class="item" href="https://github.com/activey/roger-forger">Code</a>
       <div class="ui dropdown link item">
         Plugins
         <div class="inverted blue menu">
           <a class="item" href="#plugin_collect_sources">collect-sources</a>
-          <a class="item" href="#plugin_build">build</a>
+          <a class="item" href="#plugin_forge">forge</a>
           <a class="item" href="#plugin_uncrustify">uncrustify</a>
         </div>
       </div>
@@ -51,10 +51,10 @@
   <div class="ui masthead inverted vertical segment">
     <div class="ui page grid">
       <div class="column">
-        <img src="images/bob1.png" class="ui image dropshadow">
+        <img src="images/roger1.png" class="ui image dropshadow">
         <div class="ui hidden transition information">
           <h1 class="ui inverted header">
-            Bob the Builder
+            Roger the Forger
           </h1>
           <p>Build automation for Vala - right tool to get job done.</p>
           <div class="large basic inverted animated fade ui button">
@@ -74,17 +74,17 @@
               <i class="circular book link icon"></i>
               Documentation 
             </a>
-            <p>Read the latest documentation to see what Bob can do for you.</p>
+            <p>Read the latest documentation to see what Roger can do for you.</p>
           </div>
           <div class="column">
             <a class="ui icon header" href="#section_examples">
               <i class="circular code link icon"></i>
               Examples
             </a>
-            <p>Go through provided Bob usage scenarios showing a glimpse of possible applications.</p>
+            <p>Go through provided Roger usage scenarios showing a glimpse of possible applications.</p>
           </div>
           <div class="column">
-            <a class="ui icon header" href="https://github.com/activey/bob-builder">
+            <a class="ui icon header" href="https://github.com/activey/roger-forger">
               <i class="circular github link icon"></i>
               Code
             </a>
@@ -110,9 +110,9 @@
           <h2 class="ui inverted header">Introduction</h2>
           <div class="content">
             <p>
-            Bob the Builder is intended to be a general purpose build tool dedicated for <a href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Bob as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
+            Roger the Forger is intended to be a general purpose build tool dedicated for <a href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Roger as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
             <p>
-            Bob is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
+            Roger is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
             </p>
           </div>
         </div>
@@ -120,9 +120,9 @@
 
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Bob project structure</h2>
+          <h2 class="ui inverted header">Roger project structure</h2>
           <p>
-          Every project that is using Bob as a build tool has to share the same meaningful structure with source code located under appropriate folders:
+          Every project that is using Roger as a build tool has to share the same meaningful structure with source code located under appropriate folders:
           </p>
           <div class="ui inverted segment">
             <div class="ui inverted relaxed list">
@@ -144,21 +144,21 @@
                 <i class="blue folder icon"></i>
                 <div class="content">
                   <div class="header">/src/library/c</div>
-                  Holds all C files referenced in library source code. Also stores all H files generated by Bob in process of library code compilation.
+                  Holds all C files referenced in library source code. Also stores all H files generated by Roger in process of library code compilation.
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">/target/lib</div>
-                  This directory contains project library binary (.so) generated by Bob in process of library code compilation.  
+                  This directory contains project library binary (.so) generated by Roger in process of library code compilation.  
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">/target</div>
-                  This directory contains project runtime binary generated by Bob in process of runtime code compilation.  
+                  This directory contains project runtime binary generated by Roger in process of runtime code compilation.  
                 </div>
               </div>
               <div class="item">
@@ -179,7 +179,7 @@
                 <i class="folder inverted icon"></i>
                 <div class="content">
                   <div class="header">/target/main</div>
-                  Bob will put all binaries executables here after process of code compilation or any other activity related.
+                  Roger will put all binaries executables here after process of code compilation or any other activity related.
                 </div>
               </div>
             </div>
@@ -190,7 +190,7 @@
       <div class="row">
         <div class="sixteen wide column">
           <h2 class="ui inverted header">Plugins and recipies</h2>
-          <p>As stated earlier Bob design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
+          <p>As stated earlier Roger design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
 
           <div class="ui inverted segment">
             <div class="ui inverted relaxed list">
@@ -204,14 +204,14 @@
               <div class="item">
                 <i class="plug icon"></i>
                 <div class="content">
-                  <div class="offset header" id="plugin_build">build</div>
-                  It's basically a refactored ValaCompiler source code tuned a little bit to fit Bob builder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
+                  <div class="offset header" id="plugin_forge">forge</div>
+                  It's basically a refactored ValaCompiler source code tuned a little bit to fit Roger architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
                 </div>
               </div>
             </div>
           </div>
 
-          <p>While having in mind generic nature of all Bob plugins (plugin will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Bob you can provide a project configuration file called Project Recipe - <strong>recipe.bob</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
+          <p>While having in mind generic nature of all Roger plugins (plugin will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Roger you can provide a project configuration file called Project Recipe - <strong>recipe.roger</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
 
           <div class="ui purple inverted segment">
             <div class="preformatted">{
@@ -235,7 +235,7 @@
         "collect-sources": {
             "verbose": true
         },
-        "build": {
+        "forge": {
             "verbose": false
         }
     }
@@ -275,15 +275,15 @@
       
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Bulding Bob using shell scripts</h2>
-          <p>Bob source code package comes together with several shell scripts used to build Bob library and runtime binaries. Because Bob package does not contain compiled binaries you have to do it on your own but only once, Bob is capable of building it's source code with ... itself ;)</p>
-          <p>First we need to generate Bob library file, go and execute following shell script:</p>
-          <div class="ui purple inverted preformatted segment">$/bob-source-code> ./build-library.sh</div>
+          <h2 class="ui inverted header">Bulding Roger using shell scripts</h2>
+          <p>Roger source code package comes together with several shell scripts used to build Roger library and runtime binaries. Because Roger package does not contain compiled binaries you have to do it on your own but only once, Roger is capable of building it's source code with ... itself ;)</p>
+          <p>First we need to generate Roger library file, go and execute following shell script:</p>
+          <div class="ui purple inverted preformatted segment">$/roger-source-code> ./build-library.sh</div>
           <p>
-            If everything goes fine you will see a <strong>libbob.so</strong> library file under <strong>target/lib folder</strong>. After library has been successfuly generated you can now proceed the similar operation with runtime binary, just run the command:
+            If everything goes fine you will see a <strong>libroger.so</strong> library file under <strong>target/lib folder</strong>. After library has been successfuly generated you can now proceed the similar operation with runtime binary, just run the command:
           </p>
-          <div class="ui purple inverted preformatted segment">$/bob-source-code> ./build-cmdline.sh</div>
-          <p>This one will result with a new runtime binary file located under <strong>target/bob</strong></p>
+          <div class="ui purple inverted preformatted segment">$/roger-source-code> ./build-cmdline.sh</div>
+          <p>This one will result with a new runtime binary file located under <strong>target/roger</strong></p>
         </div>
       </div>
 
@@ -296,47 +296,47 @@
       </div>
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Bob usage scenarios</h2>
-          <p>Bob usage is rather straightforward and does not require and specialized terminal user skills. To run Bob with default settings naviage to project directory and type in system shell console:</p>
-          <div class="ui purple inverted preformatted segment">$/project> bob</div>
+          <h2 class="ui inverted header">Roger usage scenarios</h2>
+          <p>Roger usage is rather straightforward and does not require and specialized terminal user skills. To run Roger with default settings naviage to project directory and type in system shell console:</p>
+          <div class="ui purple inverted preformatted segment">$/project> roger</div>
           <p>
-            By default Bob will only print out the list of parsed plugins recipies and some version information as well:
+            By default Roger will only print out the list of parsed plugins recipies and some version information as well:
           </p>
-          <div class="ui purple inverted preformatted segment">[BobBuildProjectRecipe] Parsing project dependencies.
-[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
-[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
-[BobBuildRecipeParser] Parsing plugin recipe: build
-[BobBuildPluginsLoader] Loading plugins from directory: /bob/plugins
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libbuild.so
-[BobBuildPluginsLoader] Registering new plugin: build
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libcollect-sources.so
-[BobBuildPluginsLoader] Registering new plugin: collect-sources
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libuncrustify.so
-[BobBuildPluginsLoader] Registering new plugin: uncrustify
-[BobBuilder] Bob the Builder, version = 0.0.1</div>
-          <p>To tell Bob to run any of available plugin just pass a list of plugins one as bob executable parameters:
-          <div class="ui purple inverted preformatted segment">$/project> bob collect-sources build</div>
-          <p>Bob will then initialize passed plugins with available receipe data generating output similar to this:</p>
-          <div class="ui purple inverted preformatted segment">[BobBuildProjectRecipe] Parsing project dependencies.
-[BobBuildRecipeParser] Parsing plugin recipe: collect-sources
-[BobBuildRecipeParser] Parsing plugin recipe: uncrustify
-[BobBuildRecipeParser] Parsing plugin recipe: build
-[BobBuildPluginsLoader] Loading plugins from directory: /bob/plugins
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libbuild.so
-[BobBuildPluginsLoader] Registering new plugin: build
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libcollect-sources.so
-[BobBuildPluginsLoader] Registering new plugin: collect-sources
-[BobBuildPluginsLoader] Loaded build plugin module: /bob/plugins/libuncrustify.so
-[BobBuildPluginsLoader] Registering new plugin: uncrustify
-[BobBuildPluginExecutionChain] Using build plugin: collect-sources.
-[BobBuildPluginExecutionChain] Using build plugin: build.
-[BobBuildContext] Building project: project-0.0.1 (My first project)
-[BobBuildContext] Loading project plugins recipies...
-[BobBuildPluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
-[BobBuildPluginExecutionChain] Initializing plugin 'build' with recipe data.
-[BobBuildContext] Running project plugins
-[BobBuildPluginExecutionChain] Running plugin: collect-sources
-[BobBuildPluginExecutionChain] Running plugin: build
+          <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
+[RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
+[RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
+[RogerForgeRecipeParser] Parsing plugin recipe: forge
+[RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libforge.so
+[RogerForgePluginsLoader] Registering new plugin: forge
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libcollect-sources.so
+[RogerForgePluginsLoader] Registering new plugin: collect-sources
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libuncrustify.so
+[RogerForgePluginsLoader] Registering new plugin: uncrustify
+[RogerForgeer] Roger the Forger, version = 0.0.1</div>
+          <p>To tell Roger to run any of available plugin just pass a list of plugins one as Roger executable parameters:
+          <div class="ui purple inverted preformatted segment">$/project> Roger collect-sources forge</div>
+          <p>Roger will then initialize passed plugins with available receipe data generating output similar to this:</p>
+          <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
+[RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
+[RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
+[RogerForgeRecipeParser] Parsing plugin recipe: forge
+[RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libforge.so
+[RogerForgePluginsLoader] Registering new plugin: forge
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libcollect-sources.so
+[RogerForgePluginsLoader] Registering new plugin: collect-sources
+[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libuncrustify.so
+[RogerForgePluginsLoader] Registering new plugin: uncrustify
+[RogerForgePluginExecutionChain] Using forge plugin: collect-sources.
+[RogerForgePluginExecutionChain] Using forge plugin: forge.
+[RogerForgeContext] Building project: project-0.0.1 (My first project)
+[RogerForgeContext] Loading project plugins recipies...
+[RogerForgePluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
+[RogerForgePluginExecutionChain] Initializing plugin 'forge' with recipe data.
+[RogerForgeContext] Running project plugins
+[RogerForgePluginExecutionChain] Running plugin: collect-sources
+[RogerForgePluginExecutionChain] Running plugin: forge
 [ValaCodeCompiler] Initializing CodeContext
 [ValaCodeCompiler] Using dependency: glib-2.0
 [ValaCodeCompiler] Using dependency: gobject-2.0
@@ -379,14 +379,14 @@
                 <i class="question big icon"></i>
                 <div class="content">
                   <div class="header">Why another build tool? Isn't make, Cmake, waf or any other out there enough?</div>
-                  Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Bob is here to make it easier and fit better for Vala.
+                  Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Roger is here to make it easier and fit better for Vala.
                 </div>
               </div>
               <div class="item">
                 <i class="question big icon"></i>
                 <div class="content">
                   <div class="header">I have an idea for a new possible plugin, how can I contribute?</div>
-                  If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) go and for Bob builder source code repository on <a href="https://github.com/activey/bob-builder">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/bob-builder/issues">GitHub</a> issue with short description, I could think of it in spare time.
+                  If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) have a look at example plugins available at source code repository on <a href="https://github.com/activey/roger-forger">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/roger-forger/issues">GitHub</a> issue with short description, I could think of it in spare time.
                 </div>
               </div>
             </div>
@@ -396,7 +396,7 @@
       
     </div>
     <div class="ui page basic center aligned segment">
-        <a aria-label="Star activey/bob-builder on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/activey/bob-builder#stargazers_count" data-count-href="/activey/bob-builder/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/activey/bob-builder" class="github-button">Star Bob the Builder</a>
+        <a aria-label="Star activey/roger-forger on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/activey/roger-forger#stargazers_count" data-count-href="/activey/roger-forger/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/activey/roger-forger" class="github-button">Star Roger the Forger</a>
 
         <a aria-label="Follow @activey on GitHub" data-count-aria-label="# followers on GitHub" data-count-api="/users/activey#followers" data-count-href="/activey/followers" data-style="mega" href="https://github.com/activey" class="github-button">Follow @activey</a>
       </div>
