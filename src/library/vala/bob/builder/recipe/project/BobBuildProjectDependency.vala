@@ -22,7 +22,7 @@ namespace bob.builder.recipe.project {
             dependencyType = TYPE_PKG;
         }
         
-        public string to_string() {
+        public string toString() {
             if (isNonVersion()) {
                 return dependency;
             }
@@ -34,7 +34,7 @@ namespace bob.builder.recipe.project {
     	public string dependencyType { get; set; }
 
         private bool isNonVersion() {
-            return version == VERSION_NONE;
+            return version == VERSION_NONE || version == null;
         }
 
         public JsonObject toJsonObject() {

@@ -67,7 +67,7 @@ namespace bob.builder.build.plugin {
 
         private void initializeContextDependencies() {
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
-                string dependencyString = dependency.to_string();
+                string dependencyString = dependency.toString();
                 LOGGER.logInfo(@"Using dependency: $(dependencyString).");
                 codeContext.add_external_package(dependencyString);
             }
