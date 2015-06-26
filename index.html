@@ -36,15 +36,17 @@
       </div>
       <a class="item" href="#section_documentation">Documentation</a>
       <a class="item" href="#section_examples">Examples</a>
-      <a class="item" href="https://github.com/activey/roger-forger">Code</a>
       <div class="ui dropdown link item">
         Plugins
         <div class="inverted blue menu">
+          <a class="item" href="#plugin_initialize_structure">initialize:structure</a>
+          <a class="item" href="#plugin_initialize_recipe">initialize:recipe</a>
           <a class="item" href="#plugin_collect_sources">collect-sources</a>
-          <a class="item" href="#plugin_forge">forge</a>
+          <a class="item" href="#plugin_build">build</a>
           <a class="item" href="#plugin_uncrustify">uncrustify</a>
         </div>
       </div>
+      <a class="item" href="https://github.com/activey/roger-forger">Code</a>
       <a class="item" href="#section_qa">Q&A</a>
     </div>
   </div>
@@ -175,13 +177,6 @@
                   Holds all VAPI files referenced in runtime executable binary source code.
                 </div>
               </div>
-              <div class="item">
-                <i class="folder inverted icon"></i>
-                <div class="content">
-                  <div class="header">/target/main</div>
-                  Roger will put all binaries executables here after process of code compilation or any other activity related.
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -190,30 +185,112 @@
       <div class="row">
         <div class="sixteen wide column">
           <h2 class="ui inverted header">Plugins and recipies</h2>
-          <p>As stated earlier Roger design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. As for now we were able to implement a minimal subset of plugins to conform basic and minimal requirement that is creating binary file out of set of provided Vala source code files:</p>
+          <p>As stated earlier Roger design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of plugins shipped with Roger distribution package:</p>
 
-          <div class="ui inverted segment">
-            <div class="ui inverted relaxed list">
+            <div class="ui divided items">
               <div class="item">
-                <i class="plug icon"></i>
-                <div class="content">
-                  <div class="offset header" id="plugin_collect_sources">collect-sources</div>
-                  Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins. 
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="plugin_initialize_structure">
+                    <i class="plug icon"></i>
+                    <div class="content">
+                      initialize:structure
+                    </div>
+                  </h3>                  
+                    <p>First plugin used to initialize contents of a new Roger project. It's intented to be used on empty project directory by creating it's default structure. Plugin honors all directories specified in "Roger project structure". Plugin is totally safe and wont harm your current filesystem hierarchy.</p>
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-init">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
               <div class="item">
-                <i class="plug icon"></i>
-                <div class="content">
-                  <div class="offset header" id="plugin_forge">forge</div>
-                  It's basically a refactored ValaCompiler source code tuned a little bit to fit Roger architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="plugin_initialize_recipe">
+                    <i class="plug icon"></i>
+                    <div class="content">
+                      initialize:recipe
+                    </div>
+                  </h3>                  
+                    <p>This particular plugin is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-init">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="plugin_collect_sources">
+                    <i class="plug icon"></i>
+                    <div class="content">
+                      collect-sources
+                    </div>
+                  </h3>                  
+                    <p>Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins.</p>
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-collect-sources">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="plugin_build">
+                    <i class="plug icon"></i>
+                    <div class="content">
+                      build
+                    </div>
+                  </h3>                  
+                    <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Roger architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).</p>
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-build">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="plugin_uncrustify">
+                    <i class="plug icon"></i>
+                    <div class="content">
+                      uncrustify
+                    </div>
+                  </h3>                  
+                    <p>
+                      <div class="ui inverted red mini ribbon label">
+                      <i class="spinner icon"></i>
+                      Work in progress
+                    </div>
+
+                    </p>
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-uncrustify">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
+          
+
+          <h3>Plugins configuration</h3>
           <p>While having in mind generic nature of all Roger plugins (plugin will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Roger you can provide a project configuration file called Project Recipe - <strong>recipe.roger</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
 
           <div class="ui purple inverted segment">
+            <div class="ui bottom inverted red right ribbon label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
             <div class="preformatted">{
     "project": {
         "name": "Test project",
@@ -235,32 +312,12 @@
         "collect-sources": {
             "verbose": true
         },
-        "forge": {
+        "build": {
             "verbose": false
         }
     }
 }</div>
-            <div class="ui bottom right attached inverted red label">
-              <i class="spinner icon"></i>
-              Work in progress
-            </div>
-          </div>
-          <p>Additionaly you can find here a list of other plugins being in development at the moment:</p>
-
-          <div class="ui inverted segment" id="plugin_uncrustify">
-            <div class="ui inverted relaxed list">
-              <div class="item">
-                <i class="plug icon"></i>
-                <div class="content">
-                  <div class="offset header">uncrustify</div>
-                  [TBD] 
-                </div>
-              </div>
-            </div>
-            <div class="ui bottom right attached inverted red label">
-              <i class="spinner icon"></i>
-              Work in progress
-            </div>
+            
           </div>
         </div>
       </div>
@@ -305,38 +362,38 @@
           <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
 [RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
 [RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
-[RogerForgeRecipeParser] Parsing plugin recipe: forge
+[RogerForgeRecipeParser] Parsing plugin recipe: build
 [RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libforge.so
-[RogerForgePluginsLoader] Registering new plugin: forge
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libcollect-sources.so
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libbuild.so
+[RogerForgePluginsLoader] Registering new plugin: build
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libcollect-sources.so
 [RogerForgePluginsLoader] Registering new plugin: collect-sources
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libuncrustify.so
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libuncrustify.so
 [RogerForgePluginsLoader] Registering new plugin: uncrustify
 [RogerForgeer] Roger the Forger, version = 0.0.1</div>
           <p>To tell Roger to run any of available plugin just pass a list of plugins one as Roger executable parameters:
-          <div class="ui purple inverted preformatted segment">$/project> Roger collect-sources forge</div>
+          <div class="ui purple inverted preformatted segment">$/project> roger collect-sources build</div>
           <p>Roger will then initialize passed plugins with available receipe data generating output similar to this:</p>
           <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
 [RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
 [RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
-[RogerForgeRecipeParser] Parsing plugin recipe: forge
+[RogerForgeRecipeParser] Parsing plugin recipe: build
 [RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libforge.so
-[RogerForgePluginsLoader] Registering new plugin: forge
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libcollect-sources.so
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libbuild.so
+[RogerForgePluginsLoader] Registering new plugin: build
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libcollect-sources.so
 [RogerForgePluginsLoader] Registering new plugin: collect-sources
-[RogerForgePluginsLoader] Loaded forge plugin module: /roger/plugins/libuncrustify.so
+[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libuncrustify.so
 [RogerForgePluginsLoader] Registering new plugin: uncrustify
-[RogerForgePluginExecutionChain] Using forge plugin: collect-sources.
-[RogerForgePluginExecutionChain] Using forge plugin: forge.
+[RogerForgePluginExecutionChain] Using build plugin: collect-sources.
+[RogerForgePluginExecutionChain] Using build plugin: build.
 [RogerForgeContext] Building project: project-0.0.1 (My first project)
 [RogerForgeContext] Loading project plugins recipies...
 [RogerForgePluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
-[RogerForgePluginExecutionChain] Initializing plugin 'forge' with recipe data.
+[RogerForgePluginExecutionChain] Initializing plugin 'build' with recipe data.
 [RogerForgeContext] Running project plugins
 [RogerForgePluginExecutionChain] Running plugin: collect-sources
-[RogerForgePluginExecutionChain] Running plugin: forge
+[RogerForgePluginExecutionChain] Running plugin: build
 [ValaCodeCompiler] Initializing CodeContext
 [ValaCodeCompiler] Using dependency: glib-2.0
 [ValaCodeCompiler] Using dependency: gobject-2.0
