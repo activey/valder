@@ -47,6 +47,9 @@
         },
         "build": {
             "verbose": true
+        },
+        "repository:install": {
+            "overwrite": true
         }
     }
 }

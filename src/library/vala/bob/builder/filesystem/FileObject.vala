@@ -21,5 +21,14 @@ namespace bob.builder.filesystem {
 			}
 			return stream;
 		}
+
+		public void copyTo(DirectoryObject directory, bool overwrite) throws Error {
+			FileObject fileCopy = directory.newFileChild(file.get_basename());
+			fileCopy.copyFrom(file, overwrite);
+		}
+
+		public void copyFrom(File originalFile, bool overwrite) throws Error {
+			originalFile.copy(file, (overwrite) ? FileCopyFlags.OVERWRITE : FileCopyFlags.NONE);
+		}
 	}
 }

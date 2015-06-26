@@ -21,6 +21,10 @@ namespace bob.builder.filesystem {
 			this.fromGivenLocation(CURRENT_DIRECTORY);
 		}
 
+		public DirectoryObject.fromUserHomeFolder() {
+			this.fromGivenLocation(Environment.get_home_dir());
+		}
+
 		public void accept(FileSystemVisitor visitor) {
 			visitor.visitDirectory(file);
 
@@ -59,14 +63,30 @@ namespace bob.builder.filesystem {
 			return directoryLookup.getDirectory();
 		}
 
+		public DirectoryObject? getDirectoryChildAtLocation(string relativeLocation) {
+			string nestedDirectoryLocation = "%s%C%s".printf(getLocation(), Path.DIR_SEPARATOR, relativeLocation);
+			DirectoryObject nestedDirectory = new DirectoryObject.fromGivenLocation(nestedDirectoryLocation);
+			if (!nestedDirectory.exists()) {
+				return null;
+			}
+			return nestedDirectory;
+		}
+
 		public DirectoryObject newDirectoryChild(string childName) throws Error {
-			File directoryChild = File.new_for_path("%s%C%s".printf(file.get_path(), Path.DIR_SEPARATOR, childName));
+			File directoryChild = newChild(childName);
 			directoryChild.make_directory();
 
 			return new DirectoryObject(directoryChild);
 		}
 
-		public FileObject newFileChild(string childName) throws Error {
+		public FileObject? getFileChild(string childName) {
+			FileObjectLookupVisitor fileLookup = new FileObjectLookupVisitor(childName);
+			accept(fileLookup);
+
+			return fileLookup.getFile();
+		}
+
+		public FileObject newFileChild(string childName) {
 			File fileChild = newChild(childName);
 			
 			return new FileObject(fileChild);
