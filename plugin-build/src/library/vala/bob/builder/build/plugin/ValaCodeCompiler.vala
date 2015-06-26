@@ -60,7 +60,7 @@ namespace bob.builder.build.plugin {
         private void initializeContextVapiDirectories() {
             string[] vapiDirectoriesLocations = buildConfiguration.getVapiDirectoriesLocations();
             foreach (string vapiDirectoryLocation in vapiDirectoriesLocations) {
-                LOGGER.logInfo("Using VAPI directory: %s.", vapiDirectoryLocation);
+                LOGGER.logInfo(@"Using VAPI directory: $(vapiDirectoryLocation).");
             }
             codeContext.vapi_directories = vapiDirectoriesLocations;
         }
@@ -68,8 +68,11 @@ namespace bob.builder.build.plugin {
         private void initializeContextDependencies() {
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
                 string dependencyString = dependency.toString();
-                LOGGER.logInfo(@"Using dependency: $(dependencyString).");
-                codeContext.add_external_package(dependencyString);
+                if (codeContext.add_external_package(dependencyString)) {
+                    LOGGER.logInfo(@"Using PKG dependency: $(dependencyString).");
+                } else {
+                    LOGGER.logError(@"Unable to find PKG dependency: $(dependencyString).");
+                }
             }
         }
 

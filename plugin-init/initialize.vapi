@@ -5,14 +5,6 @@ namespace bob {
 		namespace build {
 			namespace plugin {
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
-				public class DirectoryBuilder {
-					public delegate void DirectoryBuilderDelegate (bob.builder.build.plugin.DirectoryBuilder directoryBuilder);
-					public DirectoryBuilder (bob.builder.filesystem.DirectoryObject parentDirectory);
-					public void directory (bob.builder.build.plugin.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
-					public bob.builder.filesystem.DirectoryObject getOrCreate ();
-					public bob.builder.build.plugin.DirectoryBuilder name (string directoryName);
-				}
-				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
 				public class EnvironmentPackagesDependenciesParser {
 					public delegate void ParsedDependencyDelegate (string name, string version);
 					public EnvironmentPackagesDependenciesParser ();
@@ -32,7 +24,7 @@ namespace bob {
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
 				public class ProjectDirectoryStructureBuilder {
-					public bob.builder.build.plugin.ProjectDirectoryStructureBuilder directory (bob.builder.build.plugin.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
+					public bob.builder.build.plugin.ProjectDirectoryStructureBuilder directory (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
 					public static bob.builder.build.plugin.ProjectDirectoryStructureBuilder projectDirectory (bob.builder.filesystem.DirectoryObject projectDirectory);
 				}
 			}

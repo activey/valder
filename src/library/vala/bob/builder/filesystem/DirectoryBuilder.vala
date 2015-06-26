@@ -1,7 +1,6 @@
 using bob.builder.log;
-using bob.builder.filesystem;
 
-namespace bob.builder.build.plugin {
+namespace bob.builder.filesystem {
 
 	public class DirectoryBuilder {
 
@@ -17,11 +16,11 @@ namespace bob.builder.build.plugin {
 			_parentDirectory = parentDirectory;
 		}
 
-		public void directory(DirectoryBuilderDelegate directoryBuilderDelegate) {
+		public DirectoryObject directory(DirectoryBuilderDelegate directoryBuilderDelegate) {
 			DirectoryBuilder directoryBuilder = new DirectoryBuilder(getOrCreate());
 			directoryBuilderDelegate(directoryBuilder);
 
-			directoryBuilder.getOrCreate();
+			return directoryBuilder.getOrCreate();
 		}
 
 		public DirectoryBuilder name(string directoryName) {

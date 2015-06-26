@@ -61,12 +61,12 @@ namespace bob.builder.build.plugin {
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.libSourceFiles)
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET_LIB)
-				.targetFileName("lib%s.so".printf(projectRecipe.shortName))
+				.targetFileName(BobFiles.FILE_TARGET_LIBRARY_NAME.printf(projectRecipe.shortName))
 				.generateVapiAndC()
 				.vapiOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI)
-				.vapiOutputFileName("%s.vapi".printf(projectRecipe.shortName))
+				.vapiOutputFileName(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName))
 				.cOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)
-				.cHeaderFileName("%s.h".printf(projectRecipe.shortName))
+				.cHeaderFileName(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName))
 				.ccOptions({"-fPIC", "-shared"})
 				.build();
 			return new ValaCodeCompiler(buildConfiguration);
