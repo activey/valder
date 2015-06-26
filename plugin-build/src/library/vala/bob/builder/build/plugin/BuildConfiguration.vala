@@ -1,4 +1,5 @@
 using bob.builder.recipe.project;
+using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin {
 
@@ -6,6 +7,8 @@ namespace bob.builder.build.plugin {
 
 		private List<BobBuildProjectDependency> _dependencies = new List<BobBuildProjectDependency>();
 		private List<BobBuildProjectSourceFile> _sources = new List<BobBuildProjectSourceFile>();
+		private List<DirectoryObject> _vapiDirectories = new List<DirectoryObject>();
+
 		private string[] _ccOptions = new string[0];
 
 		public string targetFile {
@@ -43,6 +46,10 @@ namespace bob.builder.build.plugin {
 			}
 		}
 
+		public void addCcOption(string ccOption) {
+			_ccOptions += ccOption;
+		}
+
 		public List<BobBuildProjectDependency> dependencies {
 			get {
 				return _dependencies;
@@ -63,10 +70,6 @@ namespace bob.builder.build.plugin {
 			_sources.append(source);
 		}
 
-		public void addCcOption(string ccOption) {
-			_ccOptions += ccOption;
-		}
-
 		public bool hasAnySources(string fileSuffix) {
 			foreach (BobBuildProjectSourceFile sourceFile in _sources) {
 				if (sourceFile.fileLocation.has_suffix(fileSuffix)) {
@@ -74,6 +77,18 @@ namespace bob.builder.build.plugin {
 				}
 			}
 			return false;
+		}
+		
+		public string[] getVapiDirectoriesLocations() {
+			string[] locations = new string[0];
+			foreach (DirectoryObject vapiDirectory in _vapiDirectories) {
+				locations += vapiDirectory.getLocation();
+			}
+			return locations;
+		}
+
+		public void addVapiDirectory(DirectoryObject vapiDirectory) {
+			_vapiDirectories.append(vapiDirectory);
 		}
 	}
 }

@@ -3,20 +3,18 @@ using bob.builder.filesystem.visitor;
 
 namespace bob.builder.filesystem {
 
-	public class DirectoryObject {
+	public class DirectoryObject : FileSystemObject {
 
 		private const string CURRENT_DIRECTORY = ".";
 
 		private Logger LOGGER = Logger.getLogger("DirectoryObject");
 
-		private File directory;
-
 		public DirectoryObject(File directory) {
-			this.directory = directory;
+			base(directory);
 		}
 
 		public DirectoryObject.fromGivenLocation(string directoryLocation) {
-			this.directory = File.new_for_path(directoryLocation);
+			base(File.new_for_path(directoryLocation));
 		}
 
 		public DirectoryObject.fromCurrentLocation() {
@@ -24,10 +22,10 @@ namespace bob.builder.filesystem {
 		}
 
 		public void accept(FileSystemVisitor visitor) {
-			visitor.visitDirectory(directory);
+			visitor.visitDirectory(file);
 
 			try {
-				FileEnumerator enumerator = directory.enumerate_children(FileAttribute.STANDARD_NAME, 0);
+				FileEnumerator enumerator = file.enumerate_children(FileAttribute.STANDARD_NAME, 0);
 				FileInfo fileInfo;
 				while ((fileInfo = enumerator.next_file()) != null) {
 					File file = enumerator.get_child(fileInfo);
@@ -54,7 +52,6 @@ namespace bob.builder.filesystem {
 			return existenceLookup.exists();
 		}
 
-
 		public DirectoryObject? getDirectoryChild(string childName) {
 			DirectoryObjectLookupVisitor directoryLookup = new DirectoryObjectLookupVisitor(childName);
 			accept(directoryLookup);
@@ -63,7 +60,7 @@ namespace bob.builder.filesystem {
 		}
 
 		public DirectoryObject newDirectoryChild(string childName) throws Error {
-			File directoryChild = File.new_for_path("%s%C%s".printf(directory.get_path(), Path.DIR_SEPARATOR, childName));
+			File directoryChild = File.new_for_path("%s%C%s".printf(file.get_path(), Path.DIR_SEPARATOR, childName));
 			directoryChild.make_directory();
 
 			return new DirectoryObject(directoryChild);
@@ -76,7 +73,7 @@ namespace bob.builder.filesystem {
 		}
 
 		private File newChild(string childName) {
-			return File.new_for_path("%s%C%s".printf(directory.get_path(), Path.DIR_SEPARATOR, childName));
+			return File.new_for_path("%s%C%s".printf(file.get_path(), Path.DIR_SEPARATOR, childName));
 		}
 	}
 }

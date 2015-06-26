@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -x
 
 SOURCES=(`find src/main -type f -name "**.vala"`)
