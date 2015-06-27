@@ -1,4 +1,5 @@
 using bob.builder.build;
+using bob.builder.recipe;
 using bob.builder.recipe.plugin;
 using bob.builder.recipe.project;
 using bob.builder.filesystem;
@@ -18,6 +19,7 @@ namespace bob.builder.build.plugin {
         private bool verbose = false; 
         private bool overwrite = false;
 
+        private DirectoryObject projectDirectory;
         private DirectoryObject vapiDirectory;
         private DirectoryObject cDirectory;
         private DirectoryObject libDirectory;
@@ -46,10 +48,15 @@ namespace bob.builder.build.plugin {
 
                     repository.directory(project => {
                         project.name(projectRecipe.shortName);
-                        
-                        vapiDirectory = project.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
-                        cDirectory = project.directory(c => c.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME)); 
-                        libDirectory = project.directory(lib => lib.name(BobDirectories.DIRECTORY_LIB)); 
+
+                        projectDirectory = project.directory(versionDirectory => {
+                            versionDirectory.name(projectRecipe.version);
+
+                            vapiDirectory = versionDirectory.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
+                            cDirectory = versionDirectory.directory(c => c.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME)); 
+                            libDirectory = versionDirectory.directory(lib => lib.name(BobDirectories.DIRECTORY_LIB)); 
+                        });
+
                     });
                 });
 
@@ -61,9 +68,20 @@ namespace bob.builder.build.plugin {
 
             DirectoryObject workDirectory = new DirectoryObject.fromCurrentLocation();
             
+            dumpRecipeFile(projectRecipe);
             copyVapiFile(workDirectory, projectRecipe);
             copyCFile(workDirectory, projectRecipe);
             copyLibFile(workDirectory, projectRecipe);            
+        }
+
+        private void dumpRecipeFile(BobBuildProjectRecipe projectRecipe) {
+            LOGGER.logInfo("Dumping receipe file to directory: %s.", projectDirectory.getLocation());
+
+            FileObject newRecipeFile = projectDirectory.newFileChild(BobFiles.FILE_PROJECT_RECIPE);
+
+            BobBuildRecipe newRecipe = new BobBuildRecipe();
+            newRecipe.project = projectRecipe;
+            newRecipe.writeToFile(newRecipeFile);
         }
 
         private void copyVapiFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
