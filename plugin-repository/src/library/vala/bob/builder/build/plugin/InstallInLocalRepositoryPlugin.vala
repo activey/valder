@@ -17,7 +17,7 @@ namespace bob.builder.build.plugin {
         private Logger LOGGER = Logger.getLogger("InstallInLocalRepositoryPlugin");
 
         private bool verbose = false; 
-        private bool overwrite = false;
+        private bool overwrite = true;
 
         private DirectoryObject projectDirectory;
         private DirectoryObject vapiDirectory;
@@ -30,7 +30,7 @@ namespace bob.builder.build.plugin {
 
         public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
             verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
-            overwrite = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_OVERWRITE, false);
+            overwrite = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_OVERWRITE, true);
         }
 
         public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
