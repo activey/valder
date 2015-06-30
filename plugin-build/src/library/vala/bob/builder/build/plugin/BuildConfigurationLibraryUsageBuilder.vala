@@ -10,6 +10,10 @@ namespace bob.builder.build.plugin {
 			get; set;
 		}
 
+		public string version {
+			get; set;
+		}
+
 		public string cHeadersDirectory {
 			get; set;
 		}
@@ -22,10 +26,10 @@ namespace bob.builder.build.plugin {
 			buildConfigurationBuilder
 				.dependency(dependency => {
 					dependency.name = name;
+					dependency.version = version;
 					dependency.vapiDirectory = vapiDirectory;	
-				})
-				.ccOption("-l%s".printf(name))
-				.ccOption("-I%s".printf(cHeadersDirectory));
+					dependency.cHeadersDirectory = cHeadersDirectory;
+				});
 		}
 	}
 }

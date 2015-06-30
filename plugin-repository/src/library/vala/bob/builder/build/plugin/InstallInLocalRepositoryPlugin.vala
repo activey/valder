@@ -41,20 +41,15 @@ namespace bob.builder.build.plugin {
         private void initializeDirectoryStructure(BobBuildProjectRecipe projectRecipe) {
             LOGGER.logInfo("Initializing project directory structure in local repository.");
 
-            RepositoryProjectDirectoryStructureBuilder
-                .projectDirectory()
-                .directory(repository => {
-                    repository.name(".bob");
+            RepositoryProjectDirectoryStructure
+                .write(repository => {
+                    repository.directory(projectRecipe.shortName, project => {
 
-                    repository.directory(project => {
-                        project.name(projectRecipe.shortName);
+                        projectDirectory = project.directory(projectRecipe.version, versionDirectory => {
 
-                        projectDirectory = project.directory(versionDirectory => {
-                            versionDirectory.name(projectRecipe.version);
-
-                            vapiDirectory = versionDirectory.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
-                            cDirectory = versionDirectory.directory(c => c.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME)); 
-                            libDirectory = versionDirectory.directory(lib => lib.name(BobDirectories.DIRECTORY_LIB)); 
+                            vapiDirectory = versionDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME, null);
+                            cDirectory = versionDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME, null); 
+                            libDirectory = versionDirectory.directory(BobDirectories.DIRECTORY_LIB, null); 
                         });
 
                     });
@@ -81,14 +76,18 @@ namespace bob.builder.build.plugin {
 
             BobBuildRecipe newRecipe = new BobBuildRecipe();
             newRecipe.project = projectRecipe;
-            newRecipe.writeToFile(newRecipeFile);
+            try {
+                newRecipe.writeToFile(newRecipeFile);
+            } catch (Error e) {
+                LOGGER.logError("An error occurred while dumping recipe into file: %s.", e.message);
+            }
         }
 
         private void copyVapiFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
-            DirectoryObject? sourceVapiDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI);
-            if (sourceVapiDirectory != null) {
-                FileObject? vapiFile = sourceVapiDirectory.getFileChild(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName, projectRecipe.version));
-                if (vapiFile != null) {
+            DirectoryObject sourceVapiDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI);
+            if (sourceVapiDirectory.exists()) {
+                FileObject vapiFile = sourceVapiDirectory.getFileChild(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName, projectRecipe.version));
+                if (vapiFile.exists()) {
                     LOGGER.logInfo("Copying VAPI file %s to directory: %s.", vapiFile.getLocation(), vapiDirectory.getLocation());
                     try {
                         vapiFile.copyTo(vapiDirectory, overwrite);
@@ -100,10 +99,10 @@ namespace bob.builder.build.plugin {
         }
 
         private void copyCFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
-            DirectoryObject? sourceCDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C);
-            if (sourceCDirectory != null) {
-                FileObject? cFile = sourceCDirectory.getFileChild(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName, projectRecipe.version));
-                if (cFile != null) {
+            DirectoryObject sourceCDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C);
+            if (sourceCDirectory.exists()) {
+                FileObject cFile = sourceCDirectory.getFileChild(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName, projectRecipe.version));
+                if (cFile.exists()) {
                     LOGGER.logInfo("Copying C header file %s to directory: %s.", cFile.getLocation(), cDirectory.getLocation());
                     try {
                         cFile.copyTo(cDirectory, overwrite);
@@ -116,9 +115,9 @@ namespace bob.builder.build.plugin {
 
         private void copyLibFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
             DirectoryObject? targetLibDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_TARGET_LIB);
-            if (targetLibDirectory != null) {
-                FileObject? libFile = targetLibDirectory.getFileChild(BobFiles.FILE_TARGET_LIBRARY_NAME.printf(projectRecipe.shortName));
-                if (libFile != null) {
+            if (targetLibDirectory.exists()) {
+                FileObject libFile = targetLibDirectory.getFileChild(BobFiles.FILE_TARGET_LIBRARY_NAME.printf(projectRecipe.shortName));
+                if (libFile.exists()) {
                     LOGGER.logInfo("Copying SO library file %s to directory: %s.", libFile.getLocation(), libDirectory.getLocation());
                     try {
                         libFile.copyTo(libDirectory, overwrite);

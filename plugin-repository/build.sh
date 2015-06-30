@@ -3,7 +3,7 @@
 LIBRARY_NAME='repository'
 HEADER_LOCATION=('../src/library/c')
 SOURCES=(`find src/library/vala -type f -name "**.vala"`)
-PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'gmodule-2.0' 'bob')
+PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'gmodule-2.0' 'bob-0.0.1')
 VAPI_DIRS=('../src/library/vapi')
 
 SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")

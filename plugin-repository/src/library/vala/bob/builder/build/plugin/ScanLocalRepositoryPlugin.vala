@@ -26,6 +26,13 @@ namespace bob.builder.build.plugin {
 
         public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
             LOGGER.logInfo("Scanning local repository for project dependencies.");
+            
+            new RepositoryDependencyScanner(projectRecipe).scanDependenciesInRepository(additionalDependency => {
+                if (!projectRecipe.hasDependency(additionalDependency)) {
+                    LOGGER.logInfo("Adding new dependency: %s.", additionalDependency.toString());
+                    projectRecipe.addDependency(additionalDependency);
+                }
+            });
         }
     }
 }

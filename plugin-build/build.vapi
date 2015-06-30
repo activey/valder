@@ -51,6 +51,7 @@ namespace bob {
 				public class BuildConfigurationDependencyBuilder {
 					public BuildConfigurationDependencyBuilder ();
 					public bob.builder.recipe.project.BobBuildProjectDependency build ();
+					public string cHeadersDirectory { get; set; }
 					public string name { get; set; }
 					public string vapiDirectory { get; set; }
 					public string version { get; set; }
@@ -62,6 +63,15 @@ namespace bob {
 					public string cHeadersDirectory { get; set; }
 					public string name { get; set; }
 					public string vapiDirectory { get; set; }
+					public string version { get; set; }
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
+				public class CCOptions {
+					public CCOptions (string[] ccOptions);
+					public void addCHeadersDirectoryLocation (string cHeadersDirectoryLocation);
+					public void addCcOption (string ccOption);
+					public string[] getCcOptions ();
+					public void useLibrary (string name);
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class ValaCodeCompiler {

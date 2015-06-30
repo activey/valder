@@ -35,6 +35,10 @@ namespace bob.builder.ansi {
 			collectModifier(colorGenerator.getBlue());
 		}
 
+		public void setColorYellow() {
+			collectModifier(colorGenerator.getYellow());
+		}
+
 		public void setColorDefault() {
 			collectModifier(colorGenerator.getDefault());
 		}

@@ -14,8 +14,8 @@ namespace bob.builder.build.plugin {
 			return new ProjectDirectoryStructureBuilder(projectDirectory);
 		}
 
-		public ProjectDirectoryStructureBuilder directory(DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate) {
-			DirectoryBuilder directoryBuilder = new DirectoryBuilder(_projectDirectory);
+		public ProjectDirectoryStructureBuilder directory(string name, DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate) {
+			DirectoryBuilder directoryBuilder = new DirectoryBuilder(name, _projectDirectory, false);
 			directoryBuilderDelegate(directoryBuilder);
 
 			directoryBuilder.getOrCreate();

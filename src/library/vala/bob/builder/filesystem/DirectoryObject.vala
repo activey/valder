@@ -21,13 +21,16 @@ namespace bob.builder.filesystem {
 			this.fromGivenLocation(CURRENT_DIRECTORY);
 		}
 
-		public DirectoryObject.fromUserHomeFolder() {
+		public DirectoryObject.fromUserHomeDirectory() {
 			this.fromGivenLocation(Environment.get_home_dir());
 		}
 
 		public void accept(FileSystemVisitor visitor) {
 			visitor.visitDirectory(file);
-
+			
+			if (!exists()) {
+				return;
+			}
 			try {
 				FileEnumerator enumerator = file.enumerate_children(FileAttribute.STANDARD_NAME, 0);
 				FileInfo fileInfo;
@@ -49,6 +52,10 @@ namespace bob.builder.filesystem {
 			return fileInfo.get_file_type() == FileType.DIRECTORY;
 		}
 
+		public void createDirectory() throws Error {
+			file.make_directory();
+		}
+
 		public bool hasChildWithName(string childName) {
 			ObjectExistenceLookupVisitor existenceLookup = new ObjectExistenceLookupVisitor(childName);
 			accept(existenceLookup);
@@ -56,34 +63,35 @@ namespace bob.builder.filesystem {
 			return existenceLookup.exists();
 		}
 
-		public DirectoryObject? getDirectoryChild(string childName) {
+		public DirectoryObject getDirectoryChild(string childName) {
 			DirectoryObjectLookupVisitor directoryLookup = new DirectoryObjectLookupVisitor(childName);
 			accept(directoryLookup);
 
-			return directoryLookup.getDirectory();
-		}
-
-		public DirectoryObject? getDirectoryChildAtLocation(string relativeLocation) {
-			string nestedDirectoryLocation = "%s%C%s".printf(getLocation(), Path.DIR_SEPARATOR, relativeLocation);
-			DirectoryObject nestedDirectory = new DirectoryObject.fromGivenLocation(nestedDirectoryLocation);
-			if (!nestedDirectory.exists()) {
-				return null;
+			DirectoryObject? directory = directoryLookup.getDirectory();
+			if (directory == null) {
+				return new DirectoryObject(newChild(childName));
 			}
-			return nestedDirectory;
+			return directory;
 		}
 
-		public DirectoryObject newDirectoryChild(string childName) throws Error {
-			File directoryChild = newChild(childName);
-			directoryChild.make_directory();
-
-			return new DirectoryObject(directoryChild);
+		public DirectoryObject getDirectoryChildAtLocation(string relativeLocation) {
+			string nestedDirectoryLocation = "%s%C%s".printf(getLocation(), Path.DIR_SEPARATOR, relativeLocation);
+			return new DirectoryObject.fromGivenLocation(nestedDirectoryLocation);
 		}
 
-		public FileObject? getFileChild(string childName) {
+		public DirectoryObject newDirectoryChild(string childName) {
+			return new DirectoryObject(newChild(childName));
+		}
+
+		public FileObject getFileChild(string childName) {
 			FileObjectLookupVisitor fileLookup = new FileObjectLookupVisitor(childName);
 			accept(fileLookup);
 
-			return fileLookup.getFile();
+			FileObject? file = fileLookup.getFile();
+			if (file == null) {
+				return newFileChild(childName);
+			}
+			return file;
 		}
 
 		public FileObject newFileChild(string childName) {

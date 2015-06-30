@@ -10,6 +10,7 @@ namespace bob.builder.recipe.project {
         private const string MEMBER_VERSION = "version";
         private const string MEMBER_TYPE = "type";
         private const string MEMBER_VAPI_DIRECTORY = "vapi-directory";
+        private const string MEMBER_C_HEADERS_DIRECTORY = "c-headers-directory";
 
         private const string TYPE_PKG = "pkg";
 
@@ -18,6 +19,7 @@ namespace bob.builder.recipe.project {
     		version = jsonObject.getStringEntry(MEMBER_VERSION, VERSION_NONE);
     		dependencyType = jsonObject.getStringEntry(MEMBER_TYPE, null);
             vapiDirectory = jsonObject.getStringEntry(MEMBER_VAPI_DIRECTORY, null);
+            cHeadersDirectory = jsonObject.getStringEntry(MEMBER_C_HEADERS_DIRECTORY, null);
         }
 
         public BobBuildProjectDependency.newPkgDependency() {
@@ -31,10 +33,16 @@ namespace bob.builder.recipe.project {
             return "%s-%s".printf(dependency, version);
         }
 
+        public bool equals(BobBuildProjectDependency other) {
+            return other.dependency == dependency &&
+                other.version == version;
+        }
+
         public string dependency { get; set; }
         public string version { get; set; }
     	public string dependencyType { get; set; }
         public string vapiDirectory { get; set; }
+        public string cHeadersDirectory { get; set; }
 
         private bool isNonVersion() {
             return version == VERSION_NONE || version == null;
@@ -44,6 +52,8 @@ namespace bob.builder.recipe.project {
             JsonObject jsonObject = new JsonObject();
             jsonObject.setStringEntry(MEMBER_DEPENDENCY, dependency);
             jsonObject.setStringEntry(MEMBER_TYPE, dependencyType);
+            jsonObject.setStringEntry(MEMBER_VAPI_DIRECTORY, vapiDirectory);
+            jsonObject.setStringEntry(MEMBER_C_HEADERS_DIRECTORY, cHeadersDirectory);
             if (!isNonVersion()) {
                 jsonObject.setStringEntry(MEMBER_VERSION, version);
             }

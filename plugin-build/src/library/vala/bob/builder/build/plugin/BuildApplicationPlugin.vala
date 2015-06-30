@@ -86,6 +86,7 @@ namespace bob.builder.build.plugin {
 
 				runtimeBuildConfigurationBuilder.useLibrary(bobLibrary => {
 					bobLibrary.name = projectRecipe.shortName;
+					bobLibrary.version = projectRecipe.version;
 					bobLibrary.cHeadersDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_C;
 					bobLibrary.vapiDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI;
 				});
