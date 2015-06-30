@@ -1,4 +1,4 @@
-# roger-forger
-Roger the Forger - Vala build tool
+# valder
+Valder - Vala source code welder
 
-Please refer to http://activey.github.io/roger-forger
+Please refer to http://activey.github.io/valder
