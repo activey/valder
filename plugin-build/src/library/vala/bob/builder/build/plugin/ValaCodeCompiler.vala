@@ -58,11 +58,16 @@ namespace bob.builder.build.plugin {
         }
 
         private void initializeContextVapiDirectories() {
-            string[] vapiDirectoriesLocations = buildConfiguration.getVapiDirectoriesLocations();
-            foreach (string vapiDirectoryLocation in vapiDirectoriesLocations) {
+            string[] vapiDirectories = new string[0];
+            foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
+                string vapiDirectoryLocation = dependency.vapiDirectory;
+                if (vapiDirectoryLocation == null) {
+                    continue;
+                }
                 LOGGER.logInfo(@"Using VAPI directory: $(vapiDirectoryLocation).");
+                vapiDirectories += vapiDirectoryLocation;
             }
-            codeContext.vapi_directories = vapiDirectoriesLocations;
+            codeContext.vapi_directories = vapiDirectories;    
         }
 
         private void initializeContextDependencies() {

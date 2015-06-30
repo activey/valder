@@ -15,6 +15,12 @@ namespace bob {
 					public bob.builder.build.plugin.RepositoryProjectDirectoryStructureBuilder directory (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
 					public static bob.builder.build.plugin.RepositoryProjectDirectoryStructureBuilder projectDirectory ();
 				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InstallInLocalRepositoryPlugin.h")]
+				public class ScanLocalRepositoryPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
+					public ScanLocalRepositoryPlugin ();
+					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
+				}
 			}
 		}
 	}

@@ -20,13 +20,12 @@ namespace bob.builder.build.plugin {
 
 		public void addLibraryUsageCcOptions(BuildConfigurationBuilder buildConfigurationBuilder) {
 			buildConfigurationBuilder
-				.dependencyByName(name)
+				.dependency(dependency => {
+					dependency.name = name;
+					dependency.vapiDirectory = vapiDirectory;	
+				})
 				.ccOption("-l%s".printf(name))
 				.ccOption("-I%s".printf(cHeadersDirectory));
-
-			if (vapiDirectory != null) {
-				buildConfigurationBuilder.vapiDirectoryLocation(vapiDirectory);
-			}
 		}
 	}
 }

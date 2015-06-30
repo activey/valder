@@ -9,6 +9,7 @@ namespace bob.builder.recipe.project {
         private const string MEMBER_DEPENDENCY = "dependency";
         private const string MEMBER_VERSION = "version";
         private const string MEMBER_TYPE = "type";
+        private const string MEMBER_VAPI_DIRECTORY = "vapi-directory";
 
         private const string TYPE_PKG = "pkg";
 
@@ -16,6 +17,7 @@ namespace bob.builder.recipe.project {
     		dependency = jsonObject.getStringEntry(MEMBER_DEPENDENCY, null);
     		version = jsonObject.getStringEntry(MEMBER_VERSION, VERSION_NONE);
     		dependencyType = jsonObject.getStringEntry(MEMBER_TYPE, null);
+            vapiDirectory = jsonObject.getStringEntry(MEMBER_VAPI_DIRECTORY, null);
         }
 
         public BobBuildProjectDependency.newPkgDependency() {
@@ -32,6 +34,7 @@ namespace bob.builder.recipe.project {
         public string dependency { get; set; }
         public string version { get; set; }
     	public string dependencyType { get; set; }
+        public string vapiDirectory { get; set; }
 
         private bool isNonVersion() {
             return version == VERSION_NONE || version == null;

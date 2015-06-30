@@ -64,9 +64,9 @@ namespace bob.builder.build.plugin {
 				.targetFileName(BobFiles.FILE_TARGET_LIBRARY_NAME.printf(projectRecipe.shortName))
 				.generateVapiAndC()
 				.vapiOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI)
-				.vapiOutputFileName(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName))
+				.vapiOutputFileName(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName, projectRecipe.version))
 				.cOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C)
-				.cHeaderFileName(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName))
+				.cHeaderFileName(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName, projectRecipe.version))
 				.ccOptions({"-fPIC", "-shared"})
 				.build();
 			return new ValaCodeCompiler(buildConfiguration);

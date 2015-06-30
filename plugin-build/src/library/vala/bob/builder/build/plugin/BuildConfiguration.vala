@@ -7,7 +7,6 @@ namespace bob.builder.build.plugin {
 
 		private List<BobBuildProjectDependency> _dependencies = new List<BobBuildProjectDependency>();
 		private List<BobBuildProjectSourceFile> _sources = new List<BobBuildProjectSourceFile>();
-		private List<DirectoryObject> _vapiDirectories = new List<DirectoryObject>();
 
 		private string[] _ccOptions = new string[0];
 
@@ -77,18 +76,6 @@ namespace bob.builder.build.plugin {
 				}
 			}
 			return false;
-		}
-		
-		public string[] getVapiDirectoriesLocations() {
-			string[] locations = new string[0];
-			foreach (DirectoryObject vapiDirectory in _vapiDirectories) {
-				locations += vapiDirectory.getLocation();
-			}
-			return locations;
-		}
-
-		public void addVapiDirectory(DirectoryObject vapiDirectory) {
-			_vapiDirectories.append(vapiDirectory);
 		}
 	}
 }

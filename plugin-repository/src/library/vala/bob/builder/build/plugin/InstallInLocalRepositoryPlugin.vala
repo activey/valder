@@ -87,7 +87,7 @@ namespace bob.builder.build.plugin {
         private void copyVapiFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
             DirectoryObject? sourceVapiDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI);
             if (sourceVapiDirectory != null) {
-                FileObject? vapiFile = sourceVapiDirectory.getFileChild(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName));
+                FileObject? vapiFile = sourceVapiDirectory.getFileChild(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName, projectRecipe.version));
                 if (vapiFile != null) {
                     LOGGER.logInfo("Copying VAPI file %s to directory: %s.", vapiFile.getLocation(), vapiDirectory.getLocation());
                     try {
@@ -102,7 +102,7 @@ namespace bob.builder.build.plugin {
         private void copyCFile(DirectoryObject workDirectory, BobBuildProjectRecipe projectRecipe) {
             DirectoryObject? sourceCDirectory = workDirectory.getDirectoryChildAtLocation(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C);
             if (sourceCDirectory != null) {
-                FileObject? cFile = sourceCDirectory.getFileChild(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName));
+                FileObject? cFile = sourceCDirectory.getFileChild(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName, projectRecipe.version));
                 if (cFile != null) {
                     LOGGER.logInfo("Copying C header file %s to directory: %s.", cFile.getLocation(), cDirectory.getLocation());
                     try {

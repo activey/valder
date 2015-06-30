@@ -8,6 +8,7 @@ namespace bob.builder.build.plugin {
 	public class BuildConfigurationBuilder {
 
 		public delegate void BuildConfigurationLibraryUsageBuilderDelegate(BuildConfigurationLibraryUsageBuilder libraryUsageBuilder);
+		public delegate void BuildConfigurationDependencyBuilderDelegate(BuildConfigurationDependencyBuilder dependencyBuilder);
 
 		private const string PROPERTY_VERBOSE = "verbose";
 
@@ -32,18 +33,18 @@ namespace bob.builder.build.plugin {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
 		}
 
-		public BuildConfigurationBuilder vapiDirectoryLocation(string vapiDirectoryLocation) {
-			return vapiDirectory(new DirectoryObject.fromGivenLocation(vapiDirectoryLocation));
-		}
+		// public BuildConfigurationBuilder vapiDirectoryLocation(string vapiDirectoryLocation) {
+		// 	return vapiDirectory(new DirectoryObject.fromGivenLocation(vapiDirectoryLocation));
+		// }
 
-		public BuildConfigurationBuilder vapiDirectory(DirectoryObject vapiDirectory) {
-			if (!vapiDirectory.exists()) {
-				LOGGER.logError("VAPI directory under '%s' location does not exist! Skipping.", vapiDirectory.getLocation());
-				return this;
-			}
-			buildConfiguration.addVapiDirectory(vapiDirectory);
-			return this;			
-		}
+		// public BuildConfigurationBuilder vapiDirectory(DirectoryObject vapiDirectory) {
+		// 	if (!vapiDirectory.exists()) {
+		// 		LOGGER.logError("VAPI directory under '%s' location does not exist! Skipping.", vapiDirectory.getLocation());
+		// 		return this;
+		// 	}
+		// 	buildConfiguration.addVapiDirectory(vapiDirectory);
+		// 	return this;			
+		// }
 
 		public BuildConfigurationBuilder sources(List<BobBuildProjectSourceFile> sources) {
 			foreach (BobBuildProjectSourceFile source in sources) {
@@ -52,8 +53,11 @@ namespace bob.builder.build.plugin {
 			return this;
 		}
 
-		public BuildConfigurationBuilder dependency(BobBuildProjectDependency dependency) {
-			buildConfiguration.addDependency(dependency);
+		public BuildConfigurationBuilder dependency(BuildConfigurationDependencyBuilderDelegate dependencyBuilderDelegate) {
+			BuildConfigurationDependencyBuilder dependencyBuilder = new BuildConfigurationDependencyBuilder();
+			dependencyBuilderDelegate(dependencyBuilder);
+
+			buildConfiguration.addDependency(dependencyBuilder.build());
 			return this;
 		}
 
@@ -64,13 +68,13 @@ namespace bob.builder.build.plugin {
 			return this;
 		}
 
-		public BuildConfigurationBuilder dependencyByName(string dependencyName) {
-			BobBuildProjectDependency dependency = new BobBuildProjectDependency.newPkgDependency();
-			dependency.dependency = dependencyName;
+		// public BuildConfigurationBuilder dependencyByName(string dependencyName) {
+		// 	BobBuildProjectDependency dependency = new BobBuildProjectDependency.newPkgDependency();
+		// 	dependency.dependency = dependencyName;
 
-			buildConfiguration.addDependency(dependency);
-			return this;
-		}
+		// 	buildConfiguration.addDependency(dependency);
+		// 	return this;
+		// }
 
 		public BuildConfigurationBuilder targetDirectory(string targetDirectory) {
 			_targetDirectory = targetDirectory;
