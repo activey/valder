@@ -28,6 +28,18 @@ namespace bob.builder.log {
 			printerSession.reset(stderr);
 		}
 
+		public void logWarn(string message, ...) {
+			AnsiPrinterSession printerSession = ansiPrinter.startSession();
+
+			printLoggerId(printerSession, stderr);
+			printerSession.setBold(false);
+			printerSession.setColorYellow();
+			printerSession.commit(stderr);
+			stderr.vprintf(message, va_list());
+			stderr.printf("\n");
+			printerSession.reset(stderr);
+		}
+
 		public void logInfo(string message, ...) {
 			AnsiPrinterSession printerSession = ansiPrinter.startSession();
 

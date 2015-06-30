@@ -41,8 +41,7 @@ namespace bob.builder.build {
 			}
 
 			executionTimer.stop();
-			double seconds = executionTimer.elapsed();
-			LOGGER.logInfo("Took time: %s seconds.", seconds.to_string());
+			LOGGER.logInfo("Took time: %f seconds.", executionTimer.elapsed());
 		}
 
 		private void printRecipeSummary() {

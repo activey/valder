@@ -10,6 +10,10 @@ namespace bob.builder.build.plugin {
 			get; set;
 		}
 
+		public string version {
+			get; set;
+		}
+
 		public string cHeadersDirectory {
 			get; set;
 		}
@@ -20,13 +24,12 @@ namespace bob.builder.build.plugin {
 
 		public void addLibraryUsageCcOptions(BuildConfigurationBuilder buildConfigurationBuilder) {
 			buildConfigurationBuilder
-				.dependencyByName(name)
-				.ccOption("-l%s".printf(name))
-				.ccOption("-I%s".printf(cHeadersDirectory));
-
-			if (vapiDirectory != null) {
-				buildConfigurationBuilder.vapiDirectoryLocation(vapiDirectory);
-			}
+				.dependency(dependency => {
+					dependency.name = name;
+					dependency.version = version;
+					dependency.vapiDirectory = vapiDirectory;	
+					dependency.cHeadersDirectory = cHeadersDirectory;
+				});
 		}
 	}
 }

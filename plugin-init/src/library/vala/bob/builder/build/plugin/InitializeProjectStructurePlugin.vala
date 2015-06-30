@@ -28,27 +28,19 @@ namespace bob.builder.build.plugin {
 
             ProjectDirectoryStructureBuilder
                 .projectDirectory(projectDirectory)
-                .directory(src => {
-                    src.name(BobDirectories.DIRECTORY_SOURCE);
-
-                    src.directory(library => {
-                        library.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_NAME);
-                        
-                        library.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VALA_NAME));
-                        library.directory(vapi => vapi.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME));
-                        library.directory(c => c.name(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME)); 
+                .directory(BobDirectories.DIRECTORY_SOURCE, src => {
+                    src.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_NAME, library => {
+                        library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VALA_NAME, null);
+                        library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME, null);
+                        library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME, null); 
                     });
 
-                    src.directory(main => {
-                        main.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_NAME);
-
-                        main.directory(vala => vala.name(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME));
+                    src.directory(BobDirectories.DIRECTORY_SOURCE_RUNTIME_NAME, main => {
+                        main.directory(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME, null);
                     });
                 })
-                .directory(target => {
-                    target.name(BobDirectories.DIRECTORY_TARGET);
-                    
-                    target.directory(lib => lib.name(BobDirectories.DIRECTORY_LIB));
+                .directory(BobDirectories.DIRECTORY_TARGET, target => {
+                    target.directory(BobDirectories.DIRECTORY_LIB, null);
                 });
 
             LOGGER.logSuccess("Base project directory structure created.");

@@ -7,19 +7,33 @@ namespace bob.builder.recipe {
 	public class BobBuildRecipeLoader {
 	
 		public static BobBuildRecipe loadFromJSON() throws Error {
-			return new BobBuildRecipeLoader().loadFromJSONFile(BobFiles.FILE_PROJECT_RECIPE);
+			return new BobBuildRecipeLoader().loadFromJSONFileName(BobFiles.FILE_PROJECT_RECIPE);
 		}
 
-		private BobBuildRecipeLoader () {}
+		public static BobBuildRecipe loadFromJSONFileObject(FileObject fileObject) throws Error {
+			return new BobBuildRecipeLoader().loadFromJSONFile(fileObject);
+		}
 
-		public BobBuildRecipe? loadFromJSONFile(string jsonFileName) throws Error {
+		private BobBuildRecipeLoader() {}
+
+		public BobBuildRecipe? loadFromJSONFile(FileObject jsonFileObject) throws Error {
+			if (!jsonFileObject.exists()) {
+				return null;
+			}
+			return loadRecipe(jsonFileObject.getLocation());
+		}
+
+		public BobBuildRecipe? loadFromJSONFileName(string jsonFileName) throws Error {
 			File? jsonFile = locateRecipeFile(jsonFileName);
 			if (jsonFile == null) {
 				return null;
 			}
-			
+			return loadRecipe(jsonFile.get_path());
+		}
+
+		private BobBuildRecipe? loadRecipe(string recipeFileLocation) throws Error {
 			Json.Parser parser = new Json.Parser();
-			parser.load_from_file(jsonFile.get_path());
+			parser.load_from_file(recipeFileLocation);
 			return new BobBuildRecipe.fromJsonObject(new JsonObject.fromJsonObject(parser.get_root().get_object()));
 		}
 

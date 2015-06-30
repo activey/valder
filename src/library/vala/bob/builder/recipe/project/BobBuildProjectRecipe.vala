@@ -76,11 +76,24 @@ namespace bob.builder.recipe.project {
 		}
 
 		private void parseProjectDependency(JsonObject dependencyJsonObject) {
-			_dependencies.append(new BobBuildProjectDependency.fromJsonObject(dependencyJsonObject));
+			addDependency(new BobBuildProjectDependency.fromJsonObject(dependencyJsonObject));
 		}
 
 		public void addDependency(BobBuildProjectDependency dependency) {
+			if (hasDependency(dependency)) {
+				LOGGER.logInfo("Dependency [%s] already on dependencies list.", dependency.toString());
+				return;
+			}
 			_dependencies.append(dependency);
+		}
+
+		public bool hasDependency(BobBuildProjectDependency dependency) {
+			foreach (BobBuildProjectDependency existingDependency in _dependencies) {
+				if (existingDependency.equals(dependency)) {
+					return true;
+				}
+			}
+			return false;
 		}
 		
 		public void addLibSourceFile(BobBuildProjectSourceFile projectSourceFile) {

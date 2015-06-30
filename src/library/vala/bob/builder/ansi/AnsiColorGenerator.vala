@@ -9,6 +9,10 @@ namespace bob.builder.ansi {
 			return ";32";
 		}
 
+		public string getYellow() {
+			return ";33";
+		}
+
 		public string getBlue() {
 			return ";34";
 		}

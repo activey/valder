@@ -4,16 +4,37 @@ namespace bob {
 	namespace builder {
 		namespace build {
 			namespace plugin {
-				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InstallInLocalRepositoryPlugin.h")]
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
 				public class InstallInLocalRepositoryPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public InstallInLocalRepositoryPlugin ();
 					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
 					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
 				}
-				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InstallInLocalRepositoryPlugin.h")]
-				public class RepositoryProjectDirectoryStructureBuilder {
-					public bob.builder.build.plugin.RepositoryProjectDirectoryStructureBuilder directory (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
-					public static bob.builder.build.plugin.RepositoryProjectDirectoryStructureBuilder projectDirectory ();
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public class RepositoryDependencyScanner {
+					public delegate void AdditionalDependencyFoundDelegate (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+					public RepositoryDependencyScanner (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe);
+					public void scanDependenciesInRepository (bob.builder.build.plugin.RepositoryDependencyScanner.AdditionalDependencyFoundDelegate additionalDependencyDelegate);
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public class RepositoryProjectDirectoryStructure {
+					public RepositoryProjectDirectoryStructure ();
+					public static void read (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate repositoryBuilderDelegate);
+					public static void write (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate repositoryBuilderDelegate);
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public class ScanLocalRepositoryPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
+					public ScanLocalRepositoryPlugin ();
+					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public interface RepositoryDirectories {
+					public const string DIRECTORY_REPOSITORY_NAME;
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public errordomain RepositoryScannerError {
+					INITIALIZATION_ERROR
 				}
 			}
 		}

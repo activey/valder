@@ -24,7 +24,7 @@ namespace bob {
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/InitializeProjectStructurePlugin.h")]
 				public class ProjectDirectoryStructureBuilder {
-					public bob.builder.build.plugin.ProjectDirectoryStructureBuilder directory (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
+					public bob.builder.build.plugin.ProjectDirectoryStructureBuilder directory (string name, bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryBuilderDelegate);
 					public static bob.builder.build.plugin.ProjectDirectoryStructureBuilder projectDirectory (bob.builder.filesystem.DirectoryObject projectDirectory);
 				}
 			}

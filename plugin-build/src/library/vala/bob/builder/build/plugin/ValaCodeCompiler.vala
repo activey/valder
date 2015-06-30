@@ -18,14 +18,19 @@ namespace bob.builder.build.plugin {
         private CodeContext codeContext;
         private BuildConfiguration buildConfiguration;
 
+        private string[] vapiDirectories = new string[0];
+        private CCOptions ccOptions;
+
         public ValaCodeCompiler(BuildConfiguration buildConfiguration) {
             this.buildConfiguration = buildConfiguration;
-
+            this.ccOptions = new CCOptions(buildConfiguration.ccOptions);
+            
             initializeCodeContext();
-            initializeContextVapiDirectories();
+            initializeContextVapiLibraries();
+            writeContextVapiDirectories();
+            
             initializeContextDependencies();
             initializeContextSources();
-            initializeContextCodeGenerator();
         }
 
         private void initializeCodeContext() {
@@ -57,12 +62,23 @@ namespace bob.builder.build.plugin {
 			codeContext.add_define("GOBJECT");
         }
 
-        private void initializeContextVapiDirectories() {
-            string[] vapiDirectoriesLocations = buildConfiguration.getVapiDirectoriesLocations();
-            foreach (string vapiDirectoryLocation in vapiDirectoriesLocations) {
-                LOGGER.logInfo(@"Using VAPI directory: $(vapiDirectoryLocation).");
+        private void initializeContextVapiLibraries() {
+            foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
+                if (dependency.vapiDirectory != null) {
+                    LOGGER.logInfo(@"Using VAPI directory: $(dependency.vapiDirectory) for dependency: %s.", dependency.toString());
+                    vapiDirectories += dependency.vapiDirectory;
+                }
+
+                if (dependency.cHeadersDirectory != null) {
+                    LOGGER.logInfo(@"Using C headers directory: $(dependency.cHeadersDirectory) for dependency: %s.", dependency.toString());
+                    ccOptions.addCHeadersDirectoryLocation(dependency.cHeadersDirectory);
+                    ccOptions.useLibrary(dependency.dependency);
+                }
             }
-            codeContext.vapi_directories = vapiDirectoriesLocations;
+        }
+
+        private void writeContextVapiDirectories() {
+            codeContext.vapi_directories = vapiDirectories;    
         }
 
         private void initializeContextDependencies() {
@@ -85,10 +101,6 @@ namespace bob.builder.build.plugin {
                     }
                 }
             }
-        }
-
-        private void initializeContextCodeGenerator() {
-            LOGGER.logInfo("Initializing CodeGenerator.");
         }
 
         public ValaCodeCompilerOutcome compile() throws CompilationError {
@@ -152,7 +164,7 @@ namespace bob.builder.build.plugin {
             CCodeCompiler ccompiler = new CCodeCompiler();
             string ccCommand = Environment.get_variable("CC");
             string pkgConfigCommand = Environment.get_variable("PKG_CONFIG");
-            ccompiler.compile(codeContext, ccCommand, buildConfiguration.ccOptions, pkgConfigCommand);
+            ccompiler.compile(codeContext, ccCommand, ccOptions.getCcOptions(), pkgConfigCommand);
 
             if (hasErrors()) {
 		        throw new CompilationError.CCOMPILATION_ERROR("An error occured while compiling C code.");
@@ -161,10 +173,6 @@ namespace bob.builder.build.plugin {
 
         private bool hasErrors() {
             return codeContext.report.get_errors() > 0;
-        }
-
-        private bool hasWarnings() {
-            return codeContext.report.get_warnings() > 0;
         }
 
         private bool hasAnyValaSourceFiles() {

@@ -16,8 +16,6 @@ namespace bob {
 					public void addCcOption (string ccOption);
 					public void addDependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
-					public void addVapiDirectory (bob.builder.filesystem.DirectoryObject vapiDirectory);
-					public string[] getVapiDirectoriesLocations ();
 					public bool hasAnySources (string fileSuffix);
 					public string[] ccOptions { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
@@ -30,6 +28,7 @@ namespace bob {
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class BuildConfigurationBuilder {
+					public delegate void BuildConfigurationDependencyBuilderDelegate (bob.builder.build.plugin.BuildConfigurationDependencyBuilder dependencyBuilder);
 					public delegate void BuildConfigurationLibraryUsageBuilderDelegate (bob.builder.build.plugin.BuildConfigurationLibraryUsageBuilder libraryUsageBuilder);
 					public BuildConfigurationBuilder ();
 					public bob.builder.build.plugin.BuildConfiguration build ();
@@ -38,18 +37,24 @@ namespace bob {
 					public bob.builder.build.plugin.BuildConfigurationBuilder ccOption (string ccOption);
 					public bob.builder.build.plugin.BuildConfigurationBuilder ccOptions (string[] ccOptions);
 					public bob.builder.build.plugin.BuildConfigurationBuilder dependencies (GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies);
-					public bob.builder.build.plugin.BuildConfigurationBuilder dependency (bob.builder.recipe.project.BobBuildProjectDependency dependency);
-					public bob.builder.build.plugin.BuildConfigurationBuilder dependencyByName (string dependencyName);
+					public bob.builder.build.plugin.BuildConfigurationBuilder dependency (bob.builder.build.plugin.BuildConfigurationBuilder.BuildConfigurationDependencyBuilderDelegate dependencyBuilderDelegate);
 					public BuildConfigurationBuilder.fromJSONObject (bob.builder.json.JsonObject jsonObject);
 					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapiAndC ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder sources (GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
 					public bob.builder.build.plugin.BuildConfigurationBuilder useLibrary (bob.builder.build.plugin.BuildConfigurationBuilder.BuildConfigurationLibraryUsageBuilderDelegate libraryUsageDelegate);
-					public bob.builder.build.plugin.BuildConfigurationBuilder vapiDirectory (bob.builder.filesystem.DirectoryObject vapiDirectory);
-					public bob.builder.build.plugin.BuildConfigurationBuilder vapiDirectoryLocation (string vapiDirectoryLocation);
 					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputDirectory (string vapiOutputDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder vapiOutputFileName (string vapiOutputFileName);
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
+				public class BuildConfigurationDependencyBuilder {
+					public BuildConfigurationDependencyBuilder ();
+					public bob.builder.recipe.project.BobBuildProjectDependency build ();
+					public string cHeadersDirectory { get; set; }
+					public string name { get; set; }
+					public string vapiDirectory { get; set; }
+					public string version { get; set; }
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class BuildConfigurationLibraryUsageBuilder {
@@ -58,6 +63,15 @@ namespace bob {
 					public string cHeadersDirectory { get; set; }
 					public string name { get; set; }
 					public string vapiDirectory { get; set; }
+					public string version { get; set; }
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
+				public class CCOptions {
+					public CCOptions (string[] ccOptions);
+					public void addCHeadersDirectoryLocation (string cHeadersDirectoryLocation);
+					public void addCcOption (string ccOption);
+					public string[] getCcOptions ();
+					public void useLibrary (string name);
 				}
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/BuildConfiguration.h")]
 				public class ValaCodeCompiler {

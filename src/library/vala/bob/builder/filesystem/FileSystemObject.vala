@@ -15,7 +15,7 @@ namespace bob.builder.filesystem {
 		}
 
 		public string getLocation() {
-			return exists() ? file.get_path() : null;
+			return file.get_path();
 		}
 	}
 }
