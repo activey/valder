@@ -37,6 +37,16 @@ namespace bob.builder.build.plugin {
 			return this;
 		}
 
+		public BuildConfigurationBuilder runtimeScope() {
+			buildConfiguration.scope = BobBuildProjectDependencyScope.RUNTIME;
+			return this;
+		}
+
+		public BuildConfigurationBuilder libraryScope() {
+			buildConfiguration.scope = BobBuildProjectDependencyScope.LIBRARY;
+			return this;
+		}
+
 		public BuildConfigurationBuilder dependency(BuildConfigurationDependencyBuilderDelegate dependencyBuilderDelegate) {
 			BuildConfigurationDependencyBuilder dependencyBuilder = new BuildConfigurationDependencyBuilder();
 			dependencyBuilderDelegate(dependencyBuilder);

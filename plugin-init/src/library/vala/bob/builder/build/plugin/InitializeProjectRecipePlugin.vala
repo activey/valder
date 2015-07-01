@@ -47,7 +47,7 @@ namespace bob.builder.build.plugin {
 	    	BobBuildRecipe newRecipe = new BobBuildRecipe();
 
 	    	new EnvironmentPackagesDependenciesParser().parseDependencies((name, version) => {
-	    		BobBuildProjectDependency dependency = new BobBuildProjectDependency.newPkgDependency();
+	    		BobBuildProjectDependency dependency = new BobBuildProjectDependency();
 	    		dependency.dependency = name;
 	    		dependency.version = version;
 	    		newRecipe.project.addDependency(dependency);

@@ -12,7 +12,7 @@ namespace bob.builder.build.plugin {
 		public string cHeadersDirectory { get; set; }
 
 		public BobBuildProjectDependency build() {
-			BobBuildProjectDependency newPkgDependency = new BobBuildProjectDependency.newPkgDependency();
+			BobBuildProjectDependency newPkgDependency = new BobBuildProjectDependency();
 			newPkgDependency.dependency = name;
 			newPkgDependency.version = version;
 			newPkgDependency.vapiDirectory = vapiDirectory;

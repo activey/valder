@@ -58,6 +58,7 @@ namespace bob.builder.build.plugin {
 
 	    private ValaCodeCompiler initializeLibraryCodeCompiler(BobBuildProjectRecipe projectRecipe) {
 			BuildConfiguration buildConfiguration = libraryBuildConfigurationBuilder
+				.libraryScope()
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.libSourceFiles)
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET_LIB)
@@ -74,6 +75,7 @@ namespace bob.builder.build.plugin {
 
 		private ValaCodeCompiler initializeRuntimeCodeCompiler(BobBuildProjectRecipe projectRecipe, ValaCodeCompilerOutcome libraryCompilationOutcome) {
 			runtimeBuildConfigurationBuilder
+				.runtimeScope()
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.mainSourceFiles)
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET)
@@ -89,6 +91,7 @@ namespace bob.builder.build.plugin {
 					bobLibrary.version = projectRecipe.version;
 					bobLibrary.cHeadersDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_C;
 					bobLibrary.vapiDirectory = BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI;
+					bobLibrary.scope = BobBuildProjectDependencyScope.RUNTIME;
 				});
 			}
 				
