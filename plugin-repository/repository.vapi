@@ -5,6 +5,12 @@ namespace bob {
 		namespace build {
 			namespace plugin {
 				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
+				public class CopyLibraryFromRepositoryPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
+					public CopyLibraryFromRepositoryPlugin ();
+					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
+				}
+				[CCode (cheader_filename = "src/library/vala/bob/builder/build/plugin/RepositoryDependencyScanner.h")]
 				public class InstallInLocalRepositoryPlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public InstallInLocalRepositoryPlugin ();
 					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
