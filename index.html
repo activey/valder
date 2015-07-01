@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properities -->
-  <title>Roger the Forger</title>
+  <title>Valder the Vala code welder</title>
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Open+Sans:300italic,400,300,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
@@ -22,7 +22,7 @@
 </head>
 <body id="home">
   <div class="ui fixed inverted blue menu">
-    <div class="header">Roger the Forger</div>
+    <div class="header">Valder the Vala code welder</div>
     <div class="right menu">
       <div class="ui mobile dropdown link item">
         Menu
@@ -30,33 +30,33 @@
         <div class="menu">
           <a class="item" href="#section_documentation">Documentation</a>
           <a class="item" href="#section_examples">Examples</a>
-          <a class="item" href="https://github.com/activey/roger-forger">Code</a>
+          <a class="item" href="https://github.com/activey/valder">Code</a>
           <a class="item" href="#section_qa">Q&A</a>
         </div>
       </div>
       <a class="item" href="#section_documentation">Documentation</a>
       <a class="item" href="#section_examples">Examples</a>
       <div class="ui dropdown link item">
-        Plugins
+        Tools
         <div class="inverted blue menu">
-          <a class="item" href="#plugin_initialize_structure">initialize:structure</a>
-          <a class="item" href="#plugin_initialize_recipe">initialize:recipe</a>
-          <a class="item" href="#plugin_collect_sources">collect-sources</a>
-          <a class="item" href="#plugin_build">build</a>
-          <a class="item" href="#plugin_uncrustify">uncrustify</a>
+          <a class="item" href="#tool_initialize_structure">initialize:structure</a>
+          <a class="item" href="#tool_initialize_recipe">initialize:recipe</a>
+          <a class="item" href="#tool_collect_sources">collect-sources</a>
+          <a class="item" href="#tool_build">build</a>
+          <a class="item" href="#tool_uncrustify">uncrustify</a>
         </div>
       </div>
-      <a class="item" href="https://github.com/activey/roger-forger">Code</a>
+      <a class="item" href="https://github.com/activey/valder">Code</a>
       <a class="item" href="#section_qa">Q&A</a>
     </div>
   </div>
   <div class="ui masthead inverted vertical segment">
     <div class="ui page grid">
       <div class="column">
-        <img src="images/roger1.png" class="ui image dropshadow">
+        <img src="images/valder1.png" class="ui image dropshadow">
         <div class="ui hidden transition information">
           <h1 class="ui inverted header">
-            Roger the Forger
+            Valder the Vala code welder
           </h1>
           <p>Build automation for Vala - right tool to get job done.</p>
           <div class="large basic inverted animated fade ui button">
@@ -76,17 +76,17 @@
               <i class="circular book link icon"></i>
               Documentation 
             </a>
-            <p>Read the latest documentation to see what Roger can do for you.</p>
+            <p>Read the latest documentation to see what Valder can do for you.</p>
           </div>
           <div class="column">
             <a class="ui icon header" href="#section_examples">
               <i class="circular code link icon"></i>
               Examples
             </a>
-            <p>Go through provided Roger usage scenarios showing a glimpse of possible applications.</p>
+            <p>Go through provided Valder usage scenarios showing a glimpse of possible applications.</p>
           </div>
           <div class="column">
-            <a class="ui icon header" href="https://github.com/activey/roger-forger">
+            <a class="ui icon header" href="https://github.com/activey/valder">
               <i class="circular github link icon"></i>
               Code
             </a>
@@ -112,9 +112,9 @@
           <h2 class="ui inverted header">Introduction</h2>
           <div class="content">
             <p>
-            Roger the Forger is intended to be a general purpose build tool dedicated for <a href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Roger as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
+            Valder the Vala code welder is intended to be a general purpose build tool dedicated for <a href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Valder as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
             <p>
-            Roger is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
+            Valder is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
             </p>
           </div>
         </div>
@@ -122,9 +122,9 @@
 
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Roger project structure</h2>
+          <h2 class="ui inverted header">Valder project structure</h2>
           <p>
-          Every project that is using Roger as a build tool has to share the same meaningful structure with source code located under appropriate folders:
+          Every project that is using Valder as a build tool has to share the same meaningful structure with source code located under appropriate folders:
           </p>
           <div class="ui inverted segment">
             <div class="ui inverted relaxed list">
@@ -146,21 +146,28 @@
                 <i class="blue folder icon"></i>
                 <div class="content">
                   <div class="header">/src/library/c</div>
-                  Holds all C files referenced in library source code. Also stores all H files generated by Roger in process of library code compilation.
+                  Holds all C files referenced in library source code. Also stores all H files generated by Valder in process of library code compilation.
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">/target/lib</div>
-                  This directory contains project library binary (.so) generated by Roger in process of library code compilation.  
+                  This directory contains project library binary (.so) generated by Valder in process of library code compilation.  
+                </div>
+              </div>
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  <div class="header">/target/plugins</div>
+                  Directory consists of a set of Valder plugins (.so) files.  
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">/target</div>
-                  This directory contains project runtime binary generated by Roger in process of runtime code compilation.  
+                  This directory contains project runtime binary generated by Valder in process of runtime code compilation.  
                 </div>
               </div>
               <div class="item">
@@ -184,21 +191,21 @@
 
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Plugins and recipies</h2>
-          <p>As stated earlier Roger design is created around a Plugin based approach, where each plugin is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of plugins shipped with Roger distribution package:</p>
+          <h2 class="ui inverted header">Tools and recipies</h2>
+          <p>As stated earlier Valder design is created around a Plugin based approach, where each plugin, called later Tool, is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of tools shipped with Valder distribution package:</p>
 
             <div class="ui divided items">
               <div class="item">
                 <div class="inverted segment">
-                  <h3 class="ui inverted header offset" id="plugin_initialize_structure">
-                    <i class="plug icon"></i>
+                  <h3 class="ui inverted header offset" id="tool_initialize_structure">
+                    <i class="configure icon"></i>
                     <div class="content">
                       initialize:structure
                     </div>
                   </h3>                  
-                    <p>First plugin used to initialize contents of a new Roger project. It's intented to be used on empty project directory by creating it's default structure. Plugin honors all directories specified in "Roger project structure". Plugin is totally safe and wont harm your current filesystem hierarchy.</p>
+                    <p>First tool used to initialize contents of a new Valder project. It's intented to be used on empty project directory by creating it's default structure. Tool honors all directories specified in "Valder project structure". Tool is totally safe and wont harm your current filesystem hierarchy.</p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-init">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-init">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -207,15 +214,15 @@
               </div>
               <div class="item">
                 <div class="inverted segment">
-                  <h3 class="ui inverted header offset" id="plugin_initialize_recipe">
-                    <i class="plug icon"></i>
+                  <h3 class="ui inverted header offset" id="tool_initialize_recipe">
+                    <i class="configure icon"></i>
                     <div class="content">
                       initialize:recipe
                     </div>
                   </h3>                  
-                    <p>This particular plugin is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
+                    <p>This particular tool is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-init">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-init">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -224,15 +231,15 @@
               </div>
               <div class="item">
                 <div class="inverted segment">
-                  <h3 class="ui inverted header offset" id="plugin_collect_sources">
-                    <i class="plug icon"></i>
+                  <h3 class="ui inverted header offset" id="tool_collect_sources">
+                    <i class="configure icon"></i>
                     <div class="content">
                       collect-sources
                     </div>
                   </h3>                  
-                    <p>Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins.</p>
+                    <p>Tool aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other tools.</p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-collect-sources">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-collect-sources">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -241,15 +248,15 @@
               </div>
               <div class="item">
                 <div class="inverted segment">
-                  <h3 class="ui inverted header offset" id="plugin_build">
-                    <i class="plug icon"></i>
+                  <h3 class="ui inverted header offset" id="tool_build">
+                    <i class="configure icon"></i>
                     <div class="content">
                       build
                     </div>
                   </h3>                  
-                    <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Roger architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).</p>
+                    <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Valder architecture. It uses Vala source code files found by collect-sources tool and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).</p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-build">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-build">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -258,8 +265,8 @@
               </div>
               <div class="item">
                 <div class="inverted segment">
-                  <h3 class="ui inverted header offset" id="plugin_uncrustify">
-                    <i class="plug icon"></i>
+                  <h3 class="ui inverted header offset" id="tool_uncrustify">
+                    <i class="configure icon"></i>
                     <div class="content">
                       uncrustify
                     </div>
@@ -272,7 +279,7 @@
 
                     </p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/roger-forger/tree/master/plugin-uncrustify">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-uncrustify">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -283,8 +290,8 @@
 
           
 
-          <h3>Plugins configuration</h3>
-          <p>While having in mind generic nature of all Roger plugins (plugin will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Roger you can provide a project configuration file called Project Recipe - <strong>recipe.roger</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
+          <h3>Tools configuration</h3>
+          <p>While having in mind generic nature of all Valder tools (tool will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Valder you can provide a project configuration file called Project Recipe - <strong>recipe.valder</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
 
           <div class="ui purple inverted segment">
             <div class="ui bottom inverted red right ribbon label">
@@ -308,7 +315,7 @@
             }
         ]
     },
-    "plugins": {
+    "tools": {
         "collect-sources": {
             "verbose": true
         },
@@ -332,15 +339,62 @@
       
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Bulding Roger using shell scripts</h2>
-          <p>Roger source code package comes together with several shell scripts used to build Roger library and runtime binaries. Because Roger package does not contain compiled binaries you have to do it on your own but only once, Roger is capable of building it's source code with ... itself ;)</p>
-          <p>First we need to generate Roger library file, go and execute following shell script:</p>
-          <div class="ui purple inverted preformatted segment">$/roger-source-code> ./build-library.sh</div>
+          <h2 class="ui inverted header">Bulding Valder using shell scripts</h2>
+          <p>Valder source code package comes together with several shell scripts used to build Valder library and runtime binaries. Because Valder package does not contain compiled binaries you have to do it on your own but only once, Valder is capable of building it's source code with ... itself ;)</p>
+          <p>First we need to generate Valder library file, go and execute following shell script:</p>
+          <div class="ui purple inverted preformatted segment">$/valder-source-code> ./build-library.sh</div>
           <p>
-            If everything goes fine you will see a <strong>libroger.so</strong> library file under <strong>target/lib folder</strong>. After library has been successfuly generated you can now proceed the similar operation with runtime binary, just run the command:
+            If everything goes fine you will see a <strong>libvalder.so</strong> library file under <strong>target/lib folder</strong>. After library has been successfuly generated you can now proceed the similar operation with runtime binary, just run the command:
           </p>
-          <div class="ui purple inverted preformatted segment">$/roger-source-code> ./build-cmdline.sh</div>
-          <p>This one will result with a new runtime binary file located under <strong>target/roger</strong></p>
+          <div class="ui purple inverted preformatted segment">$/valder-source-code> ./build-cmdline.sh</div>
+          <p>This one will result with a new runtime binary file located under <strong>target/valder</strong></p>
+          <p>When you are done with the base binaries you can go and build some tools shipped with Valder package. You can find a number of tools directories listed in main Valder directory:</p>
+
+          <div class="ui segment basic inverted">
+            <div class="ui list">
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  tool-collect-sources
+                </div>
+              </div>
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  tool-build
+                </div>
+              </div>
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  tool-init
+                </div>
+              </div>
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  tool-repository
+                </div>
+              </div>
+              <div class="item">
+                <i class="folder icon"></i>
+                <div class="content">
+                  tool-uncrustify
+                </div>
+              </div>
+            </div>
+          </div>
+          <p>
+            Each directory consists of a set of tool source files in a directory structure compatible with Valder. To compile a plugin source code run a dedicated script located
+            in each tool directory:
+          </p>
+          <div class="ui purple inverted preformatted segment">$/tool-directory> ./build.sh</div>
+
+          <p>
+            Repeat the same script invocation for all plugins you are going to use and after library file for each of tool is generated you can now copy them over to Valder plugins directory by using provided shell script:
+          </p>
+
+          <div class="ui purple inverted preformatted segment">$/valder-source-code> ./update-plugins.sh</div>
         </div>
       </div>
 
@@ -353,53 +407,53 @@
       </div>
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted header">Roger usage scenarios</h2>
-          <p>Roger usage is rather straightforward and does not require and specialized terminal user skills. To run Roger with default settings naviage to project directory and type in system shell console:</p>
-          <div class="ui purple inverted preformatted segment">$/project> roger</div>
+          <h2 class="ui inverted header">Valder usage scenarios</h2>
+          <p>Valder usage is rather straightforward and does not require and specialized terminal user skills. To run Valder with default settings naviage to project directory and type in system shell console:</p>
+          <div class="ui purple inverted preformatted segment">$/project> valder</div>
           <p>
-            By default Roger will only print out the list of parsed plugins recipies and some version information as well:
+            By default Valder will only print out the list of parsed tools recipies and some version information as well:
           </p>
-          <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
-[RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
-[RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
-[RogerForgeRecipeParser] Parsing plugin recipe: build
-[RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libbuild.so
-[RogerForgePluginsLoader] Registering new plugin: build
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libcollect-sources.so
-[RogerForgePluginsLoader] Registering new plugin: collect-sources
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libuncrustify.so
-[RogerForgePluginsLoader] Registering new plugin: uncrustify
-[RogerForgeer] Roger the Forger, version = 0.0.1</div>
-          <p>To tell Roger to run any of available plugin just pass a list of plugins one as Roger executable parameters:
-          <div class="ui purple inverted preformatted segment">$/project> roger collect-sources build</div>
-          <p>Roger will then initialize passed plugins with available receipe data generating output similar to this:</p>
-          <div class="ui purple inverted preformatted segment">[RogerForgeProjectRecipe] Parsing project dependencies.
-[RogerForgeRecipeParser] Parsing plugin recipe: collect-sources
-[RogerForgeRecipeParser] Parsing plugin recipe: uncrustify
-[RogerForgeRecipeParser] Parsing plugin recipe: build
-[RogerForgePluginsLoader] Loading plugins from directory: /roger/plugins
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libbuild.so
-[RogerForgePluginsLoader] Registering new plugin: build
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libcollect-sources.so
-[RogerForgePluginsLoader] Registering new plugin: collect-sources
-[RogerForgePluginsLoader] Loaded build plugin module: /roger/plugins/libuncrustify.so
-[RogerForgePluginsLoader] Registering new plugin: uncrustify
-[RogerForgePluginExecutionChain] Using build plugin: collect-sources.
-[RogerForgePluginExecutionChain] Using build plugin: build.
-[RogerForgeContext] Building project: project-0.0.1 (My first project)
-[RogerForgeContext] Loading project plugins recipies...
-[RogerForgePluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
-[RogerForgePluginExecutionChain] Initializing plugin 'build' with recipe data.
-[RogerForgeContext] Running project plugins
-[RogerForgePluginExecutionChain] Running plugin: collect-sources
-[RogerForgePluginExecutionChain] Running plugin: build
+          <div class="ui purple inverted preformatted segment">[ValderProjectRecipe] Parsing project dependencies.
+[ValderRecipeParser] Parsing tool recipe: collect-sources
+[ValderRecipeParser] Parsing tool recipe: uncrustify
+[ValderRecipeParser] Parsing tool recipe: build
+[ValderToolsLoader] Loading tools from directory: /valder/tools
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libbuild.so
+[ValderToolsLoader] Registering new tool: build
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libcollect-sources.so
+[ValderToolsLoader] Registering new tool: collect-sources
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libuncrustify.so
+[ValderToolsLoader] Registering new tool: uncrustify
+[Valderer] Valder the Vala code welder, version = 0.0.1</div>
+          <p>To tell Valder to run any of available tool just pass a list of tools one as Valder executable parameters:
+          <div class="ui purple inverted preformatted segment">$/project> valder collect-sources build</div>
+          <p>Valder will then initialize passed tools with available receipe data generating output similar to this:</p>
+          <div class="ui purple inverted preformatted segment">[ValderProjectRecipe] Parsing project dependencies.
+[ValderRecipeParser] Parsing tool recipe: collect-sources
+[ValderRecipeParser] Parsing tool recipe: uncrustify
+[ValderRecipeParser] Parsing tool recipe: build
+[ValderToolsLoader] Loading tools from directory: /valder/tools
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libbuild.so
+[ValderToolsLoader] Registering new tool: build
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libcollect-sources.so
+[ValderToolsLoader] Registering new tool: collect-sources
+[ValderToolsLoader] Loaded build tool module: /valder/tools/libuncrustify.so
+[ValderToolsLoader] Registering new tool: uncrustify
+[ValderToolExecutionChain] Using build tool: collect-sources.
+[ValderToolExecutionChain] Using build tool: build.
+[ValderContext] Building project: project-0.0.1 (My first project)
+[ValderContext] Loading project tools recipies...
+[ValderToolExecutionChain] Initializing tool 'collect-sources' with recipe data.
+[ValderToolExecutionChain] Initializing tool 'build' with recipe data.
+[ValderContext] Running project tools
+[ValderToolExecutionChain] Running tool: collect-sources
+[ValderToolExecutionChain] Running tool: build
 [ValaCodeCompiler] Initializing CodeContext
 [ValaCodeCompiler] Using dependency: glib-2.0
 [ValaCodeCompiler] Using dependency: gobject-2.0
 [ValaCodeCompiler] Using dependency: gio-2.0
 [ValaCodeCompiler] Initializing CodeGenerator
-[BuildApplicationPlugin] Generating library binary.
+[BuildApplicationTool] Generating library binary.
 [ValaCodeCompiler] Starting code compilation ...
 [ValaCodeCompiler] Running code parsers.
 [ValaCodeCompiler] Running general parser.
@@ -411,13 +465,13 @@
 [ValaCodeCompiler] Using dependency: gobject-2.0
 [ValaCodeCompiler] Using dependency: gio-2.0
 [ValaCodeCompiler] Initializing CodeGenerator
-[BuildApplicationPlugin] Generating runtime binary.
+[BuildApplicationTool] Generating runtime binary.
 [ValaCodeCompiler] Starting code compilation ...
 [ValaCodeCompiler] Running code parsers.
 [ValaCodeCompiler] Running general parser.
 [ValaCodeCompiler] Running GENIE parser.
 [ValaCodeCompiler] Running GIR parser.
-[BuildApplicationPlugin] Code compilation finished.</div>
+[BuildApplicationTool] Code compilation finished.</div>
         </div>
       </div>
 
@@ -436,14 +490,14 @@
                 <i class="question big icon"></i>
                 <div class="content">
                   <div class="header">Why another build tool? Isn't make, Cmake, waf or any other out there enough?</div>
-                  Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Roger is here to make it easier and fit better for Vala.
+                  Short answer is: nope. Every tool that already exists like make or Cmake isn't dedicated for Vala but rather for C/C++ code. Besides, configuration scheme for any of those build tools is greately complicated. Valder is here to make it easier and fit better for Vala.
                 </div>
               </div>
               <div class="item">
                 <i class="question big icon"></i>
                 <div class="content">
-                  <div class="header">I have an idea for a new possible plugin, how can I contribute?</div>
-                  If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) have a look at example plugins available at source code repository on <a href="https://github.com/activey/roger-forger">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/roger-forger/issues">GitHub</a> issue with short description, I could think of it in spare time.
+                  <div class="header">I have an idea for a new possible tool, how can I contribute?</div>
+                  If you are familiar with Vala (or <a href="https://wiki.gnome.org/Projects/Vala/ValaForJavaProgrammers">Java</a> or <a href="https://wiki.gnome.org/Projects/Vala/ValaForCSharpProgrammers">C#</a>) have a look at example tools available at source code repository on <a href="https://github.com/activey/valder">GitHub</a>. If you don't know how do code - please post me a message or create a <a href="https://github.com/activey/valder/issues">GitHub</a> issue with short description, I could think of it in spare time.
                 </div>
               </div>
             </div>
@@ -453,7 +507,7 @@
       
     </div>
     <div class="ui page basic center aligned segment">
-        <a aria-label="Star activey/roger-forger on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/activey/roger-forger#stargazers_count" data-count-href="/activey/roger-forger/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/activey/roger-forger" class="github-button">Star Roger the Forger</a>
+        <a aria-label="Star activey/valder on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/activey/valder#stargazers_count" data-count-href="/activey/valder/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/activey/valder" class="github-button">Star Valder the Vala code welder</a>
 
         <a aria-label="Follow @activey on GitHub" data-count-aria-label="# followers on GitHub" data-count-api="/users/activey#followers" data-count-href="/activey/followers" data-style="mega" href="https://github.com/activey" class="github-button">Follow @activey</a>
       </div>
