@@ -36,6 +36,12 @@ namespace bob.builder.build.plugin {
 			default = false;
 		}
 
+		public BobBuildProjectDependencyScope scope {
+			get;
+			set;
+			default = BobBuildProjectDependencyScope.BOTH;
+		}
+
 		public string[] ccOptions {
 			get {
 				return _ccOptions;

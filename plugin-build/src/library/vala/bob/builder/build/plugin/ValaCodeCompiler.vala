@@ -27,7 +27,7 @@ namespace bob.builder.build.plugin {
             
             initializeCodeContext();
             initializeContextVapiLibraries();
-            writeContextVapiDirectories();
+            useContextVapiDirectories();
             
             initializeContextDependencies();
             initializeContextSources();
@@ -77,12 +77,16 @@ namespace bob.builder.build.plugin {
             }
         }
 
-        private void writeContextVapiDirectories() {
+        private void useContextVapiDirectories() {
             codeContext.vapi_directories = vapiDirectories;    
         }
 
         private void initializeContextDependencies() {
+            LOGGER.logInfo("Initializing dependencies for scope: %s.", buildConfiguration.scope.name());
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
+                if (!dependency.scope.matches(buildConfiguration.scope)) {
+                    continue;
+                }
                 string dependencyString = dependency.toString();
                 if (codeContext.add_external_package(dependencyString)) {
                     LOGGER.logInfo(@"Using PKG dependency: $(dependencyString).");

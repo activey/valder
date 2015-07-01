@@ -22,6 +22,7 @@ namespace bob {
 					public bool generateVapi { get; set; }
 					public string outputHFile { get; set; }
 					public string outputVapiFile { get; set; }
+					public bob.builder.recipe.project.BobBuildProjectDependencyScope scope { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources { get; }
 					public string targetFile { get; set; }
 					public bool verbose { get; set; }
@@ -40,6 +41,8 @@ namespace bob {
 					public bob.builder.build.plugin.BuildConfigurationBuilder dependency (bob.builder.build.plugin.BuildConfigurationBuilder.BuildConfigurationDependencyBuilderDelegate dependencyBuilderDelegate);
 					public BuildConfigurationBuilder.fromJSONObject (bob.builder.json.JsonObject jsonObject);
 					public bob.builder.build.plugin.BuildConfigurationBuilder generateVapiAndC ();
+					public bob.builder.build.plugin.BuildConfigurationBuilder libraryScope ();
+					public bob.builder.build.plugin.BuildConfigurationBuilder runtimeScope ();
 					public bob.builder.build.plugin.BuildConfigurationBuilder sources (GLib.List<bob.builder.recipe.project.BobBuildProjectSourceFile> sources);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetDirectory (string targetDirectory);
 					public bob.builder.build.plugin.BuildConfigurationBuilder targetFileName (string targetFileName);
@@ -62,6 +65,7 @@ namespace bob {
 					public void addLibraryUsageCcOptions (bob.builder.build.plugin.BuildConfigurationBuilder buildConfigurationBuilder);
 					public string cHeadersDirectory { get; set; }
 					public string name { get; set; }
+					public bob.builder.recipe.project.BobBuildProjectDependencyScope scope { get; set; }
 					public string vapiDirectory { get; set; }
 					public string version { get; set; }
 				}

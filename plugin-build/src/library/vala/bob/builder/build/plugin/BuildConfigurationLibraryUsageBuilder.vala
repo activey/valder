@@ -22,6 +22,10 @@ namespace bob.builder.build.plugin {
 			get; set;
 		}
 
+		public BobBuildProjectDependencyScope scope {
+			get; set; default = BobBuildProjectDependencyScope.BOTH;
+		}
+
 		public void addLibraryUsageCcOptions(BuildConfigurationBuilder buildConfigurationBuilder) {
 			buildConfigurationBuilder
 				.dependency(dependency => {
