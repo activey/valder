@@ -43,6 +43,9 @@
           <a class="item" href="#tool_initialize_recipe">initialize:recipe</a>
           <a class="item" href="#tool_collect_sources">collect-sources</a>
           <a class="item" href="#tool_build">build</a>
+          <a class="item" href="#tool_repository_install">repository:install</a>
+          <a class="item" href="#tool_repository_scan">repository:scan</a>
+          <a class="item" href="#tool_repository_copy-libs">repository:copy-libs</a>
           <a class="item" href="#tool_uncrustify">uncrustify</a>
         </div>
       </div>
@@ -53,7 +56,7 @@
   <div class="ui masthead inverted vertical segment">
     <div class="ui page grid">
       <div class="column">
-        <img src="images/valder1.png" class="ui image dropshadow">
+        <img src="images/question.png" class="ui image dropshadow">
         <div class="ui hidden transition information">
           <h1 class="ui inverted header">
             Valder the Vala code welder
@@ -194,7 +197,7 @@
           <h2 class="ui inverted header">Tools and recipies</h2>
           <p>As stated earlier Valder design is created around a Plugin based approach, where each plugin, called later Tool, is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of tools shipped with Valder distribution package:</p>
 
-            <div class="ui divided items">
+            <div class="ui divided relaxed items">
               <div class="item">
                 <div class="inverted segment">
                   <h3 class="ui inverted header offset" id="tool_initialize_structure">
@@ -204,8 +207,11 @@
                     </div>
                   </h3>                  
                     <p>First tool used to initialize contents of a new Valder project. It's intented to be used on empty project directory by creating it's default structure. Tool honors all directories specified in "Valder project structure". Tool is totally safe and wont harm your current filesystem hierarchy.</p>
+                    <div class="ui center aligned basic segment">
+                    	<script type="text/javascript" src="https://asciinema.org/a/22918.js" id="asciicast-22918" async></script>
+					</div>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-init">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-init">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -221,8 +227,11 @@
                     </div>
                   </h3>                  
                     <p>This particular tool is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
+                  <div class="ui center aligned basic segment">
+                    <script type="text/javascript" src="https://asciinema.org/a/22940.js" id="asciicast-22940" async></script>
+                  </div>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-init">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-init">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -238,8 +247,13 @@
                     </div>
                   </h3>                  
                     <p>Tool aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other tools.</p>
+                  	
+                  	<div class="ui center aligned basic segment">
+                  		<script type="text/javascript" src="https://asciinema.org/a/22925.js" id="asciicast-22925" async></script></script>
+              		</div>
+
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-collect-sources">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-collect-sources">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
@@ -254,15 +268,96 @@
                       build
                     </div>
                   </h3>                  
-                    <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Valder architecture. It uses Vala source code files found by collect-sources tool and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc).</p>
+                    <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Valder architecture. It uses Vala source code files found by collect-sources tool and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc). Usualy you will use this tool together with collect-sources.</p>
+
+					         <div class="ui center aligned basic segment">
+                  		<script type="text/javascript" src="https://asciinema.org/a/22938.js" id="asciicast-22938" async></script>
+              		</div>
+
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-build">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-build">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>
                   </div>
                 </div>
               </div>
+
+               <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="tool_repository_install">
+                    <i class="configure icon"></i>
+                    <div class="content">
+                      repository:install
+                    </div>
+                  </h3>                  
+                    <p>
+                      <div class="ui inverted red mini ribbon label">
+                      <i class="spinner icon"></i>
+                      Work in progress
+                    </div>
+
+                    </p>
+
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-repository">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="tool_repository_scan">
+                    <i class="configure icon"></i>
+                    <div class="content">
+                      repository:scan
+                    </div>
+                  </h3>                  
+                    <p>
+                      <div class="ui inverted red mini ribbon label">
+                      <i class="spinner icon"></i>
+                      Work in progress
+                    </div>
+
+                    </p>
+
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-repository">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item">
+                <div class="inverted segment">
+                  <h3 class="ui inverted header offset" id="tool_repository_copy-libs">
+                    <i class="configure icon"></i>
+                    <div class="content">
+                      repository:install
+                    </div>
+                  </h3>                  
+                    <p>
+                      <div class="ui inverted red mini ribbon label">
+                      <i class="spinner icon"></i>
+                      Work in progress
+                    </div>
+
+                    </p>
+
+                  <div class="extra">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-repository">
+                      Visit GitHub page
+                      <i class="github alternate right icon"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <div class="item">
                 <div class="inverted segment">
                   <h3 class="ui inverted header offset" id="tool_uncrustify">
@@ -279,7 +374,7 @@
 
                     </p>
                   <div class="extra">
-                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/tool-uncrustify">
+                    <a class="ui right floated mini button" href="https://github.com/activey/valder/tree/master/plugin-uncrustify">
                       Visit GitHub page
                       <i class="github alternate right icon"></i>
                     </a>

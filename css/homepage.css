@@ -35,11 +35,13 @@ html {
 }
 
 #home .masthead .image {
+  width: 30%;
+  height: auto;
   position: absolute;
   left: 0%;
-  bottom: -200px;
-  -webkit-filter: drop-shadow(5px 5px 5px #000);
-  filter: drop-shadow(5px 5px 5px #000);
+  bottom: -160px;
+  /*-webkit-filter: drop-shadow(5px 5px 5px #000);
+  filter: drop-shadow(5px 5px 5px #000);*/
 }
 
 #home .masthead {
@@ -115,12 +117,6 @@ html {
   }
   #home .masthead.segment .information {
     margin-left: 270px;
-  }
-
-  #home .masthead.segment .image {
-    width: 220px;
-    bottom: -150px;
-    left: 20px;
   }
 
   #home .masthead.segment .button {
