@@ -17,5 +17,13 @@ namespace bob.builder.filesystem {
 		public string getLocation() {
 			return file.get_path();
 		}
+
+		public string getName() {
+			return file.get_basename();
+		}
+
+		public DirectoryObject getParent() {
+			return new DirectoryObject(file.get_parent());
+		}		
 	}
 }

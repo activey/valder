@@ -25,9 +25,8 @@ namespace bob.builder.filesystem {
 			this.fromGivenLocation(Environment.get_home_dir());
 		}
 
-		public void accept(FileSystemVisitor visitor) {
-			visitor.visitDirectory(file);
-			
+		public void accept(FileSystemVisitor visitor, bool recursive) {
+			acceptDirectory(visitor);
 			if (!exists()) {
 				return;
 			}
@@ -37,7 +36,12 @@ namespace bob.builder.filesystem {
 				while ((fileInfo = enumerator.next_file()) != null) {
 					File file = enumerator.get_child(fileInfo);
 					if (isDirectory(fileInfo)) {
-						new DirectoryObject(file).accept(visitor);
+						DirectoryObject directory = new DirectoryObject(file);
+						if (recursive) {
+							directory.accept(visitor, true);
+							continue;
+						}
+						directory.acceptDirectory(visitor);
 						continue;
 					}
 					new FileObject(file).accept(visitor);
@@ -46,6 +50,10 @@ namespace bob.builder.filesystem {
 			catch(Error e) {
 				LOGGER.logError("An error occurred: %s", e.message);
 			}
+		}
+
+		public void acceptDirectory(FileSystemVisitor visitor) {
+			visitor.visitDirectory(file);
 		}
 
 		private bool isDirectory(FileInfo fileInfo) {
@@ -58,14 +66,14 @@ namespace bob.builder.filesystem {
 
 		public bool hasChildWithName(string childName) {
 			ObjectExistenceLookupVisitor existenceLookup = new ObjectExistenceLookupVisitor(childName);
-			accept(existenceLookup);
+			accept(existenceLookup, false);
 
 			return existenceLookup.exists();
 		}
 
 		public DirectoryObject getDirectoryChild(string childName) {
 			DirectoryObjectLookupVisitor directoryLookup = new DirectoryObjectLookupVisitor(childName);
-			accept(directoryLookup);
+			accept(directoryLookup, false);
 
 			DirectoryObject? directory = directoryLookup.getDirectory();
 			if (directory == null) {
@@ -85,7 +93,7 @@ namespace bob.builder.filesystem {
 
 		public FileObject getFileChild(string childName) {
 			FileObjectLookupVisitor fileLookup = new FileObjectLookupVisitor(childName);
-			accept(fileLookup);
+			accept(fileLookup, false);
 
 			FileObject? file = fileLookup.getFile();
 			if (file == null) {

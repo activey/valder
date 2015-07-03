@@ -19,6 +19,11 @@ namespace bob.builder.filesystem {
 			_parentDirectory = parentDirectory;
 		}
 
+		public DirectoryBuilder.from(DirectoryObject directory, bool readOnly) {
+			this(directory.getName(), directory.getParent(), readOnly);
+			_directory = directory;
+		}
+
 		public DirectoryObject? directory(string name, DirectoryBuilderDelegate? directoryBuilderDelegate) {
 			DirectoryBuilder directoryBuilder = new DirectoryBuilder(name, getOrCreate(), _readOnly);
 			if (directoryBuilderDelegate != null) {

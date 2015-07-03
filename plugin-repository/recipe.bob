@@ -1,7 +1,7 @@
 {
   "project" : {
-    "name" : "plugin-initialize",
-    "shortName" : "plugin-initialize",
+    "name" : "plugin-repository",
+    "shortName" : "plugin-repository",
     "version" : "0.0.1",
     "dependencies" : [
       {
