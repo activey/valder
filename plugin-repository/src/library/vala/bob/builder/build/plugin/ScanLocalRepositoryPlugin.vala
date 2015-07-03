@@ -14,6 +14,7 @@ namespace bob.builder.build.plugin {
 
         private Logger LOGGER = Logger.getLogger("ScanLocalRepositoryPlugin");
 
+        private RepositoryDependencyScanner scanner;
         private bool verbose = false; 
 
         public ScanLocalRepositoryPlugin() {
@@ -22,12 +23,23 @@ namespace bob.builder.build.plugin {
 
         public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
             verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, false);
+            
+            try {
+                initializeRepositoryScanner();
+            } catch (RepositoryScannerError e) {
+                throw new BobBuildPluginError.INITIALIZATION_ERROR(e.message);
+            }
+        }
+
+        private void initializeRepositoryScanner() throws RepositoryScannerError {
+            scanner = new RepositoryDependencyScanner();
+            scanner.initialize();
         }
 
         public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
             LOGGER.logInfo("Scanning local repository for project dependencies.");
             
-            new RepositoryDependencyScanner(projectRecipe).scanDependenciesInRepository(additionalDependency => {
+            scanner.scanDependenciesInRepository(projectRecipe, additionalDependency => {
                 if (!projectRecipe.hasDependency(additionalDependency)) {
                     LOGGER.logInfo("Adding new dependency: %s.", additionalDependency.toString());
                     projectRecipe.addDependency(additionalDependency);

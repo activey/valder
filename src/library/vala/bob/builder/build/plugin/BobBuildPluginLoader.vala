@@ -44,7 +44,7 @@ namespace bob.builder.build.plugin {
 
 			LOGGER.logInfo("Loading plugins from directory: %s", pluginsDirectory.get_path());
 			DirectoryObject plugins = new DirectoryObject(pluginsDirectory);
-			plugins.accept(new BobBuildPluginVisitor(loadPluginFromFile));
+			plugins.accept(new BobBuildPluginVisitor(loadPluginFromFile), false);
 		}
 
 		private void validateModulesSupported() {

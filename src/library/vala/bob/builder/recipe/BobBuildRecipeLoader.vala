@@ -40,7 +40,7 @@ namespace bob.builder.recipe {
 		private File? locateRecipeFile(string recipeFileName) {
 			DirectoryObject workDirectory = new DirectoryObject.fromCurrentLocation();
 			BobBuildRecipeLocatingVisitor recipeVisitor = new BobBuildRecipeLocatingVisitor(recipeFileName);
-			workDirectory.accept(recipeVisitor);
+			workDirectory.accept(recipeVisitor, false);
 			return recipeVisitor.getRecipeFile();
 		}
 	}

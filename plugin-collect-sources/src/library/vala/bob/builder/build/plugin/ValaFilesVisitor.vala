@@ -17,7 +17,7 @@ namespace bob.builder.build.plugin {
 
 		public void collectSourceFiles() throws Error {
             DirectoryObject sourcesDirectory = new DirectoryObject.fromGivenLocation(valaFilesDirectory);
-            sourcesDirectory.accept(this);
+            sourcesDirectory.accept(this, true);
         }
 
         public override void visitFileFiltered(File file) {

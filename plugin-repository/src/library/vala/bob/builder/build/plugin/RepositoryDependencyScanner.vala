@@ -13,18 +13,25 @@ namespace bob.builder.build.plugin {
 
         private Logger LOGGER = Logger.getLogger("RepositoryDependencyScanner");
 
+        private DirectoryObject repositoryDirectory;
 		private DirectoryObject projectDirectory;
         private DirectoryObject vapiDirectory;
         private DirectoryObject cDirectory;
 
-        private BobBuildProjectRecipe _projectRecipe;
+        public void initialize() throws RepositoryScannerError {
+            RepositoryProjectDirectoryStructure
+                .read(repository => {
+                    repositoryDirectory = repository.getOrCreate();
+                });
 
-        public RepositoryDependencyScanner(BobBuildProjectRecipe projectRecipe) {
-            _projectRecipe = projectRecipe;
+            if (!repositoryDirectory.exists()) {
+                throw new RepositoryScannerError.INITIALIZATION_ERROR("Unable to find repository directory under location: %s", repositoryDirectory.getLocation());
+            }
+            LOGGER.logInfo("Found repository directory: %s.", repositoryDirectory.getLocation());
         }
 
-		public void scanDependenciesInRepository(AdditionalDependencyFoundDelegate additionalDependencyDelegate) {
-            _projectRecipe.dependencies.foreach(dependency => {
+		public void scanDependenciesInRepository(BobBuildProjectRecipe projectRecipe, AdditionalDependencyFoundDelegate additionalDependencyDelegate) {
+            projectRecipe.dependencies.foreach(dependency => {
                 scanProjectDependencyMatch(dependency, additionalDependencyDelegate);    
 
                 additionalDependencyDelegate(dependency);
@@ -33,8 +40,9 @@ namespace bob.builder.build.plugin {
 
         private void scanProjectDependencyMatch(BobBuildProjectDependency dependency, AdditionalDependencyFoundDelegate additionalDependencyDelegate) {
             LOGGER.logInfo("Scanning for depedency match in local repository: %s", dependency.toString());
-            RepositoryProjectDirectoryStructure
-                .read(repository => {
+            
+            RepositoryProjectDirectoryStructure.
+                readFrom(repositoryDirectory, repository => {
                     repository.directory(dependency.dependency, project => {
                         projectDirectory = project.directory(dependency.version, versionDirectory => {
                             vapiDirectory = versionDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME, null);
@@ -43,14 +51,13 @@ namespace bob.builder.build.plugin {
                     });
                 });
 
-            bool projectExists = projectDirectory.exists();
-            if (!projectExists) {
+            if (!projectDirectory.exists()) {
                 LOGGER.logWarn("Repository directory for %s does not exist.", dependency.toString());
                 return;
             }
 
             assignVapiDirectory(dependency, vapiDirectory);
-            assignCHeadersDirectort(dependency, cDirectory);
+            assignCHeadersDirectory(dependency, cDirectory);
             processRecipeFile(projectDirectory.getFileChild(BobFiles.FILE_PROJECT_RECIPE), additionalDependencyDelegate);
         }
 
@@ -62,7 +69,7 @@ namespace bob.builder.build.plugin {
             dependency.vapiDirectory = vapiDirectory.getLocation();
         }
 
-        private void assignCHeadersDirectort(BobBuildProjectDependency dependency, DirectoryObject cDirectory) {
+        private void assignCHeadersDirectory(BobBuildProjectDependency dependency, DirectoryObject cDirectory) {
             if (!cDirectory.exists()) {
                 LOGGER.logWarn("C headers directory does not exist.");
                 return;
@@ -79,7 +86,10 @@ namespace bob.builder.build.plugin {
             LOGGER.logInfo("Scanning recipe file: %s", recipeFile.getLocation());
             try {
                 BobBuildRecipe recipe = BobBuildRecipeLoader.loadFromJSONFileObject(recipeFile);
-                new RepositoryDependencyScanner(recipe.project).scanDependenciesInRepository(additionalDependency);
+                
+                RepositoryDependencyScanner scanner = new RepositoryDependencyScanner();
+                scanner.initialize();
+                scanner.scanDependenciesInRepository(recipe.project, additionalDependency);
             } catch (Error e) {
                 LOGGER.logError("An error occurred while parsing recipe file: %.", e.message);
             }
