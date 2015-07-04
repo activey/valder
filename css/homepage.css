@@ -39,9 +39,12 @@ html {
   height: auto;
   position: absolute;
   left: 0%;
-  bottom: -160px;
-  /*-webkit-filter: drop-shadow(5px 5px 5px #000);
-  filter: drop-shadow(5px 5px 5px #000);*/
+  bottom: -120px;
+}
+
+.masthead .image {
+  -webkit-filter: drop-shadow(5px 5px 5px #000);
+  filter: drop-shadow(5px 5px 5px #000);
 }
 
 #home .masthead {
@@ -149,7 +152,15 @@ html {
 .offset:before { 
   display: block; 
   content: " "; 
-  height: 40px;
-  margin-top: -40px;  
+  height: 50px;
+  margin-top: -50px;  
   visibility: hidden; 
+}
+
+.display-popup {
+  cursor: pointer;
+}
+
+.ui.segments {
+  border: 0px;
 }

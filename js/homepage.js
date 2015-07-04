@@ -9,11 +9,14 @@ $(document)
      $('.masthead .information')
       .transition('scale in');
     
-     $('.masthead .bob')
+     $('.masthead .valder')
       .transition('tada');
 
-    $('.book .link')
-      .hover('scale in');
+    $('.toolbar-element').hover(function(){
+        $(this).transition('pulse');
+    }, function(){});
 
+    $('.display-popup')
+      .popup();
 
   });
