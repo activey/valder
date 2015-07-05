@@ -178,8 +178,6 @@ namespace bob.builder.build.plugin {
             string ccCommand = Environment.get_variable("CC");
             string pkgConfigCommand = Environment.get_variable("PKG_CONFIG");
 
-            stdout.printf(">>>> %s \n", string.joinv(",", ccOptions.getCcOptions()));
-
             ccompiler.compile(codeContext, ccCommand, ccOptions.getCcOptions(), pkgConfigCommand);
 
             if (hasErrors()) {
