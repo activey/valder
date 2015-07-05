@@ -36,6 +36,12 @@ namespace bob.builder.build.plugin {
 			default = false;
 		}
 
+		public bool debug {
+			get;
+			set;
+			default = false;
+		}
+
 		public BobBuildProjectDependencyScope scope {
 			get;
 			set;
