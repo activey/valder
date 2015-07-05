@@ -18,6 +18,7 @@ namespace bob {
 					public void addSource (bob.builder.recipe.project.BobBuildProjectSourceFile source);
 					public bool hasAnySources (string fileSuffix);
 					public string[] ccOptions { get; set; }
+					public bool debug { get; set; }
 					public GLib.List<bob.builder.recipe.project.BobBuildProjectDependency> dependencies { get; }
 					public bool generateVapi { get; set; }
 					public string outputHFile { get; set; }
@@ -74,6 +75,7 @@ namespace bob {
 					public CCOptions (string[] ccOptions);
 					public void addCHeadersDirectoryLocation (string cHeadersDirectoryLocation);
 					public void addCcOption (string ccOption);
+					public void addDebugFlag ();
 					public string[] getCcOptions ();
 					public void useLibrary (string name);
 				}

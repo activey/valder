@@ -10,6 +10,7 @@ namespace bob.builder.build.plugin {
 		public delegate void BuildConfigurationDependencyBuilderDelegate(BuildConfigurationDependencyBuilder dependencyBuilder);
 
 		private const string PROPERTY_VERBOSE = "verbose";
+		private const string PROPERTY_DEBUG = "debug";
 
 		private string _targetDirectory = "";
 		private string _targetFileName = "";
@@ -28,6 +29,7 @@ namespace bob.builder.build.plugin {
 
 		private void readJsonProperties(JsonObject jsonObject) {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
+			buildConfiguration.debug = jsonObject.getBooleanEntry(PROPERTY_DEBUG, false);
 		}
 
 		public BuildConfigurationBuilder sources(List<BobBuildProjectSourceFile> sources) {

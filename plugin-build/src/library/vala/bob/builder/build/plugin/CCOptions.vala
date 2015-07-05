@@ -7,6 +7,10 @@ namespace bob.builder.build.plugin {
 
 	public class CCOptions {
 
+		private const string OPTION_HEADERS_DIRECTORY = "-I%s";
+		private const string OPTION_USE_LIBRARY = "-l%s";
+		private const string OPTION_DEBUG_FLAG = "-rdynamic";
+
 		private string[] _ccOptions;
 
 		public CCOptions(string[] ccOptions) {
@@ -18,11 +22,15 @@ namespace bob.builder.build.plugin {
 		}
 
 		public void addCHeadersDirectoryLocation(string cHeadersDirectoryLocation) {
-			addCcOption("-I%s".printf(cHeadersDirectoryLocation));
+			addCcOption(OPTION_HEADERS_DIRECTORY.printf(cHeadersDirectoryLocation));
 		}
 
 		public void useLibrary(string name) {
-			addCcOption("-l%s".printf(name));
+			addCcOption(OPTION_USE_LIBRARY.printf(name));
+		}
+
+		public void addDebugFlag() {
+			addCcOption(OPTION_DEBUG_FLAG);
 		}
 
 		public string[] getCcOptions() {

@@ -26,6 +26,7 @@ namespace bob.builder.build.plugin {
             this.ccOptions = new CCOptions(buildConfiguration.ccOptions);
             
             initializeCodeContext();
+            initializeContextDebug();
             initializeContextVapiLibraries();
             useContextVapiDirectories();
             
@@ -43,7 +44,6 @@ namespace bob.builder.build.plugin {
             codeContext.output = buildConfiguration.targetFile;
             codeContext.assert = false;
 		    codeContext.checking = true;
-            codeContext.debug = true;
 		    codeContext.deprecated = true;
 		    codeContext.hide_internal = false;
 		    codeContext.experimental = false;
@@ -60,6 +60,15 @@ namespace bob.builder.build.plugin {
 
             codeContext.profile = Profile.GOBJECT;
 			codeContext.add_define("GOBJECT");
+        }
+
+        private void initializeContextDebug() {
+            if (buildConfiguration.debug) {
+                LOGGER.logInfo("Setting DEBUG mode.");
+
+                codeContext.debug = buildConfiguration.debug;
+                ccOptions.addDebugFlag();
+            }
         }
 
         private void initializeContextVapiLibraries() {
@@ -168,6 +177,7 @@ namespace bob.builder.build.plugin {
             CCodeCompiler ccompiler = new CCodeCompiler();
             string ccCommand = Environment.get_variable("CC");
             string pkgConfigCommand = Environment.get_variable("PKG_CONFIG");
+
             ccompiler.compile(codeContext, ccCommand, ccOptions.getCcOptions(), pkgConfigCommand);
 
             if (hasErrors()) {

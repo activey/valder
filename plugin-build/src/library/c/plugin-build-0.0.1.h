@@ -221,6 +221,8 @@ const gchar* bob_builder_build_plugin_build_configuration_get_outputHFile (bobbu
 void bob_builder_build_plugin_build_configuration_set_outputHFile (bobbuilderbuildpluginBuildConfiguration* self, const gchar* value);
 gboolean bob_builder_build_plugin_build_configuration_get_verbose (bobbuilderbuildpluginBuildConfiguration* self);
 void bob_builder_build_plugin_build_configuration_set_verbose (bobbuilderbuildpluginBuildConfiguration* self, gboolean value);
+gboolean bob_builder_build_plugin_build_configuration_get_debug (bobbuilderbuildpluginBuildConfiguration* self);
+void bob_builder_build_plugin_build_configuration_set_debug (bobbuilderbuildpluginBuildConfiguration* self, gboolean value);
 bobbuilderrecipeprojectBobBuildProjectDependencyScope bob_builder_build_plugin_build_configuration_get_scope (bobbuilderbuildpluginBuildConfiguration* self);
 void bob_builder_build_plugin_build_configuration_set_scope (bobbuilderbuildpluginBuildConfiguration* self, bobbuilderrecipeprojectBobBuildProjectDependencyScope value);
 gchar** bob_builder_build_plugin_build_configuration_get_ccOptions (bobbuilderbuildpluginBuildConfiguration* self, int* result_length1);
@@ -332,6 +334,7 @@ bobbuilderbuildpluginCCOptions* bob_builder_build_plugin_cc_options_construct (G
 void bob_builder_build_plugin_cc_options_addCcOption (bobbuilderbuildpluginCCOptions* self, const gchar* ccOption);
 void bob_builder_build_plugin_cc_options_addCHeadersDirectoryLocation (bobbuilderbuildpluginCCOptions* self, const gchar* cHeadersDirectoryLocation);
 void bob_builder_build_plugin_cc_options_useLibrary (bobbuilderbuildpluginCCOptions* self, const gchar* name);
+void bob_builder_build_plugin_cc_options_addDebugFlag (bobbuilderbuildpluginCCOptions* self);
 gchar** bob_builder_build_plugin_cc_options_getCcOptions (bobbuilderbuildpluginCCOptions* self, int* result_length1);
 
 

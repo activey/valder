@@ -1,8 +1,7 @@
 using bob.builder.build.plugin;
 
 public void initializePlugin(BobBuildPluginLoader pluginLoader) {
-	var plugin = new BuildApplicationPlugin();
-	pluginLoader.addPlugin(plugin);
+	pluginLoader.addPlugin(new BuildApplicationPlugin());
 }
 
 public string[] getDependencies() {
