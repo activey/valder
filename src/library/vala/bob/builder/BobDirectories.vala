@@ -5,6 +5,7 @@ namespace bob.builder {
 		public const string PATH_SEPARATOR = Path.DIR_SEPARATOR_S;
 
 		public const string DIRECTORY_LIB = "lib";
+		public const string DIRECTORY_BIN = "bin";
 		public const string DIRECTORY_PLUGINS = "plugins";
 
 		public const string DIRECTORY_SOURCE = "src";
@@ -21,5 +22,6 @@ namespace bob.builder {
 		
 		public const string DIRECTORY_TARGET = "target";
 		public const string DIRECTORY_TARGET_LIB = DIRECTORY_TARGET + PATH_SEPARATOR + DIRECTORY_LIB;
+		public const string DIRECTORY_TARGET_BIN = DIRECTORY_TARGET + PATH_SEPARATOR + DIRECTORY_BIN;
 	}
 }

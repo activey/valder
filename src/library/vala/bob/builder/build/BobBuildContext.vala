@@ -49,7 +49,6 @@ namespace bob.builder.build {
         }
 
         private void prepareProjectPlugins() throws BobBuildPluginError {
-            LOGGER.logInfo("Loading project plugins recipies...");
             pluginChain.preparePlugins((pluginToRun) => {
                     BobBuildPluginRecipe? pluginRecipe = buildRecipe.getPluginRecipe(pluginToRun.name);
                     if (pluginRecipe == null) {

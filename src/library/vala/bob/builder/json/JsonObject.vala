@@ -115,7 +115,7 @@ namespace bob.builder.json {
 			generator.set_pretty(true);
 			generator.set_root(rootNode);
 
-			FileIOStream stream = file.getStream();
+			FileIOStream stream = file.getStreamOverwrite();
 			if (!generator.to_stream(stream.output_stream)) {
 				LOGGER.logError("Was not able to write JsonObject to file due to some system problem.");				
 			}

@@ -22,6 +22,17 @@ namespace bob.builder.filesystem {
 			return stream;
 		}
 
+		public FileIOStream getStreamOverwrite() throws Error {
+			FileIOStream stream = null;
+			if (!file.query_exists()) {
+				stream = file.create_readwrite(FileCreateFlags.PRIVATE);
+			} else {
+				file.delete();
+				return getStreamOverwrite();
+			}
+			return stream;
+		}
+
 		public void copyTo(DirectoryObject directory, bool overwrite) throws Error {
 			FileObject fileCopy = directory.newFileChild(file.get_basename());
 			fileCopy.copyFrom(file, overwrite);

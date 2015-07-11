@@ -41,6 +41,7 @@ namespace bob.builder.build.plugin {
                 })
                 .directory(BobDirectories.DIRECTORY_TARGET, target => {
                     target.directory(BobDirectories.DIRECTORY_LIB, null);
+                    target.directory(BobDirectories.DIRECTORY_BIN, null);
                 });
 
             LOGGER.logSuccess("Base project directory structure created.");

@@ -70,7 +70,7 @@ namespace bob.builder.build.plugin {
 				.cHeaderFileName(BobFiles.FILE_SOURCE_C_HEADER_NAME.printf(projectRecipe.shortName, projectRecipe.version))
 				.ccOption("-fPIC")
 				.ccOption("-shared")
-				.ccOption("-Wl,-rpath=\$ORIGIN/%s".printf(BobDirectories.DIRECTORY_LIB))
+				.ccOption("-Wl,-rpath=\$ORIGIN/../%s".printf(BobDirectories.DIRECTORY_LIB))
 				.ccOption("-L%s".printf(BobDirectories.DIRECTORY_TARGET_LIB))
 				.build();
 			return new ValaCodeCompiler(buildConfiguration);
@@ -81,9 +81,9 @@ namespace bob.builder.build.plugin {
 				.runtimeScope()
 				.dependencies(projectRecipe.dependencies)
 				.sources(projectRecipe.mainSourceFiles)
-				.targetDirectory(BobDirectories.DIRECTORY_TARGET)
+				.targetDirectory(BobDirectories.DIRECTORY_TARGET_BIN)
 				.targetFileName(projectRecipe.shortName)
-				.ccOption("-Wl,-rpath=\$ORIGIN/%s".printf(BobDirectories.DIRECTORY_LIB))
+				.ccOption("-Wl,-rpath=\$ORIGIN/../%s".printf(BobDirectories.DIRECTORY_LIB))
 				.ccOption("-L%s".printf(BobDirectories.DIRECTORY_TARGET_LIB));
 
 			if (libraryCompilationOutcome.binaryGenerated) {

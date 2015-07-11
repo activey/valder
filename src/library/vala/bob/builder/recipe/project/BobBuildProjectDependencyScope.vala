@@ -1,34 +1,24 @@
 using bob.builder.json;
+using bob.builder.enums;
 
 namespace bob.builder.recipe.project {
 
 	public enum BobBuildProjectDependencyScope {
 
-
-		LIBRARY,
-		RUNTIME,
-		BOTH;
-
-		public static BobBuildProjectDependencyScope[] values() {
-			return {LIBRARY, RUNTIME, BOTH};
-		}
+		BOTH = 0,
+		LIBRARY = 1,
+		RUNTIME = 2;
 
 		public static BobBuildProjectDependencyScope fromName(string? name) {
-			if (name == null) {
+			EnumValue? enumValue = EnumReader.fromName(typeof(BobBuildProjectDependencyScope), name);
+			if (enumValue == null) {
 				return BobBuildProjectDependencyScope.BOTH;
 			}
-			foreach (BobBuildProjectDependencyScope scope in BobBuildProjectDependencyScope.values()) {
-				if (scope.name() == name.down()) {
-					return scope;
-				}
-			}
-			return BobBuildProjectDependencyScope.BOTH;
+			return (BobBuildProjectDependencyScope) enumValue.value;
 		}
 
 		public string name() {
-			string stringValue = to_string();
-			int lastUnderscorePosition = stringValue.last_index_of("_", 0) + 1;
-			return stringValue.substring(lastUnderscorePosition, stringValue.length - lastUnderscorePosition).down();
+			return EnumReader.readName(to_string());
 		}
 
 		public bool matches(BobBuildProjectDependencyScope otherScope) {

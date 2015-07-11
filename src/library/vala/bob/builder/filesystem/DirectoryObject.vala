@@ -1,5 +1,6 @@
 using bob.builder.log;
 using bob.builder.filesystem.visitor;
+using bob.builder.filesystem.copy;
 
 namespace bob.builder.filesystem {
 
@@ -25,8 +26,12 @@ namespace bob.builder.filesystem {
 			this.fromGivenLocation(Environment.get_home_dir());
 		}
 
+		public DirectoryObject.fromTemporaryDirectory() {
+			this.fromGivenLocation(Environment.get_tmp_dir());
+		}
+
 		public void accept(FileSystemVisitor visitor, bool recursive) {
-			acceptDirectory(visitor);
+			// acceptDirectory(visitor);
 			if (!exists()) {
 				return;
 			}
@@ -110,6 +115,10 @@ namespace bob.builder.filesystem {
 
 		private File newChild(string childName) {
 			return File.new_for_path("%s%C%s".printf(file.get_path(), Path.DIR_SEPARATOR, childName));
+		}
+
+		public void copyTo(DirectoryObject directory, bool overwrite) {
+			new DirectoryCopier(this, directory, overwrite).copy();
 		}
 	}
 }
