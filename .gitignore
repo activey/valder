@@ -1,4 +1,5 @@
-target/*
-src/library/c/
-src/library/vapi/
+target/bin/*
+target/plugins/*
+src/library/c/*.h
+src/library/vapi/*.vapi
 **/target/lib/*.so

@@ -64,12 +64,12 @@ namespace bob.builder.build.plugin.control {
 			return EnumReader.readName(to_string());
 		}
 
-		public ControlFileArchitectureEnum? fromName(string? name) {
-			EnumValue? enumValue = EnumReader.fromName(typeof(ControlFileArchitectureEnum), name);
+		public static ControlFileSectionEnum fromName(string? name, ControlFileSectionEnum defaultIfNull) {
+			EnumValue? enumValue = EnumReader.fromName(typeof(ControlFileSectionEnum), name);
 			if (enumValue == null) {
-				return null;
+				return defaultIfNull;
 			}
-			return (ControlFileArchitectureEnum) enumValue.value;
+			return (ControlFileSectionEnum) enumValue.value;
 		}
 	}
 }

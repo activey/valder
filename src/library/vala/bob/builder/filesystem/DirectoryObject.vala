@@ -97,14 +97,9 @@ namespace bob.builder.filesystem {
 		}
 
 		public FileObject getFileChild(string childName) {
-			FileObjectLookupVisitor fileLookup = new FileObjectLookupVisitor(childName);
+			FileObjectLookupVisitor fileLookup = new FileObjectLookupVisitor(this, childName);
 			accept(fileLookup, false);
-
-			FileObject? file = fileLookup.getFile();
-			if (file == null) {
-				return newFileChild(childName);
-			}
-			return file;
+			return fileLookup.getFile();
 		}
 
 		public FileObject newFileChild(string childName) {

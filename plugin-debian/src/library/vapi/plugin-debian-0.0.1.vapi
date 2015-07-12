@@ -8,9 +8,10 @@ namespace bob {
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class ControlFileBuilder {
 						public bob.builder.build.plugin.control.ControlFileBuilder architecture (string architecture);
-						public bob.builder.filesystem.FileObject build ();
+						public bob.builder.build.plugin.control.ControlFileBuilder author (string author);
+						public void build (bob.builder.filesystem.FileObject outputControlFile) throws GLib.Error;
 						public static bob.builder.build.plugin.control.ControlFileBuilder controlFile ();
-						public bob.builder.build.plugin.control.ControlFileBuilder depends (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+						public bob.builder.build.plugin.control.ControlFileBuilder depends (bob.builder.build.plugin.control.ControlFileDebianPackage dependsPackage);
 						public bob.builder.build.plugin.control.ControlFileBuilder description (string description);
 						public bob.builder.build.plugin.control.ControlFileBuilder optionalPriority ();
 						public bob.builder.build.plugin.control.ControlFileBuilder package (string package);
@@ -18,14 +19,35 @@ namespace bob {
 						public bob.builder.build.plugin.control.ControlFileBuilder version (string version);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class ControlFileDebianPackage {
+						public ControlFileDebianPackage ();
+						public string to_string ();
+						public ControlFileDebianPackage.withName (string packageName);
+						public string name { get; set; }
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class ControlFileGenerator {
+						public ControlFileGenerator ();
+						public void generate (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.FileObject controlFile) throws GLib.Error;
+						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class ControlFileProperties {
 						public ControlFileProperties ();
+						public void addAuthor (string author);
+						public void addDependency (bob.builder.build.plugin.control.ControlFileDebianPackage dependency);
 						public void setArchitecture (bob.builder.build.plugin.control.ControlFileArchitectureEnum architecture);
 						public void setDescription (string description);
 						public void setPackage (string package);
 						public void setPriority (bob.builder.build.plugin.control.ControlFilePriorityEnum priority);
-						public void setSection (string section);
+						public void setSection (bob.builder.build.plugin.control.ControlFileSectionEnum section);
 						public void setVersion (string version);
+						public void writeToFile (bob.builder.filesystem.FileObject outputFile) throws GLib.Error;
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class ControlFilePropertyPrinter : bob.builder.build.plugin.properties.AbstractPropertyPrinter {
+						public ControlFilePropertyPrinter ();
+						protected override string formatProperty (string name, string value);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public enum ControlFileArchitectureEnum {
@@ -54,7 +76,7 @@ namespace bob {
 						SPARC64,
 						X32;
 						public string name ();
-						public static bob.builder.build.plugin.control.ControlFileArchitectureEnum? fromName (string? name);
+						public static bob.builder.build.plugin.control.ControlFileArchitectureEnum fromName (string? name, bob.builder.build.plugin.control.ControlFileArchitectureEnum defaultIfNull);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public enum ControlFilePriorityEnum {
@@ -64,7 +86,7 @@ namespace bob {
 						STANDARD,
 						EXTRA;
 						public string name ();
-						public bob.builder.build.plugin.control.ControlFilePriorityEnum? fromName (string? name);
+						public static bob.builder.build.plugin.control.ControlFilePriorityEnum? fromName (string? name);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public enum ControlFileSectionEnum {
@@ -124,7 +146,7 @@ namespace bob {
 						XFCE,
 						ZOPE;
 						public string name ();
-						public bob.builder.build.plugin.control.ControlFileArchitectureEnum? fromName (string? name);
+						public static bob.builder.build.plugin.control.ControlFileSectionEnum fromName (string? name, bob.builder.build.plugin.control.ControlFileSectionEnum defaultIfNull);
 					}
 				}
 				namespace dependency {
@@ -155,6 +177,28 @@ namespace bob {
 						EXECUTABLE_ERROR
 					}
 				}
+				namespace properties {
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public abstract class AbstractPropertyPrinter {
+						public AbstractPropertyPrinter ();
+						protected abstract string formatProperty (string name, string value);
+						public size_t printProperty (GLib.OutputStream stream, string name, string value);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class Properties {
+						public delegate void ForEachPropertyDelegate (string name, string value);
+						public Properties ();
+						public void forEach (bob.builder.build.plugin.properties.Properties.ForEachPropertyDelegate propertyDelegate);
+						public string? getProperty (string name, string? defaultIfNull);
+						public void setProperty (string name, string value);
+						public void writeToFile (bob.builder.filesystem.FileObject outputFile, bob.builder.build.plugin.properties.AbstractPropertyPrinter propertyPrinter) throws GLib.Error;
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class PropertiesFileWriter {
+						public PropertiesFileWriter (bob.builder.build.plugin.properties.AbstractPropertyPrinter propertyPrinter);
+						public void write (bob.builder.filesystem.FileObject output, bob.builder.build.plugin.properties.Properties properties) throws GLib.Error;
+					}
+				}
 				[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 				public class BuildDebianPackagePlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
 					public BuildDebianPackagePlugin ();
@@ -169,8 +213,9 @@ namespace bob {
 				[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 				public class WorkingDirectoryStructure {
 					public WorkingDirectoryStructure ();
-					public static bob.builder.build.plugin.WorkingDirectoryStructure source (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate);
-					public static bob.builder.build.plugin.WorkingDirectoryStructure target (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate);
+					public static bob.builder.build.plugin.WorkingDirectoryStructure read ();
+					public bob.builder.build.plugin.WorkingDirectoryStructure source (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate);
+					public bob.builder.build.plugin.WorkingDirectoryStructure target (bob.builder.filesystem.DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate);
 				}
 			}
 		}

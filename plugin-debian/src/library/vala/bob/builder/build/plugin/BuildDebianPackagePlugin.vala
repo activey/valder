@@ -5,7 +5,6 @@ using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.json;
 using bob.builder.build.plugin.control;
-using bob.builder.build.plugin.dependency;
 
 namespace bob.builder.build.plugin {
 
@@ -20,40 +19,45 @@ namespace bob.builder.build.plugin {
         private DirectoryObject debianBinaryDirectory;
         private DirectoryObject debianIncludeDirectory;
         private DirectoryObject debianVapiDirectory;
+        private FileObject debianControlFile;
 
-        private DebianPackageDepedencyResolver resolver;
-        private bool verbose = true; 
+        private ControlFileGenerator _controlGenerator;
+        private bool verbose = false; 
 
         public BuildDebianPackagePlugin() {
             base(PLUGIN_NAME);
         }
 
         public override void initialize(BobBuildPluginRecipe pluginRecipe) throws BobBuildPluginError {
-            verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, true);
+            verbose = pluginRecipe.jsonConfiguration.getBooleanEntry(RECIPE_ENTRY_VERBOSE, verbose);
 
             try {
-                initializeResolver();
+                initializeControlGenerator();
             } catch (Error e) {
                 throw new BobBuildPluginError.INITIALIZATION_ERROR(e.message);
             }
         }
 
-        private void initializeResolver() throws DependencyResolverError {
-            resolver = new DebianPackageDepedencyResolver();
-            resolver.initialize();
+        private void initializeControlGenerator() throws Error {
+            _controlGenerator = new ControlFileGenerator();
+            _controlGenerator.initialize();
         }
 
         public override void run(BobBuildProjectRecipe projectRecipe, DirectoryObject projectDirectory) throws BobBuildPluginError {
             createTemporaryDebianDirectory(projectRecipe);
             copyProjectFiles();
 
-            generateControlFile(projectRecipe);
+            try {
+                generateControlFile(projectRecipe);
+            } catch (Error e) {
+                throw new BobBuildPluginError.RUN_ERROR(e.message);
+            }
         }
 
         private void createTemporaryDebianDirectory(BobBuildProjectRecipe projectRecipe) {
             TemporaryDebianArchiveDirectoryStructure.debianDirectory(generateDirectoryName(projectRecipe), debianDirectory => {
                 debianDirectory.directory("control.tar.gz.tmp", controlDirectory => {
-
+                    debianControlFile = controlDirectory.getOrCreate().getFileChild("control");
                 });
 
                 debianDirectory.directory("data.tar.gz.tmp", data => {
@@ -75,6 +79,7 @@ namespace bob.builder.build.plugin {
 
         private void copyProjectFiles() {
             WorkingDirectoryStructure
+                .read()
                 .target(targetDirectory => {
                     targetDirectory.directory(BobDirectories.DIRECTORY_LIB, libDirectory => {
                         libDirectory.getOrCreate().copyTo(debianLibraryDirectory, true);
@@ -100,25 +105,9 @@ namespace bob.builder.build.plugin {
             return "%s-%u.deb".printf(projectRecipe.shortName, new DateTime.now_local().get_microsecond());
         }
 
-        private void generateControlFile(BobBuildProjectRecipe projectRecipe) {
-            ControlFileBuilder builder = ControlFileBuilder.controlFile()
-                .package(projectRecipe.shortName)
-                .version(projectRecipe.version)
-                .section(projectRecipe.details.section)
-                .optionalPriority()
-                .architecture(projectRecipe.details.architecture)
-                .description(projectRecipe.details.description);
-
-            projectRecipe.dependencies.foreach(dependency => {
-                string[] packages = resolver.resolvePackages(dependency);
-                foreach (string package in packages) {
-                    stdout.printf(">>>> %s \n", package);
-                }
-                //builder.depends(dependency);    
-            });
-
-            FileObject controlFile = builder.build();
-            LOGGER.logInfo("Generated control file: %s.", controlFile.getLocation());
+        private void generateControlFile(BobBuildProjectRecipe projectRecipe) throws Error {
+            _controlGenerator.generate(projectRecipe, debianControlFile);
+            LOGGER.logInfo("Generated control file: %s.", debianControlFile.getLocation());
         }
     }
 }

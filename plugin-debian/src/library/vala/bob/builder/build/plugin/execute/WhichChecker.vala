@@ -13,7 +13,7 @@ namespace bob.builder.build.plugin.execute {
 
 		public bool success() {
 			try {
-				string result = executableRunner.run();
+				executableRunner.run();
 				return true;
 			} catch (ExecutableRunnerError e) {
 				return false;

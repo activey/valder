@@ -13,9 +13,18 @@
         "version" : "2.0"
       },
       {
+        "dependency" : "gee",
+        "version" : "0.8"
+      },
+      {
         "dependency" : "bob",
         "version" : "0.0.1"
       }
     ]
+  },
+  "plugins": {
+    "build": {
+      "debug": true
+    }
   }
 }

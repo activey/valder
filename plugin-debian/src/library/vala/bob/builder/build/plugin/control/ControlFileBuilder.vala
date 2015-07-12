@@ -1,4 +1,3 @@
-using bob.builder.recipe.project;
 using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin.control {
@@ -26,7 +25,7 @@ namespace bob.builder.build.plugin.control {
 		}
 
 		public ControlFileBuilder section(string section) {
-			_properties.setSection(section);
+			_properties.setSection(ControlFileSectionEnum.fromName(section, ControlFileSectionEnum.UNKNOWN));
 			return this;
 		}
 
@@ -36,7 +35,7 @@ namespace bob.builder.build.plugin.control {
 		}
 
 		public ControlFileBuilder architecture(string architecture) {
-			_properties.setArchitecture(ControlFileArchitectureEnum.fromName(architecture));
+			_properties.setArchitecture(ControlFileArchitectureEnum.fromName(architecture, ControlFileArchitectureEnum.ANY));
 			return this;
 		}
 
@@ -45,13 +44,18 @@ namespace bob.builder.build.plugin.control {
 			return this;
 		}
 
-		public ControlFileBuilder depends(BobBuildProjectDependency dependency) {
-
+		public ControlFileBuilder depends(ControlFileDebianPackage dependsPackage) {
+			_properties.addDependency(dependsPackage);
 			return this;
 		}
 
-		public FileObject build() {
-			return new FileObject(File.new_for_path("."));	
+		public ControlFileBuilder author(string author) {
+			_properties.addAuthor(author);
+			return this;
+		}
+
+		public void build(FileObject outputControlFile) throws Error {
+			_properties.writeToFile(outputControlFile);
 		}
 	}	
 }

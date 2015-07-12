@@ -10,13 +10,17 @@ namespace bob.builder.build.plugin {
             _workingDirectory = new DirectoryObject.fromCurrentLocation();
         }
 
-        public static WorkingDirectoryStructure target(DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate) {
+        public static WorkingDirectoryStructure read() {
+            return new WorkingDirectoryStructure.forRead();
+        }
+
+        public WorkingDirectoryStructure target(DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate) {
             WorkingDirectoryStructure structure = new WorkingDirectoryStructure.forRead();
             structure.directory(BobDirectories.DIRECTORY_TARGET, directoryDelegate);
             return structure;
         }
 
-        public static WorkingDirectoryStructure source(DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate) {
+        public WorkingDirectoryStructure source(DirectoryBuilder.DirectoryBuilderDelegate directoryDelegate) {
             WorkingDirectoryStructure structure = new WorkingDirectoryStructure.forRead();
             structure.directory(BobDirectories.DIRECTORY_SOURCE, directoryDelegate);
             return structure;

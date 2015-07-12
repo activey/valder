@@ -14,7 +14,7 @@ namespace bob.builder.build.plugin.control {
 			return EnumReader.readName(to_string());
 		}
 
-		public ControlFilePriorityEnum? fromName(string? name) {
+		public static ControlFilePriorityEnum? fromName(string? name) {
 			EnumValue? enumValue = EnumReader.fromName(typeof(ControlFilePriorityEnum), name);
 			if (enumValue == null) {
 				return null;

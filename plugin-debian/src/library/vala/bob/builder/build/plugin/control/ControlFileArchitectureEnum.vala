@@ -33,10 +33,10 @@ namespace bob.builder.build.plugin.control {
 			return EnumReader.readName(to_string());
 		}
 
-		public static ControlFileArchitectureEnum? fromName(string? name) {
+		public static ControlFileArchitectureEnum fromName(string? name, ControlFileArchitectureEnum defaultIfNull) {
 			EnumValue? enumValue = EnumReader.fromName(typeof(ControlFileArchitectureEnum), name);
 			if (enumValue == null) {
-				return null;
+				return defaultIfNull;
 			}
 			return (ControlFileArchitectureEnum) enumValue.value;
 		}
