@@ -35,18 +35,17 @@ namespace bob.builder.build.plugin.dependency {
             _dpkgResolver.initialize();
         }
 
-        private void initializeCodeContext() {
-            _codeContext = new CodeContext();
-            CodeContext.push(_codeContext);
-        }
-
         public string[] resolveDebianPackages(BobBuildProjectDependency dependency) {
             LOGGER.logInfo("Resolving debian packages for dependency: %s.", dependency.toString());
+            
+            _codeContext = new CodeContext();
+            CodeContext.push(_codeContext);
+            
             VapiFileCodeVisitor codeVisitor = visitVapiPackage(dependency.toString());
             codeVisitor.forEachVapiFile(resolveFilePackages);
             codeVisitor.forEachCHeader(resolveFilePackages);
 
-            finish();
+            CodeContext.pop();
             return _resolvedPackages;
         }
 
@@ -81,10 +80,6 @@ namespace bob.builder.build.plugin.dependency {
             _codeContext.accept(codeVisitor);
 
             return codeVisitor;
-        }
-
-        private void finish() {
-            CodeContext.pop();
         }
     }
 }
