@@ -22,7 +22,6 @@ namespace bob.builder.build.plugin.dependency {
         public void initialize() throws DependencyResolverError {
             initializeDpkgResolver();
             initializeAptFileResolver();
-            initializeCodeContext();
         }
 
         private void initializeAptFileResolver() throws DependencyResolverError {
