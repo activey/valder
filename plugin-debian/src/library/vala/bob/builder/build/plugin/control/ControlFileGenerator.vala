@@ -5,29 +5,29 @@ using bob.builder.build.plugin.dependency;
 
 namespace bob.builder.build.plugin.control {
 
-	public class ControlFileGenerator {
+    public class ControlFileGenerator {
 
         private Logger LOGGER = Logger.getLogger("ControlFileGenerator");
 
         private DebianPackageDepedencyResolver _resolver;
-		private ControlFileBuilder _fileBuilder;
+        private ControlFileBuilder _fileBuilder;
 
-		public void initialize() throws DependencyResolverError {
-			initializeResolver();
-			initializeFileBuilder();
-		}
+        public void initialize() throws DependencyResolverError {
+            initializeResolver();
+            initializeFileBuilder();
+        }
 
-		private void initializeResolver() throws DependencyResolverError {
+        private void initializeResolver() throws DependencyResolverError {
             _resolver = new DebianPackageDepedencyResolver();
             _resolver.initialize();
         }
 
         private void initializeFileBuilder() {
-        	_fileBuilder = ControlFileBuilder.controlFile();
+            _fileBuilder = ControlFileBuilder.controlFile();
         }
 
-		public void generate(BobBuildProjectRecipe projectRecipe, FileObject controlFile) throws Error {
-        	_fileBuilder
+        public void generate(BobBuildProjectRecipe projectRecipe, FileObject controlFile) throws Error {
+            _fileBuilder
                 .package(projectRecipe.shortName)
                 .version(projectRecipe.version)
                 .section(projectRecipe.details.section)
@@ -39,10 +39,10 @@ namespace bob.builder.build.plugin.control {
             generateDependencies(projectRecipe);
 
             _fileBuilder.build(controlFile);
-		}
+        }
 
-		private void generateDependencies(BobBuildProjectRecipe projectRecipe) {
-			projectRecipe.dependencies.foreach(dependency => {
+        private void generateDependencies(BobBuildProjectRecipe projectRecipe) {
+            projectRecipe.dependencies.foreach(dependency => {
                 string[] packages = _resolver.resolveDebianPackages(dependency);
                 if (packages.length == 0) {
                     LOGGER.logWarn("No packages found for dependency: %s.", dependency.toString());
@@ -55,12 +55,12 @@ namespace bob.builder.build.plugin.control {
                     _fileBuilder.depends(new ControlFileDebianPackage.withName(package));
                 }
             });
-		}
+        }
 
         private void generateAuthors(BobBuildProjectDetails projectDetails) {
             foreach (string author in projectDetails.authors) {
                 _fileBuilder.author(author);
             }
         }
-	}
+    }
 }
