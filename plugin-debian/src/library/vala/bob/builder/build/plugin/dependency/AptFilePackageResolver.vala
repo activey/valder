@@ -29,7 +29,7 @@ namespace bob.builder.build.plugin.dependency {
             try {
                 LOGGER.logInfo("Resolving '%s' dependency for file: %s.", COMMAND_APT_FILE, file);
                 
-                ExecutableRunner executableRunner = new ExecutableRunner("%s search '%s'".printf(COMMAND_APT_FILE, file));
+                ExecutableRunner executableRunner = new ExecutableRunner("%s search '%s' -l".printf(COMMAND_APT_FILE, file));
                 _resolvedPackages = executableRunner.run().split("\n");
             } catch (Error e) {
                 LOGGER.logError("An error occurred while searching packages for [%s] file: %s.", file, e.message);
