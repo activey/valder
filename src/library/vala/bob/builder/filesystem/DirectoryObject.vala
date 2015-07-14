@@ -31,7 +31,6 @@ namespace bob.builder.filesystem {
 		}
 
 		public void accept(FileSystemVisitor visitor, bool recursive) {
-			// acceptDirectory(visitor);
 			if (!exists()) {
 				return;
 			}

@@ -19,6 +19,10 @@
       {
         "dependency" : "bob",
         "version" : "0.0.1"
+      },
+      {
+        "dependency": "libvala",
+        "version": "0.28"
       }
     ]
   },

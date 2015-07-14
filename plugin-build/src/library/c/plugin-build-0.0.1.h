@@ -9,6 +9,7 @@
 #include <glib-object.h>
 #include <stdlib.h>
 #include <string.h>
+#include <vala.h>
 
 G_BEGIN_DECLS
 
@@ -101,6 +102,17 @@ typedef struct _bobbuilderbuildpluginCCOptions bobbuilderbuildpluginCCOptions;
 typedef struct _bobbuilderbuildpluginCCOptionsClass bobbuilderbuildpluginCCOptionsClass;
 typedef struct _bobbuilderbuildpluginCCOptionsPrivate bobbuilderbuildpluginCCOptionsPrivate;
 
+#define BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER (bob_builder_build_plugin_depenedency_data_tester_get_type ())
+#define BOB_BUILDER_BUILD_PLUGIN_DEPENEDENCY_DATA_TESTER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER, bobbuilderbuildpluginDepenedencyDataTester))
+#define BOB_BUILDER_BUILD_PLUGIN_DEPENEDENCY_DATA_TESTER_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER, bobbuilderbuildpluginDepenedencyDataTesterClass))
+#define BOB_BUILDER_BUILD_PLUGIN_IS_DEPENEDENCY_DATA_TESTER(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER))
+#define BOB_BUILDER_BUILD_PLUGIN_IS_DEPENEDENCY_DATA_TESTER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER))
+#define BOB_BUILDER_BUILD_PLUGIN_DEPENEDENCY_DATA_TESTER_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_DEPENEDENCY_DATA_TESTER, bobbuilderbuildpluginDepenedencyDataTesterClass))
+
+typedef struct _bobbuilderbuildpluginDepenedencyDataTester bobbuilderbuildpluginDepenedencyDataTester;
+typedef struct _bobbuilderbuildpluginDepenedencyDataTesterClass bobbuilderbuildpluginDepenedencyDataTesterClass;
+typedef struct _bobbuilderbuildpluginDepenedencyDataTesterPrivate bobbuilderbuildpluginDepenedencyDataTesterPrivate;
+
 struct _bobbuilderbuildpluginBuildApplicationPlugin {
 	bobbuilderbuildpluginAbstractBobBuildPlugin parent_instance;
 	bobbuilderbuildpluginBuildApplicationPluginPrivate * priv;
@@ -151,14 +163,12 @@ typedef enum  {
 } bobbuilderbuildpluginCompilationError;
 #define BOB_BUILDER_BUILD_PLUGIN_COMPILATION_ERROR bob_builder_build_plugin_compilation_error_quark ()
 struct _bobbuilderbuildpluginValaCodeCompiler {
-	GTypeInstance parent_instance;
-	volatile int ref_count;
+	ValaCodeVisitor parent_instance;
 	bobbuilderbuildpluginValaCodeCompilerPrivate * priv;
 };
 
 struct _bobbuilderbuildpluginValaCodeCompilerClass {
-	GTypeClass parent_class;
-	void (*finalize) (bobbuilderbuildpluginValaCodeCompiler *self);
+	ValaCodeVisitorClass parent_class;
 };
 
 struct _bobbuilderbuildpluginValaCodeCompilerOutcome {
@@ -192,6 +202,15 @@ struct _bobbuilderbuildpluginCCOptions {
 struct _bobbuilderbuildpluginCCOptionsClass {
 	GTypeClass parent_class;
 	void (*finalize) (bobbuilderbuildpluginCCOptions *self);
+};
+
+struct _bobbuilderbuildpluginDepenedencyDataTester {
+	ValaCodeVisitor parent_instance;
+	bobbuilderbuildpluginDepenedencyDataTesterPrivate * priv;
+};
+
+struct _bobbuilderbuildpluginDepenedencyDataTesterClass {
+	ValaCodeVisitorClass parent_class;
 };
 
 
@@ -284,12 +303,6 @@ void bob_builder_build_plugin_build_configuration_library_usage_builder_set_vapi
 bobbuilderrecipeprojectBobBuildProjectDependencyScope bob_builder_build_plugin_build_configuration_library_usage_builder_get_scope (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self);
 void bob_builder_build_plugin_build_configuration_library_usage_builder_set_scope (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self, bobbuilderrecipeprojectBobBuildProjectDependencyScope value);
 GQuark bob_builder_build_plugin_compilation_error_quark (void);
-gpointer bob_builder_build_plugin_vala_code_compiler_ref (gpointer instance);
-void bob_builder_build_plugin_vala_code_compiler_unref (gpointer instance);
-GParamSpec* bob_builder_build_plugin_param_spec_vala_code_compiler (const gchar* name, const gchar* nick, const gchar* blurb, GType object_type, GParamFlags flags);
-void bob_builder_build_plugin_value_set_vala_code_compiler (GValue* value, gpointer v_object);
-void bob_builder_build_plugin_value_take_vala_code_compiler (GValue* value, gpointer v_object);
-gpointer bob_builder_build_plugin_value_get_vala_code_compiler (const GValue* value);
 GType bob_builder_build_plugin_vala_code_compiler_get_type (void) G_GNUC_CONST;
 bobbuilderbuildpluginValaCodeCompiler* bob_builder_build_plugin_vala_code_compiler_new (bobbuilderbuildpluginBuildConfiguration* buildConfiguration);
 bobbuilderbuildpluginValaCodeCompiler* bob_builder_build_plugin_vala_code_compiler_construct (GType object_type, bobbuilderbuildpluginBuildConfiguration* buildConfiguration);
@@ -336,6 +349,10 @@ void bob_builder_build_plugin_cc_options_addCHeadersDirectoryLocation (bobbuilde
 void bob_builder_build_plugin_cc_options_useLibrary (bobbuilderbuildpluginCCOptions* self, const gchar* name);
 void bob_builder_build_plugin_cc_options_addDebugFlag (bobbuilderbuildpluginCCOptions* self);
 gchar** bob_builder_build_plugin_cc_options_getCcOptions (bobbuilderbuildpluginCCOptions* self, int* result_length1);
+GType bob_builder_build_plugin_depenedency_data_tester_get_type (void) G_GNUC_CONST;
+bobbuilderbuildpluginDepenedencyDataTester* bob_builder_build_plugin_depenedency_data_tester_new (const gchar* package, const gchar* vapiFilePath);
+bobbuilderbuildpluginDepenedencyDataTester* bob_builder_build_plugin_depenedency_data_tester_construct (GType object_type, const gchar* package, const gchar* vapiFilePath);
+void bob_builder_build_plugin_depenedency_data_tester_test (bobbuilderbuildpluginDepenedencyDataTester* self);
 
 
 G_END_DECLS

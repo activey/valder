@@ -151,10 +151,48 @@ namespace bob {
 				}
 				namespace dependency {
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class AptFilePackageResolver {
+						public delegate void AptFilePackageResolvedDelegate (string resolvedPackage);
+						public AptFilePackageResolver ();
+						public bool anyFound ();
+						public void forEachResolved (bob.builder.build.plugin.dependency.AptFilePackageResolver.AptFilePackageResolvedDelegate resolvedDelegate);
+						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
+						public void resolveFilePackages (string file);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class CHeader : GLib.Object {
+						public CHeader (string path, string girVersion);
+						public string getVersionedFileName ();
+						public string girVersion { get; set construct; }
+						public string path { get; set construct; }
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class DebianPackageDepedencyResolver {
 						public DebianPackageDepedencyResolver ();
 						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
-						public string[] resolvePackages (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+						public string[] resolveDebianPackages (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class DpkgPackageResolver {
+						public delegate void DpkgPackageResolvedDelegate (string resolvedPackage);
+						public DpkgPackageResolver ();
+						public bool anyFound ();
+						public void forEachResolved (bob.builder.build.plugin.dependency.DpkgPackageResolver.DpkgPackageResolvedDelegate resolvedDelegate);
+						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
+						public void resolveFilePackages (string file);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class VapiFileCodeVisitor : Vala.CodeVisitor {
+						public delegate void PackageFileDelegate (string packageFile);
+						public VapiFileCodeVisitor ();
+						public void forEachCHeader (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
+						public void forEachVapiFile (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
+						public override void visit_class (Vala.Class clazz);
+						public override void visit_constant (Vala.Constant constant);
+						public override void visit_enum (Vala.Enum enumeration);
+						public override void visit_field (Vala.Field field);
+						public override void visit_namespace (Vala.Namespace @namespace);
+						public override void visit_source_file (Vala.SourceFile sourceFile);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public errordomain DependencyResolverError {

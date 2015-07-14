@@ -2,63 +2,89 @@ using bob.builder.recipe.project;
 using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.build.plugin.execute;
+using Vala;
 
 namespace bob.builder.build.plugin.dependency {
 
-	public errordomain DependencyResolverError {
-		INITIALIZATION_ERROR
-	}
+    public errordomain DependencyResolverError {
+        INITIALIZATION_ERROR
+    }
 
-	public class DebianPackageDepedencyResolver {
-
-		private const string COMMAND_APT_FILE = "apt-file";
-		private const string MISSING_ERROR = "Unable to find '%s' command! If you are running Debian based distribution please install it by executing 'sudo apt-get install %s' command.";
+    public class DebianPackageDepedencyResolver {
 
         private Logger LOGGER = Logger.getLogger("DebianPackageDepedencyResolver");
 
-		public void initialize() throws DependencyResolverError {
-			WhichChecker checker = new WhichChecker(COMMAND_APT_FILE);
-			if (!checker.success()) {
-				throw new DependencyResolverError.INITIALIZATION_ERROR(MISSING_ERROR.printf(COMMAND_APT_FILE, COMMAND_APT_FILE));
-			}
-		}
+        private AptFilePackageResolver _aptFileResolver;
+        private DpkgPackageResolver _dpkgResolver;
+        private CodeContext _codeContext;
+        private string[] _resolvedPackages = new string[0];
 
-		public string[] resolvePackages(BobBuildProjectDependency dependency) {
-			LOGGER.logInfo("Resolving debian package for dependency: %s.", dependency.toString());
-			return join(getVapiPackages(dependency), getCPackages(dependency));
-		}
+        public void initialize() throws DependencyResolverError {
+            initializeDpkgResolver();
+            initializeAptFileResolver();
+            initializeCodeContext();
+        }
 
-		private string[] getVapiPackages(BobBuildProjectDependency dependency) {
-			try {
-				ExecutableRunner executableRunner = new ExecutableRunner("%s search %s.vapi".printf(COMMAND_APT_FILE, dependency.toString()));
-				string result = executableRunner.run();
-				return result.split("\n");
-			} catch (Error e) {
-				LOGGER.logError("An error occurred while searching packages for VAPI [%s.vapi] file: %s.", dependency.toString(), e.message);
-				return new string[0];
-			}
-		}
+        private void initializeAptFileResolver() throws DependencyResolverError {
+            _aptFileResolver = new AptFilePackageResolver();
+            _aptFileResolver.initialize();
+        }
 
-		private string[] getCPackages(BobBuildProjectDependency dependency) {
-			try {
-				ExecutableRunner executableRunner = new ExecutableRunner("%s search %s.h".printf(COMMAND_APT_FILE, dependency.toString()));
-				string result = executableRunner.run();
-				return result.split("\n");
-			} catch (Error e) {
-				LOGGER.logError("An error occurred while searching packages for C header [%s.h] file: %s.", dependency.toString(), e.message);
-				return new string[0];
-			}
-		}
+        private void initializeDpkgResolver() throws DependencyResolverError {
+            _dpkgResolver= new DpkgPackageResolver();
+            _dpkgResolver.initialize();
+        }
 
-		private string[] join(string[] firstArray, string[] secondArray) {
-			string[] joined = new string[0];
-			foreach (string value in firstArray) {
-				joined += value;
-			}
-			foreach (string value in secondArray) {
-				joined += value;
-			}
-			return joined;
-		}
-	}
+        private void initializeCodeContext() {
+            _codeContext = new CodeContext();
+            CodeContext.push(_codeContext);
+        }
+
+        public string[] resolveDebianPackages(BobBuildProjectDependency dependency) {
+            LOGGER.logInfo("Resolving debian packages for dependency: %s.", dependency.toString());
+            VapiFileCodeVisitor codeVisitor = visitVapiPackage(dependency.toString());
+            codeVisitor.forEachVapiFile(resolveFilePackages);
+            codeVisitor.forEachCHeader(resolveFilePackages);
+
+            finish();
+            return _resolvedPackages;
+        }
+
+        private void resolveFilePackages(string packageFilePath) {
+            _dpkgResolver.resolveFilePackages(packageFilePath);
+            if (!_dpkgResolver.anyFound()) {
+                LOGGER.logWarn("Unable to find [%s] file in any of installed debian packages, trying other way ...");
+
+                _aptFileResolver.resolveFilePackages(packageFilePath);
+                if (!_aptFileResolver.anyFound()) {
+                    LOGGER.logError("Unable to find [%s] file in any remote repositories.");
+                } else {
+                    _aptFileResolver.forEachResolved(addResolvedPackage);
+                }
+            } else {
+                _dpkgResolver.forEachResolved(addResolvedPackage);
+            }
+        }
+
+        private void addResolvedPackage(string package) {
+            if (package in _resolvedPackages) {
+                return;
+            }
+            LOGGER.logInfo("Adding resolved debian package: %s.", package);
+            _resolvedPackages += package;
+        }
+
+        private VapiFileCodeVisitor visitVapiPackage(string vapiPackage) {
+            VapiFileCodeVisitor codeVisitor = new VapiFileCodeVisitor();
+            _codeContext.add_external_package(vapiPackage);             
+            new Parser().parse(_codeContext);
+            _codeContext.accept(codeVisitor);
+
+            return codeVisitor;
+        }
+
+        private void finish() {
+            CodeContext.pop();
+        }
+    }
 }

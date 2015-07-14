@@ -43,7 +43,7 @@ namespace bob.builder.build.plugin.control {
 
 		private void generateDependencies(BobBuildProjectRecipe projectRecipe) {
 			projectRecipe.dependencies.foreach(dependency => {
-                string[] packages = _resolver.resolvePackages(dependency);
+                string[] packages = _resolver.resolveDebianPackages(dependency);
                 if (packages.length == 0) {
                     LOGGER.logWarn("No packages found for dependency: %s.", dependency.toString());
                     return;    
