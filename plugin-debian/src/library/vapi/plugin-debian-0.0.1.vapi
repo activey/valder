@@ -206,12 +206,30 @@ namespace bob {
 						public string run () throws bob.builder.build.plugin.execute.ExecutableRunnerError;
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class PipedExecutableOutput {
+						public PipedExecutableOutput ();
+						public PipedExecutableOutput.fromStream (GLib.InputStream stream);
+						public GLib.InputStream getStream ();
+						public string? getText ();
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class PipedExecutableRunner {
+						public delegate void PipedExecutableFinishedDelegate (bob.builder.build.plugin.execute.PipedExecutableOutput output);
+						public PipedExecutableRunner (string argument, ...);
+						public void run (bob.builder.build.plugin.execute.PipedExecutableRunner.PipedExecutableFinishedDelegate finishedDelegate) throws bob.builder.build.plugin.execute.PipedExecutableRunnerError;
+						public void runWithInput (GLib.InputStream input, bob.builder.build.plugin.execute.PipedExecutableRunner.PipedExecutableFinishedDelegate finishedDelegate) throws bob.builder.build.plugin.execute.PipedExecutableRunnerError;
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class WhichChecker {
 						public WhichChecker (string commandToCheck);
 						public bool success ();
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public errordomain ExecutableRunnerError {
+						EXECUTABLE_ERROR
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public errordomain PipedExecutableRunnerError {
 						EXECUTABLE_ERROR
 					}
 				}
