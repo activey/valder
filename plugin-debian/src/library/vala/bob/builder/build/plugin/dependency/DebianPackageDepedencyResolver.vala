@@ -51,11 +51,11 @@ namespace bob.builder.build.plugin.dependency {
         private void resolveFilePackages(string packageFilePath) {
             _dpkgResolver.resolveFilePackages(packageFilePath);
             if (!_dpkgResolver.anyFound()) {
-                LOGGER.logWarn("Unable to find [%s] file in any of installed debian packages, trying other way ...");
+                LOGGER.logWarn("Unable to find [%s] file in any of installed debian packages, trying other way ...", packageFilePath);
 
                 _aptFileResolver.resolveFilePackages(packageFilePath);
                 if (!_aptFileResolver.anyFound()) {
-                    LOGGER.logError("Unable to find [%s] file in any remote repositories.");
+                    LOGGER.logError("Unable to find [%s] file in any remote repositories.", packageFilePath);
                 } else {
                     _aptFileResolver.forEachResolved(addResolvedPackage);
                 }

@@ -30,7 +30,7 @@ namespace bob.builder.build.plugin.dependency {
 
 			try {
 				LOGGER.logInfo("Resolving '%s' dependency for file: %s.", COMMAND_DPKG, file);
-				ExecutableRunner executableRunner = new ExecutableRunner("%s -S '%s' -l".printf(COMMAND_DPKG, file));
+				ExecutableRunner executableRunner = new ExecutableRunner("%s -S '%s' | awk '{print substr($1, 0, length($1) - 1)}'".printf(COMMAND_DPKG, file));
 				_resolvedPackages = executableRunner.run().split("\n");
 			} catch (Error e) {
 				LOGGER.logError("An error occurred while searching packages for [%s] file: %s.", file, e.message);
