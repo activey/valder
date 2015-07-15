@@ -45,6 +45,9 @@ namespace bob.builder.build.plugin.control {
 		}
 
 		public ControlFileBuilder depends(ControlFileDebianPackage dependsPackage) {
+			if (_properties.hasDependency(dependsPackage)) {
+				return this;
+			}
 			_properties.addDependency(dependsPackage);
 			return this;
 		}

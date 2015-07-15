@@ -57,7 +57,7 @@ namespace bob.builder.build.plugin.execute {
 
 		private size_t feed(InputStream input, OutputStream output) throws Error {
 			size_t dataSize;
-			uint8[] data = new uint8[sizeof(int)]; 
+			uint8[] data = new uint8[4096]; 
 			if (input.read_all(data, out dataSize, null)) {
 				input.close();
 				if (dataSize == 0) {
@@ -70,6 +70,7 @@ namespace bob.builder.build.plugin.execute {
 
 				output.flush();
 				output.close();
+				return dataWritten;
 			}
 			return dataSize;
 		}

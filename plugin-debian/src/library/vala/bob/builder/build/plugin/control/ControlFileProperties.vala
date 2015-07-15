@@ -36,8 +36,11 @@ namespace bob.builder.build.plugin.control {
 		}
 
 		public void addDependency(ControlFileDebianPackage dependency) {
-			// TODO: check if already on list
-			_dependsPackages += dependency.to_string();
+			string dependencyString = dependency.to_string();
+			if (dependencyString in _dependsPackages) {
+				return;
+			}
+			_dependsPackages += dependencyString;
 		}
 
 		public void addAuthor(string author) {
