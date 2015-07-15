@@ -31,7 +31,7 @@ namespace bob.builder.build.plugin.dependency {
             try {
                 LOGGER.logInfo("Resolving '%s' dependency for file: %s.", COMMAND_DPKG, file);
 
-                new PipedExecutableRunner(COMMAND_DPKG, "-S", "/usr/include/*%s".printf(file)).run(output => {
+                new PipedExecutableRunner(COMMAND_DPKG, "-S", file).run(output => {
                     new PipedExecutableRunner("awk", "{print substr($1, 0, length($1))}").runWithInput(output.getStream(), finalOutput => {
                         _resolvedPackages = output.getText().split("\n");
                     });

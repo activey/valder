@@ -42,7 +42,9 @@ namespace bob.builder.build.plugin.dependency {
             
             VapiFileCodeVisitor codeVisitor = visitVapiPackage(dependency.toString());
             codeVisitor.forEachVapiFile(resolveFilePackages);
-            codeVisitor.forEachCHeader(resolveFilePackages);
+            codeVisitor.forEachCHeader(cHeaderFilePath => {
+                resolveFilePackages("/usr/include/*%s".printf(cHeaderFilePath));    
+            });
 
             CodeContext.pop();
             return _resolvedPackages;

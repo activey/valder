@@ -41,7 +41,10 @@ namespace bob.builder.build.plugin.execute {
 			try {
 				GLib.Subprocess subprocess = new GLib.SubprocessLauncher(SubprocessFlags.STDIN_PIPE | SubprocessFlags.STDOUT_PIPE).spawnv(_arguments);
 				OutputStream inputPipe = subprocess.get_stdin_pipe();
-				feed(input, inputPipe);
+				size_t dataWritten = feed(input, inputPipe);
+				if (dataWritten == 0) {
+					return;
+				}
 				if (subprocess.wait()) {
 					finishedDelegate(new PipedExecutableOutput.fromStream(subprocess.get_stdout_pipe()));
 				} else {
@@ -52,11 +55,14 @@ namespace bob.builder.build.plugin.execute {
 			}
 		}
 
-		private void feed(InputStream input, OutputStream output) throws Error {
+		private size_t feed(InputStream input, OutputStream output) throws Error {
 			size_t dataSize;
 			uint8[] data = new uint8[sizeof(int)]; 
 			if (input.read_all(data, out dataSize, null)) {
 				input.close();
+				if (dataSize == 0) {
+					return dataSize;
+				}
 				data.resize((int) dataSize);
 				
 				size_t dataWritten;
@@ -65,6 +71,7 @@ namespace bob.builder.build.plugin.execute {
 				output.flush();
 				output.close();
 			}
+			return dataSize;
 		}
 	}
 }
