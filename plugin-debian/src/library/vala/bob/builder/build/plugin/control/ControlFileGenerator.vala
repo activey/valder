@@ -49,7 +49,6 @@ namespace bob.builder.build.plugin.control {
                     return;    
                 }
 
-                string lastFound = "unknown";
                 foreach (string package in packages) {
                     LOGGER.logInfo("Found debian package: %s.", package);
                     _fileBuilder.depends(new ControlFileDebianPackage.withName(package));

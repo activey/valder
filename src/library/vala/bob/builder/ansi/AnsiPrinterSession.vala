@@ -1,6 +1,6 @@
 namespace bob.builder.ansi {
 
-	public class AnsiPrinterSession {
+	public class AnsiPrinterSession : AbstractAnsiPrinterSession {
 
 		private AnsiColorGenerator colorGenerator = new AnsiColorGenerator();
 		private string[]  sessionModifiers = {};
@@ -13,37 +13,37 @@ namespace bob.builder.ansi {
 			collectModifier("\x1B[0");
 		}
 
-		public void commit(FileStream stream) {
+		public override void commit(FileStream stream) {
 			flush(stream);
 			sessionModifiers = {};
 		}
 
-		public void flush(FileStream stream) {
+		public override void flush(FileStream stream) {
 			stream.printf(string.joinv("", sessionModifiers));
 			stream.printf("m");
 		}
 
-		public void setColorRed() {
+		public override void setColorRed() {
 			collectModifier(colorGenerator.getRed());
 		}
 
-		public void setColorGreen() {
+		public override void setColorGreen() {
 			collectModifier(colorGenerator.getGreen());
 		}
 
-		public void setColorBlue() {
+		public override void setColorBlue() {
 			collectModifier(colorGenerator.getBlue());
 		}
 
-		public void setColorYellow() {
+		public override void setColorYellow() {
 			collectModifier(colorGenerator.getYellow());
 		}
 
-		public void setColorDefault() {
+		public override void setColorDefault() {
 			collectModifier(colorGenerator.getDefault());
 		}
 
-		public void setBold(bool bold) {
+		public override void setBold(bool bold) {
 			if (bold == true) {
 				collectModifier(";1");
 			} else {
@@ -55,7 +55,7 @@ namespace bob.builder.ansi {
 			sessionModifiers += modifier;
 		}
 
-		public void reset(FileStream stream) {
+		public override void reset(FileStream stream) {
 			stream.printf("\x1B[0m");
 		}
 
