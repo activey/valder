@@ -12,6 +12,10 @@ namespace bob.builder.filesystem {
 			visitor.visitFile(file);
 		}
 
+		public FileInputStream getInputStream() throws Error {
+			return file.read();
+		}
+
 		public FileIOStream getStream() throws Error {
 			FileIOStream stream = null;
 			if (!file.query_exists()) {
@@ -40,6 +44,15 @@ namespace bob.builder.filesystem {
 
 		public void copyFrom(File originalFile, bool overwrite) throws Error {
 			originalFile.copy(file, (overwrite) ? FileCopyFlags.OVERWRITE : FileCopyFlags.NONE);
+		}
+
+		public int64 getSize() {
+			try {
+				FileInfo fileInfo = file.query_info("*", FileQueryInfoFlags.NONE);
+				return fileInfo.get_size();
+			} catch (Error e) {
+				return 0;
+			}
 		}
 	}
 }

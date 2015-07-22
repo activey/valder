@@ -5,6 +5,7 @@ using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.json;
 using bob.builder.build.plugin.control;
+using bob.builder.build.plugin.archive;
 
 namespace bob.builder.build.plugin {
 
@@ -19,6 +20,7 @@ namespace bob.builder.build.plugin {
         private DirectoryObject debianBinaryDirectory;
         private DirectoryObject debianIncludeDirectory;
         private DirectoryObject debianVapiDirectory;
+        private DirectoryObject debianPackageDirectory;
         private FileObject debianControlFile;
 
         private ControlFileGenerator _controlGenerator;
@@ -49,6 +51,8 @@ namespace bob.builder.build.plugin {
 
             try {
                 generateControlFile(projectRecipe);
+                
+                LOGGER.logSuccess("Generated debian archive: %s.", generateDebianArchive(projectRecipe).getLocation());
             } catch (Error e) {
                 throw new BobBuildPluginError.RUN_ERROR(e.message);
             }
@@ -56,6 +60,8 @@ namespace bob.builder.build.plugin {
 
         private void createTemporaryDebianDirectory(BobBuildProjectRecipe projectRecipe) {
             TemporaryDebianArchiveDirectoryStructure.debianDirectory(generateDirectoryName(projectRecipe), debianDirectory => {
+                debianPackageDirectory = debianDirectory.getOrCreate();
+
                 debianDirectory.directory("control.tar.gz.tmp", controlDirectory => {
                     debianControlFile = controlDirectory.getOrCreate().getFileChild("control");
                 });
@@ -108,6 +114,18 @@ namespace bob.builder.build.plugin {
         private void generateControlFile(BobBuildProjectRecipe projectRecipe) throws Error {
             _controlGenerator.generate(projectRecipe, debianControlFile);
             LOGGER.logInfo("Generated control file: %s.", debianControlFile.getLocation());
+        }
+
+        private FileObject generateDebianArchive(BobBuildProjectRecipe projectRecipe) throws Error {
+            return DebianArchiveBuilder
+                .relativeDirectory(debianPackageDirectory)
+                .name("%s-%s.deb".printf(projectRecipe.shortName, projectRecipe.version))
+                .debianControlFile(debianControlFile)
+                .debianBinaryDirectory(debianBinaryDirectory)
+                .debianLibraryDirectory(debianLibraryDirectory)
+                .debianIncludeDirectory(debianIncludeDirectory)
+                .debianVapiDirectory(debianVapiDirectory)
+                .build();
         }
     }
 }

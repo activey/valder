@@ -114,5 +114,9 @@ namespace bob.builder.filesystem {
 		public void copyTo(DirectoryObject directory, bool overwrite) {
 			new DirectoryCopier(this, directory, overwrite).copy();
 		}
+
+		public string getRelativeLocation(File fileToLocate) {
+			return file.get_relative_path(fileToLocate);
+		}
 	}
 }

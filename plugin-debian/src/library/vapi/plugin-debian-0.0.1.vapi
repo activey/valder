@@ -4,6 +4,47 @@ namespace bob {
 	namespace builder {
 		namespace build {
 			namespace plugin {
+				namespace archive {
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class ArchiveCreator {
+						public ArchiveCreator (Archive.Format format);
+						public void addFile (bob.builder.filesystem.FileObject file);
+						public void addFileRelative (bob.builder.filesystem.FileObject file, bob.builder.filesystem.DirectoryObject relativeDirectory);
+						public void addGzipFilter ();
+						public ArchiveCreator.arFormat ();
+						public bob.builder.filesystem.FileObject createArchive (string name, bob.builder.filesystem.DirectoryObject outputDirectory) throws GLib.Error;
+						public ArchiveCreator.tarFormat ();
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class ArchiveFile : GLib.Object {
+						public ArchiveFile (bob.builder.filesystem.FileObject fileObject, string path, int64 size);
+						public bob.builder.filesystem.FileObject fileObject { get; set construct; }
+						public string path { get; set construct; }
+						public int64 size { get; set construct; }
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class DebianArchiveBuilder {
+						public DebianArchiveBuilder (bob.builder.filesystem.DirectoryObject relativeDirectory);
+						public bob.builder.filesystem.FileObject build ();
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianBinaryDirectory (bob.builder.filesystem.DirectoryObject directory);
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianControlFile (bob.builder.filesystem.FileObject file);
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianIncludeDirectory (bob.builder.filesystem.DirectoryObject directory);
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianLibraryDirectory (bob.builder.filesystem.DirectoryObject directory);
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianVapiDirectory (bob.builder.filesystem.DirectoryObject directory);
+						public bob.builder.build.plugin.archive.DebianArchiveBuilder name (string name);
+						public static bob.builder.build.plugin.archive.DebianArchiveBuilder relativeDirectory (bob.builder.filesystem.DirectoryObject relativeDirectory);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class DebianArchiveCreator {
+						public DebianArchiveCreator (bob.builder.filesystem.DirectoryObject relativeDirectory);
+						public bob.builder.filesystem.FileObject createDebianArchive (string debianPackageFileName);
+						public bob.builder.filesystem.DirectoryObject debianBinaryDirectory { get; set; }
+						public bob.builder.filesystem.FileObject debianControlFile { get; set; }
+						public bob.builder.filesystem.DirectoryObject debianIncludeDirectory { get; set; }
+						public bob.builder.filesystem.DirectoryObject debianLibraryDirectory { get; set; }
+						public bob.builder.filesystem.DirectoryObject debianVapiDirectory { get; set; }
+					}
+				}
 				namespace control {
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class ControlFileBuilder {
@@ -187,10 +228,6 @@ namespace bob {
 						public VapiFileCodeVisitor ();
 						public void forEachCHeader (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
 						public void forEachVapiFile (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
-						public override void visit_class (Vala.Class clazz);
-						public override void visit_constant (Vala.Constant constant);
-						public override void visit_enum (Vala.Enum enumeration);
-						public override void visit_field (Vala.Field field);
 						public override void visit_namespace (Vala.Namespace @namespace);
 						public override void visit_source_file (Vala.SourceFile sourceFile);
 					}

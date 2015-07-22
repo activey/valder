@@ -18,6 +18,10 @@ namespace bob.builder.filesystem {
 			return file.get_path();
 		}
 
+		public string getLocationRelative(DirectoryObject relativeDirectory) {
+			return relativeDirectory.getRelativeLocation(file);			
+		}
+
 		public string getName() {
 			return file.get_basename();
 		}

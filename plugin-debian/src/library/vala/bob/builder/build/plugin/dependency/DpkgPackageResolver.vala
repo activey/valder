@@ -21,7 +21,7 @@ namespace bob.builder.build.plugin.dependency {
         private void validateDpkgExists() throws DependencyResolverError {
             WhichChecker checker = new WhichChecker(COMMAND_DPKG);
             if (!checker.success()) {
-                throw new DependencyResolverError.INITIALIZATION_ERROR(MISSING_ERROR.printf(COMMAND_DPKG, COMMAND_DPKG));
+                throw new DependencyResolverError.INITIALIZATION_ERROR(MISSING_ERROR.printf(COMMAND_DPKG));
             }
         }
 

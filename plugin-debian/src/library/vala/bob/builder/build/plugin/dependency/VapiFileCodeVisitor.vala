@@ -32,8 +32,24 @@ namespace bob.builder.build.plugin.dependency {
 			_vapiFilesPaths += valaFilePath;
 		}
 
-		public override void visit_class(Class clazz) {
+		private void visitClass(Class clazz) {
 			collectCHeaders(clazz);
+			foreach (Constant constant in clazz.get_constants()) {
+				collectCHeaders(constant);
+			}
+			foreach (Enum classEnum in clazz.get_enums()) {
+				collectCHeaders(classEnum);
+			}
+			foreach (Field field in clazz.get_fields()) {
+				collectCHeaders(field);
+			}
+			foreach (Class nestedClass in clazz.get_classes()) {
+				visitClass(nestedClass);
+			}
+		}
+
+		private void visitConstant(Constant constant) {
+			collectCHeaders(constant);
 		}
 
 		public override void visit_namespace(Namespace namespace) {
@@ -42,18 +58,16 @@ namespace bob.builder.build.plugin.dependency {
 				return;
 			}
 			_namespaceGirVersion = attr.get_string(C_GIR_VERSION_ATTRIBUTE_NAME, null);
-		}
 
-		public override void visit_constant(Constant constant) {
-			collectCHeaders(constant);
-		}
-
-		public override void visit_enum(Enum enumeration) {
-			collectCHeaders(enumeration);
-		}
-
-		public override void visit_field(Field field) {
-			collectCHeaders(field);
+			foreach (Constant constant in namespace.get_constants()) {
+				collectCHeaders(constant);
+			}
+			foreach (Enum namespaceEnum in namespace.get_enums()) {
+				collectCHeaders(namespaceEnum);
+			}
+			foreach (Class clazz in namespace.get_classes()) {
+				visitClass(clazz);
+			}
 		}
 
 		private void collectCHeaders(CodeNode codeNode) {
