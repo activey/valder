@@ -16,7 +16,7 @@ namespace bob.builder.build.plugin.execute {
 			DataInputStream dataStream = new DataInputStream(stream);
 			string? line = null;
 			while ((line = dataStream.read_line()) != null) {
-				_streamText += line;
+				_streamText += line += "\n";
 			}
 		}
 

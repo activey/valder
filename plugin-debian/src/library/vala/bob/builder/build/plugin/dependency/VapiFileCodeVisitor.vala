@@ -6,6 +6,7 @@ namespace bob.builder.build.plugin.dependency {
 	public class VapiFileCodeVisitor : CodeVisitor {
 
 		public delegate void PackageFileDelegate(string packageFile);
+		public delegate void CHeaderFileDelegate(CHeader cHeaderFile);
 
 		private const string FILE_VAPI_EXTENSION = ".vapi";
 		private const string C_CODE_ATTRIBUTE = "CCode";
@@ -82,16 +83,18 @@ namespace bob.builder.build.plugin.dependency {
 			if (cHeaderPath == null) {
 				return;
 			}
-			if (cHeaderPath in _cHeadersPaths) {
-				return;
+			foreach (string header in cHeaderPath.split(",", 0)) {
+				if (header in _cHeadersPaths) {
+					continue;
+				}
+				_cHeaders += new CHeader(header, _namespaceGirVersion);
+				_cHeadersPaths += header;
 			}
-			_cHeadersPaths += cHeaderPath;
-			_cHeaders += new CHeader(cHeaderPath, _namespaceGirVersion);
 		}
 
-		public void forEachCHeader(PackageFileDelegate packageFileDelegate) {
+		public void forEachCHeader(CHeaderFileDelegate cHeaderFileDelegate) {
 			foreach (CHeader cHeaderFile in _cHeaders) {
-				packageFileDelegate(cHeaderFile.getVersionedFileName());
+				cHeaderFileDelegate(cHeaderFile);
 			}
 		}
 

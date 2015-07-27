@@ -6,10 +6,6 @@ using Vala;
 
 namespace bob.builder.build.plugin.dependency {
 
-    public errordomain DependencyResolverError {
-        INITIALIZATION_ERROR
-    }
-
     public class DebianPackageDepedencyResolver {
 
         private Logger LOGGER = Logger.getLogger("DebianPackageDepedencyResolver");
@@ -34,36 +30,24 @@ namespace bob.builder.build.plugin.dependency {
             _dpkgResolver.initialize();
         }
 
-        public string[] resolveDebianPackages(BobBuildProjectDependency dependency) {
-            LOGGER.logInfo("Resolving debian packages for dependency: %s.", dependency.toString());
+        public string[] resolveDebianPackages(FileObject libraryFile) {
+            string packageFilePath = libraryFile.getLocation();
+            LOGGER.logInfo("Resolving debian packages for library file: %s.", packageFilePath);
             
-            _codeContext = new CodeContext();
-            CodeContext.push(_codeContext);
-            
-            VapiFileCodeVisitor codeVisitor = visitVapiPackage(dependency.toString());
-            codeVisitor.forEachVapiFile(resolveFilePackages);
-            codeVisitor.forEachCHeader(cHeaderFilePath => {
-                resolveFilePackages("/usr/include/*%s".printf(cHeaderFilePath));    
-            });
-
-            CodeContext.pop();
-            return _resolvedPackages;
-        }
-
-        private void resolveFilePackages(string packageFilePath) {
             _dpkgResolver.resolveFilePackages(packageFilePath);
             if (!_dpkgResolver.anyFound()) {
-                LOGGER.logWarn("Unable to find [%s] file in any of installed debian packages, trying other way ...", packageFilePath);
+                LOGGER.logWarn("Unable to find [%s] library file in any of installed debian packages, trying other way ...", packageFilePath);
 
                 _aptFileResolver.resolveFilePackages(packageFilePath);
                 if (!_aptFileResolver.anyFound()) {
-                    LOGGER.logError("Unable to find [%s] file in any remote repositories.", packageFilePath);
+                    LOGGER.logError("Unable to find [%s] library file in any remote repositories.", packageFilePath);
                 } else {
                     _aptFileResolver.forEachResolved(addResolvedPackage);
                 }
             } else {
                 _dpkgResolver.forEachResolved(addResolvedPackage);
             }
+            return _resolvedPackages;
         }
 
         private void addResolvedPackage(string package) {
@@ -72,15 +56,6 @@ namespace bob.builder.build.plugin.dependency {
             }
             LOGGER.logInfo("Adding resolved debian package: %s.", package);
             _resolvedPackages += package;
-        }
-
-        private VapiFileCodeVisitor visitVapiPackage(string vapiPackage) {
-            VapiFileCodeVisitor codeVisitor = new VapiFileCodeVisitor();
-            _codeContext.add_external_package(vapiPackage);             
-            new Parser().parse(_codeContext);
-            _codeContext.accept(codeVisitor);
-
-            return codeVisitor;
         }
     }
 }

@@ -33,7 +33,12 @@ namespace bob.builder.build.plugin.dependency {
 
                 new PipedExecutableRunner(COMMAND_DPKG, "-S", file).run(output => {
                     new PipedExecutableRunner("awk", "{print substr($1, 0, length($1))}").runWithInput(output.getStream(), finalOutput => {
-                        _resolvedPackages = finalOutput.getText().split("\n");
+                        foreach (string package in finalOutput.getText().split("\n")) {
+                            if (package == null || package.length == 0) {
+                                continue;
+                            }
+                            _resolvedPackages += package;
+                        }
                     });
                 });
             } catch (Error e) {

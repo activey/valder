@@ -5,17 +5,17 @@ using bob.builder.filesystem;
 using bob.builder.log;
 using bob.builder.json;
 using bob.builder.build.plugin.md5;
-using bob.builder.build.plugin.control;
+using bob.builder.build.plugin.control.dev;
 using bob.builder.build.plugin.archive;
 
 namespace bob.builder.build.plugin {
 
-    public class BuildDebianPackagePlugin : AbstractBobBuildPlugin {
+    public class BuildDebianDevPackagePlugin : AbstractBobBuildPlugin {
 
-        private const string PLUGIN_NAME = "debian:package";
+        private const string PLUGIN_NAME = "debian:package-dev";
         const string RECIPE_ENTRY_VERBOSE = "verbose";
         
-        private Logger LOGGER = Logger.getLogger("BuildDebianPackagePlugin");
+        private Logger LOGGER = Logger.getLogger("BuildDebianDevPackagePlugin");
 
         private DirectoryObject debianPackageDirectory;
         private FileObject destinationDebianFile;
@@ -23,8 +23,8 @@ namespace bob.builder.build.plugin {
         private FileObject debianControlFile;
         private FileObject md5ChecksumsFile;
         private FileObject debianBinaryFile;
-        private DirectoryObject debianLibraryDirectory;
-        private DirectoryObject debianBinaryDirectory;
+        private DirectoryObject debianIncludeDirectory;
+        private DirectoryObject debianVapiDirectory;
         
         private DebianArchiveCreator _archiveCreator;
         private ControlFileGenerator _controlGenerator;
@@ -32,7 +32,7 @@ namespace bob.builder.build.plugin {
 
         private bool verbose = false; 
 
-        public BuildDebianPackagePlugin() {
+        public BuildDebianDevPackagePlugin() {
             base(PLUGIN_NAME);
         }
 
@@ -91,8 +91,12 @@ namespace bob.builder.build.plugin {
                     });
 
                     sourceDirectory.directory("usr", usr => {
-                        debianBinaryDirectory = usr.directory("bin", null);
-                        debianLibraryDirectory = usr.directory("lib", null);
+                        debianIncludeDirectory = usr.directory("include", null);
+                        usr.directory("share", share => {
+                            share.directory("vala", vala => {
+                                debianVapiDirectory = vala.directory("vapi", null);
+                            }); 
+                        });
                     });
                 });
             });
@@ -101,24 +105,27 @@ namespace bob.builder.build.plugin {
         private void copyProjectFiles() {
             WorkingDirectoryStructure
                 .read()
-                .target(targetDirectory => {
-                    targetDirectory.directory(BobDirectories.DIRECTORY_LIB, libDirectory => {
-                        libDirectory.getOrCreate().copyTo(debianLibraryDirectory, true);
-                        _md5Generator.scanDirectory(debianLibraryDirectory, debianPackageDirectory);
-                    });
-                    targetDirectory.directory(BobDirectories.DIRECTORY_BIN, binDirectory => {
-                        binDirectory.getOrCreate().copyTo(debianBinaryDirectory, true);
-                        _md5Generator.scanDirectory(debianBinaryDirectory, debianPackageDirectory);
+                .source(sourceDirectory => {
+                    sourceDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_NAME, libDirectory => {
+                        libDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME, vapiDirectory => {
+                            vapiDirectory.getOrCreate().copyTo(debianVapiDirectory, true);
+                            _md5Generator.scanDirectory(debianVapiDirectory, debianPackageDirectory);
+                        });
+
+                        libDirectory.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME, cDirectory => {
+                            cDirectory.getOrCreate().copyTo(debianIncludeDirectory, true);    
+                            _md5Generator.scanDirectory(debianIncludeDirectory, debianPackageDirectory);
+                        });
                     });
                 });
         }
 
         private string debianFileName(BobBuildProjectRecipe projectRecipe) {
-            return "%s-%s.deb".printf(projectRecipe.shortName, projectRecipe.version);
+            return "%s-%s-dev.deb".printf(projectRecipe.shortName, projectRecipe.version);
         }
 
         private string debianTemporaryDirectoryName(BobBuildProjectRecipe projectRecipe) {
-            return "%s-%u.debian.package".printf(projectRecipe.shortName, new DateTime.now_local().get_microsecond());
+            return "%s-%u-dev.debian.package".printf(projectRecipe.shortName, new DateTime.now_local().get_microsecond());
         }
 
         private void generateMd5ChecksumsFile() throws Error {

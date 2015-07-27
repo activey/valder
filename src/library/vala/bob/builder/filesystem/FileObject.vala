@@ -8,6 +8,10 @@ namespace bob.builder.filesystem {
 			base(file);
 		}
 
+		public FileObject.fromLocation(string fileLocation) {
+			base(File.new_for_path(fileLocation));
+		}
+
 		public void accept(FileSystemVisitor visitor) {
 			visitor.visitFile(file);
 		}

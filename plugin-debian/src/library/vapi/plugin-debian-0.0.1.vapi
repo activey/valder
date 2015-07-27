@@ -6,46 +6,25 @@ namespace bob {
 			namespace plugin {
 				namespace archive {
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
-					public class ArchiveCreator {
-						public ArchiveCreator (Archive.Format format);
-						public void addFile (bob.builder.filesystem.FileObject file);
-						public void addFileRelative (bob.builder.filesystem.FileObject file, bob.builder.filesystem.DirectoryObject relativeDirectory);
-						public void addGzipFilter ();
-						public ArchiveCreator.arFormat ();
-						public bob.builder.filesystem.FileObject createArchive (string name, bob.builder.filesystem.DirectoryObject outputDirectory) throws GLib.Error;
-						public ArchiveCreator.tarFormat ();
-					}
-					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
-					public class ArchiveFile : GLib.Object {
-						public ArchiveFile (bob.builder.filesystem.FileObject fileObject, string path, int64 size);
-						public bob.builder.filesystem.FileObject fileObject { get; set construct; }
-						public string path { get; set construct; }
-						public int64 size { get; set construct; }
-					}
-					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
-					public class DebianArchiveBuilder {
-						public DebianArchiveBuilder (bob.builder.filesystem.DirectoryObject relativeDirectory);
-						public bob.builder.filesystem.FileObject build ();
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianBinaryDirectory (bob.builder.filesystem.DirectoryObject directory);
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianControlFile (bob.builder.filesystem.FileObject file);
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianIncludeDirectory (bob.builder.filesystem.DirectoryObject directory);
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianLibraryDirectory (bob.builder.filesystem.DirectoryObject directory);
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder debianVapiDirectory (bob.builder.filesystem.DirectoryObject directory);
-						public bob.builder.build.plugin.archive.DebianArchiveBuilder name (string name);
-						public static bob.builder.build.plugin.archive.DebianArchiveBuilder relativeDirectory (bob.builder.filesystem.DirectoryObject relativeDirectory);
-					}
-					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class DebianArchiveCreator {
-						public DebianArchiveCreator (bob.builder.filesystem.DirectoryObject relativeDirectory);
-						public bob.builder.filesystem.FileObject createDebianArchive (string debianPackageFileName);
-						public bob.builder.filesystem.DirectoryObject debianBinaryDirectory { get; set; }
-						public bob.builder.filesystem.FileObject debianControlFile { get; set; }
-						public bob.builder.filesystem.DirectoryObject debianIncludeDirectory { get; set; }
-						public bob.builder.filesystem.DirectoryObject debianLibraryDirectory { get; set; }
-						public bob.builder.filesystem.DirectoryObject debianVapiDirectory { get; set; }
+						public DebianArchiveCreator ();
+						public bob.builder.filesystem.FileObject createDebianArchive (bob.builder.filesystem.FileObject destinationFile, bob.builder.filesystem.DirectoryObject sourceDirectory) throws GLib.Error;
+						public void initialize () throws bob.builder.build.plugin.archive.DebianDependencyError;
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public errordomain DebianDependencyError {
+						INITIALIZATION_ERROR
 					}
 				}
 				namespace control {
+					namespace dev {
+						[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+						public class ControlFileGenerator {
+							public ControlFileGenerator ();
+							public void generate (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.FileObject controlFile) throws GLib.Error;
+							public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
+						}
+					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class ControlFileBuilder {
 						public bob.builder.build.plugin.control.ControlFileBuilder architecture (string architecture);
@@ -92,8 +71,8 @@ namespace bob {
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public enum ControlFileArchitectureEnum {
-						ANY,
 						ALL,
+						ANY,
 						ALPHA,
 						AMD64,
 						ARM64,
@@ -208,10 +187,16 @@ namespace bob {
 						public string path { get; set construct; }
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class DebianDevPackageDepedencyResolver {
+						public DebianDevPackageDepedencyResolver ();
+						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
+						public string[] resolveDebianPackages (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class DebianPackageDepedencyResolver {
 						public DebianPackageDepedencyResolver ();
 						public void initialize () throws bob.builder.build.plugin.dependency.DependencyResolverError;
-						public string[] resolveDebianPackages (bob.builder.recipe.project.BobBuildProjectDependency dependency);
+						public string[] resolveDebianPackages (bob.builder.filesystem.FileObject libraryFile);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class DpkgPackageResolver {
@@ -223,10 +208,17 @@ namespace bob {
 						public void resolveFilePackages (string file);
 					}
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class LddLibrariesInspector {
+						public delegate void LddLibraryUsedDelegate (bob.builder.filesystem.FileObject usedLibraryFile);
+						public LddLibrariesInspector ();
+						public void inspectLibraryDependencies (bob.builder.filesystem.FileObject libraryFile, bob.builder.build.plugin.dependency.LddLibrariesInspector.LddLibraryUsedDelegate usedLibraryDelegate);
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public class VapiFileCodeVisitor : Vala.CodeVisitor {
+						public delegate void CHeaderFileDelegate (bob.builder.build.plugin.dependency.CHeader cHeaderFile);
 						public delegate void PackageFileDelegate (string packageFile);
 						public VapiFileCodeVisitor ();
-						public void forEachCHeader (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
+						public void forEachCHeader (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.CHeaderFileDelegate cHeaderFileDelegate);
 						public void forEachVapiFile (bob.builder.build.plugin.dependency.VapiFileCodeVisitor.PackageFileDelegate packageFileDelegate);
 						public override void visit_namespace (Vala.Namespace @namespace);
 						public override void visit_source_file (Vala.SourceFile sourceFile);
@@ -270,6 +262,20 @@ namespace bob {
 						EXECUTABLE_ERROR
 					}
 				}
+				namespace md5 {
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class MD5ChecksumsEntry : GLib.Object {
+						public MD5ChecksumsEntry (string filePath, string checksum);
+						public string checksum { get; set construct; }
+						public string filePath { get; set construct; }
+					}
+					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+					public class MD5ChecksumsFileGenerator {
+						public MD5ChecksumsFileGenerator ();
+						public void generate (bob.builder.filesystem.FileObject outputFile) throws GLib.Error;
+						public void scanDirectory (bob.builder.filesystem.DirectoryObject sourceDirectory, bob.builder.filesystem.DirectoryObject relativeDirectory);
+					}
+				}
 				namespace properties {
 					[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 					public abstract class AbstractPropertyPrinter {
@@ -291,6 +297,12 @@ namespace bob {
 						public PropertiesFileWriter (bob.builder.build.plugin.properties.AbstractPropertyPrinter propertyPrinter);
 						public void write (bob.builder.filesystem.FileObject output, bob.builder.build.plugin.properties.Properties properties) throws GLib.Error;
 					}
+				}
+				[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
+				public class BuildDebianDevPackagePlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {
+					public BuildDebianDevPackagePlugin ();
+					public override void initialize (bob.builder.recipe.plugin.BobBuildPluginRecipe pluginRecipe) throws bob.builder.build.plugin.BobBuildPluginError;
+					public override void run (bob.builder.recipe.project.BobBuildProjectRecipe projectRecipe, bob.builder.filesystem.DirectoryObject projectDirectory) throws bob.builder.build.plugin.BobBuildPluginError;
 				}
 				[CCode (cheader_filename = "plugin-debian-0.0.1.h")]
 				public class BuildDebianPackagePlugin : bob.builder.build.plugin.AbstractBobBuildPlugin {

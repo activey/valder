@@ -23,11 +23,8 @@
       {
         "dependency" : "libvala",
         "version": "0.28"
-      },
-      {
-        "dependency" : "libarchive"
       }
-    ]
+      ]
   },
   "plugins": {
     "build": {

@@ -4,8 +4,8 @@ namespace bob.builder.build.plugin.control {
 	
 	public enum ControlFileArchitectureEnum {
 
-		ANY,
 		ALL,
+		ANY,
 		ALPHA,
 		AMD64,
 		ARM64,

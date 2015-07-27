@@ -13,7 +13,7 @@
                 convallis imperdiet odio non, suscipit tincidunt urna.",
             "authors": ["Lukasz Grabski <activey@doaplatform.org>"],
             "section": "devel",
-            "architecture": "any"
+            "architecture": "all"
         },
         "dependencies": [
             {
