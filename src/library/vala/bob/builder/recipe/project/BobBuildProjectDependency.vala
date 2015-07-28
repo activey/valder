@@ -12,12 +12,10 @@ namespace bob.builder.recipe.project {
         private const string MEMBER_VAPI_DIRECTORY = "vapi-directory";
         private const string MEMBER_C_HEADERS_DIRECTORY = "c-headers-directory";
 
-        private const string TYPE_PKG = "pkg";
-
         public BobBuildProjectDependency.fromJsonObject(JsonObject jsonObject) {
     		dependency = jsonObject.getStringEntry(MEMBER_DEPENDENCY, null);
     		version = jsonObject.getStringEntry(MEMBER_VERSION, VERSION_NONE);
-    		scope = BobBuildProjectDependencyScope.fromName(jsonObject.getStringEntry(MEMBER_SCOPE, null));
+    		scope = BobBuildProjectDependencyScope.fromName(jsonObject.getStringEntry(MEMBER_SCOPE, BobBuildProjectDependencyScope.BOTH.name()));
             vapiDirectory = jsonObject.getStringEntry(MEMBER_VAPI_DIRECTORY, null);
             cHeadersDirectory = jsonObject.getStringEntry(MEMBER_C_HEADERS_DIRECTORY, null);
         }

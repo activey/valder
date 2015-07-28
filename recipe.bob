@@ -3,6 +3,18 @@
         "name": "Bob the Builder",
         "shortName": "bob",
         "version": "0.0.1",
+        "details": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                Duis condimentum ex sed nisi iaculis consequat. Mauris nec lacus neque. 
+                Phasellus sodales, nulla ac eleifend maximus, odio lorem eleifend sem, 
+                eu iaculis felis dolor ut felis. Nullam maximus nunc nec sem dapibus, 
+                vel rhoncus justo semper. Quisque mattis libero at neque sodales sagittis. 
+                Vivamus vel nisl sit amet dui convallis euismod. Etiam eros tellus, 
+                convallis imperdiet odio non, suscipit tincidunt urna.",
+            "authors": ["Lukasz Grabski <activey@doaplatform.org>"],
+            "section": "devel",
+            "architecture": "all"
+        },
         "dependencies": [
             {
                 "dependency": "glib",
@@ -25,6 +37,9 @@
             }, {
                 "dependency": "gee",
                 "version": "0.8"
+            }, {
+                "dependency": "vala-stacktrace",
+                "version" : "2.0"
             }
         ]
     },
@@ -39,7 +54,8 @@
             "backup": false
         },
         "build": {
-            "verbose": true
+            "verbose": true,
+            "debug": true
         },
         "repository:install": {
             "overwrite": true

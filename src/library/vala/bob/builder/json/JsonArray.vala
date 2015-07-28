@@ -3,6 +3,7 @@ namespace bob.builder.json {
 	public class JsonArray : Object {
 
 		public delegate void EachMemberDelegate(JsonObject jsonObject);
+		public delegate void EachStringValueDelegate(string value);
 
 		private Json.Array jsonArray;
 
@@ -28,5 +29,11 @@ namespace bob.builder.json {
 				eachMemberDelegate(jsonObject);
 			}
 		} 
+
+		public void forStringEachValue(EachStringValueDelegate eachValueDelegate) {
+			foreach (Json.Node memberNode in jsonArray.get_elements()) {
+				eachValueDelegate(memberNode.get_string());
+			}
+		}
 	}
 }

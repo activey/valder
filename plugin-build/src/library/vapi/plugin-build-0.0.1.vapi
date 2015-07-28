@@ -80,7 +80,14 @@ namespace bob {
 					public void useLibrary (string name);
 				}
 				[CCode (cheader_filename = "plugin-build-0.0.1.h")]
-				public class ValaCodeCompiler {
+				public class DepenedencyDataTester : Vala.CodeVisitor {
+					public DepenedencyDataTester (string package, string vapiFilePath);
+					public void test ();
+					public override void visit_class (Vala.Class clazz);
+					public override void visit_source_file (Vala.SourceFile sourceFile);
+				}
+				[CCode (cheader_filename = "plugin-build-0.0.1.h")]
+				public class ValaCodeCompiler : Vala.CodeVisitor {
 					public ValaCodeCompiler (bob.builder.build.plugin.BuildConfiguration buildConfiguration);
 					public bob.builder.build.plugin.ValaCodeCompilerOutcome compile () throws bob.builder.build.plugin.CompilationError;
 				}

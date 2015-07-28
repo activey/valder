@@ -8,6 +8,7 @@ namespace bob.builder.recipe.project {
 		private const string MEMBER_NAME = "name";
 		private const string MEMBER_SHORTNAME = "shortName";
 		private const string MEMBER_VERSION = "version";
+		private const string MEMBER_DETAILS = "details";
 		private const string MEMBER_DEPENDENCIES = "dependencies";
 		private const string MEMBER_NAME_DEFAULT = "unknown";
 		private const string MEMBER_SHORTNAME_DEFAULT = "unknown";
@@ -37,6 +38,12 @@ namespace bob.builder.recipe.project {
 			default = MEMBER_VERSION_DEFAULT;
 		}
 
+		public BobBuildProjectDetails details {
+			get;
+			set;
+			default = new BobBuildProjectDetails();
+		}
+
 		public List<BobBuildProjectDependency> dependencies {
 			get {
 				return _dependencies;
@@ -60,17 +67,25 @@ namespace bob.builder.recipe.project {
 			shortName = jsonObject.getStringEntry(MEMBER_SHORTNAME, MEMBER_SHORTNAME_DEFAULT);
 	        version = jsonObject.getStringEntry(MEMBER_VERSION, MEMBER_VERSION_DEFAULT);
 
+	        parseProjectDetails(jsonObject);
 	        parseProjectDependencies(jsonObject);
 		}
 
-		public BobBuildProjectRecipe() {}
+		private void parseProjectDetails(JsonObject projectJsonObject) {
+			if (projectJsonObject.keyMissing(MEMBER_DETAILS)) {
+				return;
+			}
+			LOGGER.logInfo("Parsing project details.");
+			JsonObject? detailsObject = projectJsonObject.getJsonObjectEntry(MEMBER_DETAILS);
+			details = new BobBuildProjectDetails.fromJsonObject(detailsObject);
+		}
 
 		private void parseProjectDependencies(JsonObject projectJsonObject) {
-			LOGGER.logInfo("Parsing project dependencies.");
 			if (projectJsonObject.keyMissing(MEMBER_DEPENDENCIES)) {
 				LOGGER.logInfo("No project dependencies defined.");
 				return;
 			}
+			LOGGER.logInfo("Parsing project dependencies.");
 			JsonArray dependenciesJsonArray = projectJsonObject.getObjectArrayEntry(MEMBER_DEPENDENCIES);
 			dependenciesJsonArray.forEachMember(parseProjectDependency);
 		}

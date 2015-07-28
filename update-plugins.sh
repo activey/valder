@@ -1,4 +1,4 @@
 #!/bin/bash
 
-rm -rf target/plugins/*.so
-cp plugin-*/target/lib/libplugin-*.so target/plugins/
+rm -rf target/bin/plugins/*.so
+cp plugin-*/target/lib/libplugin-*.so target/bin/plugins/

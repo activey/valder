@@ -17,7 +17,7 @@ namespace bob.builder.log {
 		}
 
 		public void logError(string message, ...) {
-			AnsiPrinterSession printerSession = ansiPrinter.startSession();
+			AbstractAnsiPrinterSession printerSession = ansiPrinter.startSession();
 
 			printLoggerId(printerSession, stderr);
 			printerSession.setBold(true);
@@ -29,7 +29,7 @@ namespace bob.builder.log {
 		}
 
 		public void logWarn(string message, ...) {
-			AnsiPrinterSession printerSession = ansiPrinter.startSession();
+			AbstractAnsiPrinterSession printerSession = ansiPrinter.startSession();
 
 			printLoggerId(printerSession, stderr);
 			printerSession.setBold(false);
@@ -41,7 +41,7 @@ namespace bob.builder.log {
 		}
 
 		public void logInfo(string message, ...) {
-			AnsiPrinterSession printerSession = ansiPrinter.startSession();
+			AbstractAnsiPrinterSession printerSession = ansiPrinter.startSession();
 
 			printLoggerId(printerSession, stdout);
 			printerSession.setColorDefault();
@@ -52,7 +52,7 @@ namespace bob.builder.log {
 		}
 
 		public void logSuccess(string message, ...) {
-			AnsiPrinterSession printerSession = ansiPrinter.startSession();
+			AbstractAnsiPrinterSession printerSession = ansiPrinter.startSession();
 
 			printLoggerId(printerSession, stdout);
 			printerSession.setBold(true);
@@ -63,7 +63,7 @@ namespace bob.builder.log {
 			printerSession.reset(stdout);
 		}
 
-		private void printLoggerId(AnsiPrinterSession printerSession,
+		private void printLoggerId(AbstractAnsiPrinterSession printerSession,
 		                           FileStream stream) {
 			printerSession.setColorBlue();
 			printerSession.flush(stream);

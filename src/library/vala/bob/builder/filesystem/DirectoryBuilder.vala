@@ -1,3 +1,4 @@
+using bob.builder.filesystem.visitor;
 using bob.builder.log;
 
 namespace bob.builder.filesystem {
@@ -40,7 +41,6 @@ namespace bob.builder.filesystem {
 			DirectoryObject existingDirectory = _parentDirectory.getDirectoryChild(_name);
 			if (existingDirectory.exists()) {
 				_directory = existingDirectory;
-				LOGGER.logInfo(@"Found directory with name: $(_name).");
 				return existingDirectory;
 			}
 
@@ -49,7 +49,6 @@ namespace bob.builder.filesystem {
 				return _directory;
 			}
 			try {
-				LOGGER.logInfo(@"Creating new directory: $(_name).");
 				_directory.createDirectory();
 			} catch (Error e) {
 				LOGGER.logError("An error occurred while creating new directory with name %s: %s.", _name, e.message);

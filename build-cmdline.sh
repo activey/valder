@@ -10,4 +10,4 @@ PACKAGES_PREFIXED=$(printf " --pkg %s" "${PACKAGES[@]}")
 VAPI_DIRS_PREFIXED=$(printf " --vapidir %s" "${VAPI_DIRS[@]}")
 
 mkdir -p target/plugins
-valac -g -v $SOURCES_PREFIXED -X -Wl,-rpath=\$ORIGIN/lib -X -Ltarget/lib -X -lbob -X -Isrc/library/c $VAPI_DIRS_PREFIXED $PACKAGES_PREFIXED -o target/bob
+valac -g -v $SOURCES_PREFIXED -X -Wl,-rpath=\$ORIGIN/lib -X -Ltarget/lib -X -lbob -X -Isrc/library/c $VAPI_DIRS_PREFIXED $PACKAGES_PREFIXED -o target/bin/bob

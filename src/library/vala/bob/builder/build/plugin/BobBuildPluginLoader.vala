@@ -56,7 +56,7 @@ namespace bob.builder.build.plugin {
 				Module module = loadPluginModule(pluginFile.get_path());
 				loadPluginModuleType(module);
 			} catch (BuildPluginError e) {
-				LOGGER.logError("An error occurred while loading plugin from file: %s.", pluginFile.get_path());
+				LOGGER.logError("An error occurred while loading plugin from [%s] file: %s.", pluginFile.get_path(), e.message);
 			}
 		}
 

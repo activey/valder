@@ -1,0 +1,34 @@
+{
+  "project" : {
+    "name" : "plugin-debian",
+    "shortName" : "plugin-debian",
+    "version" : "0.0.1",
+    "dependencies" : [
+      {
+        "dependency" : "glib",
+        "version" : "2.0"
+      },
+      {
+        "dependency" : "gobject",
+        "version" : "2.0"
+      },
+      {
+        "dependency" : "gee",
+        "version" : "0.8"
+      },
+      {
+        "dependency" : "bob",
+        "version" : "0.0.1"
+      },
+      {
+        "dependency" : "libvala",
+        "version": "0.28"
+      }
+      ]
+  },
+  "plugins": {
+    "build": {
+      "debug": true
+    }
+  }
+}
