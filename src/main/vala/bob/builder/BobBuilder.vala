@@ -60,8 +60,6 @@ namespace bob.builder {
 }
 
 public static int main(string[] args) {
-	Stacktrace.register_handlers();
-
 	try {
 		BobBuilder builder = new BobBuilder();
 		if (args.length > 1) {
