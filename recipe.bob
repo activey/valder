@@ -30,16 +30,13 @@
                 "version": "1.0"
             }, {
                 "dependency": "libvala",
-                "version": "0.28"
+                "version": "0.30"
             }, {
                 "dependency": "gmodule",
                 "version": "2.0"
             }, {
                 "dependency": "gee",
                 "version": "0.8"
-            }, {
-                "dependency": "vala-stacktrace",
-                "version" : "2.0"
             }
         ]
     },
