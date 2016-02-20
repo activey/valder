@@ -6,6 +6,7 @@ namespace bob.builder {
 
 		public const string DIRECTORY_LIB = "lib";
 		public const string DIRECTORY_BIN = "bin";
+		public const string DIRECTORY_GIR = "gir";
 		public const string DIRECTORY_PLUGINS = "plugins";
 
 		public const string DIRECTORY_SOURCE = "src";
@@ -21,6 +22,7 @@ namespace bob.builder {
 		public const string DIRECTORY_SOURCE_RUNTIME_VALA_NAME = "vala";
 		
 		public const string DIRECTORY_TARGET = "target";
+		public const string DIRECTORY_TARGET_GIR = DIRECTORY_TARGET + PATH_SEPARATOR + DIRECTORY_GIR;
 		public const string DIRECTORY_TARGET_LIB = DIRECTORY_TARGET + PATH_SEPARATOR + DIRECTORY_LIB;
 		public const string DIRECTORY_TARGET_BIN = DIRECTORY_TARGET + PATH_SEPARATOR + DIRECTORY_BIN;
 	}

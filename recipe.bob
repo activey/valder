@@ -52,7 +52,8 @@
         },
         "build": {
             "verbose": true,
-            "debug": true
+            "debug": true,
+            "generate-gir": true
         },
         "repository:install": {
             "overwrite": true

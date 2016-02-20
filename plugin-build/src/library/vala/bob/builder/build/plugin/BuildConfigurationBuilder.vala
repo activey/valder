@@ -11,10 +11,15 @@ namespace bob.builder.build.plugin {
 
 		private const string PROPERTY_VERBOSE = "verbose";
 		private const string PROPERTY_DEBUG = "debug";
+		private const string PROPERTY_GENERATE_GIR = "generate-gir";
 
 		private string _targetDirectory = "";
 		private string _targetFileName = "";
 		private bool _generateVapi = false;
+		private bool _generateGir = false;
+		private string _outputGirDirectory = "";
+		private string _girLibraryName = "";
+		private string _girLibraryVersion = "";
 		private string _outputVapiDirectory = "";
 		private string _outputVapiFileName = "";
 		private string _cOutputDirectory = "";
@@ -30,6 +35,8 @@ namespace bob.builder.build.plugin {
 		private void readJsonProperties(JsonObject jsonObject) {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
 			buildConfiguration.debug = jsonObject.getBooleanEntry(PROPERTY_DEBUG, false);
+			
+			_generateGir = jsonObject.getBooleanEntry(PROPERTY_GENERATE_GIR, false);
 		}
 
 		public BuildConfigurationBuilder sources(List<BobBuildProjectSourceFile> sources) {
@@ -41,6 +48,7 @@ namespace bob.builder.build.plugin {
 
 		public BuildConfigurationBuilder runtimeScope() {
 			buildConfiguration.scope = BobBuildProjectDependencyScope.RUNTIME;
+			_generateGir = false;
 			return this;
 		}
 
@@ -74,6 +82,21 @@ namespace bob.builder.build.plugin {
 			return this;
 		} 
 
+		public BuildConfigurationBuilder girOutputDirectory(string girOutputDirectory) {
+			_outputGirDirectory = girOutputDirectory;
+			return this;
+		}
+
+		public BuildConfigurationBuilder girLibraryName(string girLibraryName) {
+			_girLibraryName = girLibraryName;
+			return this;
+		}		
+
+		public BuildConfigurationBuilder girLibraryVersion(string girLibraryVersion) {
+			_girLibraryVersion = girLibraryVersion;
+			return this;
+		}
+
 		public BuildConfigurationBuilder generateVapiAndC() {
 			_generateVapi = true;
 			return this;
@@ -88,11 +111,6 @@ namespace bob.builder.build.plugin {
 			_outputVapiFileName = vapiOutputFileName;
 			return this;
 		}
-
-		public BuildConfigurationBuilder ccOptions(string[] ccOptions) {
-			buildConfiguration.ccOptions = ccOptions;
-			return this;
-		} 
 
 		public BuildConfigurationBuilder ccOption(string ccOption) {
 			buildConfiguration.addCcOption(ccOption);
@@ -114,15 +132,24 @@ namespace bob.builder.build.plugin {
 			libraryUsageDelegate(libraryUsageBuilder);
 
 			libraryUsageBuilder.addLibraryUsageCcOptions(this);
-
 			return this;
 		}
 
 		public BuildConfiguration build() {
 			buildConfiguration.targetFile = "%s%C%s".printf(_targetDirectory, Path.DIR_SEPARATOR, _targetFileName);
+			
+			buildConfiguration.girConfiguration = GirConfiguration() {
+				generateGir = _generateGir,
+				libraryName = _girLibraryName,
+				libraryVersion = _girLibraryVersion,
+				outputDirectory = _outputGirDirectory
+			};
+			
 			if (_generateVapi) {
-				buildConfiguration.generateVapi = true;
-				buildConfiguration.outputVapiFile = "%s%C%s".printf(_outputVapiDirectory, Path.DIR_SEPARATOR, _outputVapiFileName);
+				buildConfiguration.vapiConfiguration = VapiConfiguration() {
+					generateVapi = true,
+					outputVapiFile = "%s%C%s".printf(_outputVapiDirectory, Path.DIR_SEPARATOR, _outputVapiFileName)
+				};
 				buildConfiguration.outputHFile = "%s%C%s".printf(_cOutputDirectory, Path.DIR_SEPARATOR, _cHeaderFileName);
 			}
 			return buildConfiguration;
