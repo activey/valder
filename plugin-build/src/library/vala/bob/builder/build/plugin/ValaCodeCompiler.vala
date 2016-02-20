@@ -18,20 +18,26 @@ namespace bob.builder.build.plugin {
         private CodeContext codeContext;
         private BuildConfiguration buildConfiguration;
 
-        private string[] vapiDirectories = new string[0];
         private CCOptions ccOptions;
 
         public ValaCodeCompiler(BuildConfiguration buildConfiguration) {
             this.buildConfiguration = buildConfiguration;
-            this.ccOptions = new CCOptions(buildConfiguration.ccOptions);
+            this.ccOptions = buildConfiguration.ccOptions;
             
+            initialize();
+        }
+
+        private void initialize() {
+            if (!hasAnyValaSourceFiles()) {
+                LOGGER.logInfo("No VALA source files available, skipping initialization.");
+                return;
+            }
             initializeCodeContext();
             initializeContextDebug();
             initializeContextVapiLibraries();
-            useContextVapiDirectories();
-            
-            initializeContextDependencies();
             initializeContextSources();
+            initializeContextDependencies();
+
         }
 
         private void initializeCodeContext() {
@@ -72,6 +78,8 @@ namespace bob.builder.build.plugin {
         }
 
         private void initializeContextVapiLibraries() {
+            string[] vapiDirectories = new string[0];
+
             foreach (BobBuildProjectDependency dependency in buildConfiguration.dependencies) {
                 if (dependency.vapiDirectory != null) {
                     LOGGER.logInfo(@"Using VAPI directory: $(dependency.vapiDirectory) for dependency: %s.", dependency.toString());
@@ -84,10 +92,8 @@ namespace bob.builder.build.plugin {
                     ccOptions.useLibrary(dependency.dependency);
                 }
             }
-        }
-
-        private void useContextVapiDirectories() {
             codeContext.vapi_directories = vapiDirectories;    
+
         }
 
         private void initializeContextDependencies() {
@@ -126,6 +132,7 @@ namespace bob.builder.build.plugin {
             runCodeParsers();
             runCodeGenerator();
             runVapiGenerator();
+            runGirGenerator();
             runCodeCompiler();
             
             CodeContext.pop();
@@ -164,13 +171,23 @@ namespace bob.builder.build.plugin {
         }
 
         private void runVapiGenerator() {
-            if (!buildConfiguration.generateVapi) {
+            if (!buildConfiguration.vapiConfiguration.generateVapi) {
                 return;
             }
-            CodeWriter interfaceWriter = new CodeWriter();
             
+            CodeWriter interfaceWriter = new CodeWriter();
             LOGGER.logInfo("Generating VAPI file.");
-            interfaceWriter.write_file(codeContext, buildConfiguration.outputVapiFile);
+            interfaceWriter.write_file(codeContext, buildConfiguration.vapiConfiguration.outputVapiFile);
+        }
+
+        private void runGirGenerator() {
+            if (!buildConfiguration.girConfiguration.generateGir) {
+                return;
+            }
+
+            GIRGenerator girGenerator = new GIRGenerator();
+            LOGGER.logInfo("Generating GIR file.");
+            girGenerator.generateGIRRepositoryFile(codeContext, buildConfiguration.girConfiguration);
         }
 
         private void runCodeCompiler() throws CompilationError {

@@ -11,11 +11,7 @@ namespace bob.builder.build.plugin {
 		private const string OPTION_USE_LIBRARY = "-l%s";
 		private const string OPTION_DEBUG_FLAG = "-rdynamic";
 
-		private string[] _ccOptions;
-
-		public CCOptions(string[] ccOptions) {
-			_ccOptions = ccOptions;
-		}
+		private string[] _ccOptions = new string[0];
 
 		public void addCcOption(string ccOption) {
 			_ccOptions += ccOption;

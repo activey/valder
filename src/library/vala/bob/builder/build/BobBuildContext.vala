@@ -54,7 +54,6 @@ namespace bob.builder.build {
                     if (pluginRecipe == null) {
                         pluginRecipe = new BobBuildPluginRecipe.default();
                     }
-                    
                     pluginToRun.initialize(pluginRecipe);
                 }
             );

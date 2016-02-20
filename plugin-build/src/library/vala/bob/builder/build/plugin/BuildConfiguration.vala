@@ -3,52 +3,37 @@ using bob.builder.filesystem;
 
 namespace bob.builder.build.plugin {
 
+	public struct GirConfiguration {
+		public bool generateGir;
+		public string libraryName;	
+		public string libraryVersion;	
+		public string outputDirectory;	
+	}
+
+	public struct VapiConfiguration {
+		public bool generateVapi;
+		public string outputVapiFile;
+	}
+
 	public class BuildConfiguration {
 
 		private List<BobBuildProjectDependency> _dependencies = new List<BobBuildProjectDependency>();
 		private List<BobBuildProjectSourceFile> _sources = new List<BobBuildProjectSourceFile>();
+		private CCOptions _ccOptions = new CCOptions();
+		
+		public string targetFile { get; set; }
+		public GirConfiguration girConfiguration { get; set; default = GirConfiguration(); }
+		public VapiConfiguration vapiConfiguration { get; set; default = VapiConfiguration(); }
 
-		private string[] _ccOptions = new string[0];
+		public string outputHFile { get; set; }
 
-		public string targetFile {
-			get;
-			set;
-		}
+		public bool verbose { get; set; default = false; }
 
-		public bool generateVapi {
-			get;
-			set;
-		}
+		public bool debug { get; set; default = false; }
 
-		public string outputVapiFile {
-			get;
-			set;
-		}
+		public BobBuildProjectDependencyScope scope { get; set; default = BobBuildProjectDependencyScope.BOTH; }
 
-		public string outputHFile {
-			get;
-			set;
-		}
-
-		public bool verbose {
-			get;
-			set;
-			default = false;
-		}
-
-		public bool debug {
-			get;
-			set;
-			default = false;
-		}
-
-		public BobBuildProjectDependencyScope scope {
-			get;
-			set;
-			default = BobBuildProjectDependencyScope.BOTH;
-		}
-
-		public string[] ccOptions {
+		public CCOptions ccOptions {
 			get {
 				return _ccOptions;
 			}
@@ -58,7 +43,7 @@ namespace bob.builder.build.plugin {
 		}
 
 		public void addCcOption(string ccOption) {
-			_ccOptions += ccOption;
+			_ccOptions.addCcOption(ccOption);
 		}
 
 		public List<BobBuildProjectDependency> dependencies {
@@ -71,7 +56,7 @@ namespace bob.builder.build.plugin {
 			_dependencies.append(dependency);
 		}
 
-		public List<BobBuildProjectSourceFile> sources {
+		public List<BobBuildProjectSourceFile> sources { 
 			get {
 				return _sources;
 			}

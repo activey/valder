@@ -9,7 +9,6 @@ namespace bob.builder.build.plugin {
 
 	public class BuildApplicationPlugin : AbstractBobBuildPlugin {
 
-		private const string PATH_SEPARATOR = Path.DIR_SEPARATOR_S;
 		private const string PLUGIN_NAME = "build";
 		
         private Logger LOGGER = Logger.getLogger("BuildApplicationPlugin");
@@ -63,6 +62,9 @@ namespace bob.builder.build.plugin {
 				.sources(projectRecipe.libSourceFiles)
 				.targetDirectory(BobDirectories.DIRECTORY_TARGET_LIB)
 				.targetFileName(BobFiles.FILE_TARGET_LIBRARY_NAME.printf(projectRecipe.shortName))
+				.girOutputDirectory(BobDirectories.DIRECTORY_TARGET_GIR)
+				.girLibraryName(projectRecipe.shortName)
+				.girLibraryVersion(projectRecipe.version)
 				.generateVapiAndC()
 				.vapiOutputDirectory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI)
 				.vapiOutputFileName(BobFiles.FILE_SOURCE_VAPI_NAME.printf(projectRecipe.shortName, projectRecipe.version))
