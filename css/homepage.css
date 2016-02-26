@@ -28,7 +28,9 @@ html {
 }
 
 #home .masthead .information {
-  margin: 1em 1em 1em 350px;
+  margin: 1em 1em 1em 10%;
+  float: left;
+  width: 55%;
 }
 #home .masthead .information p {
   max-width: 600px;
@@ -36,10 +38,12 @@ html {
 
 #home .masthead .image {
   width: 30%;
-  height: auto;
+  /*height: auto;
   position: absolute;
   left: 0%;
-  bottom: -120px;
+  bottom: -120px;*/
+  float: left;
+  display: block;
 }
 
 .masthead .image {
@@ -119,7 +123,7 @@ html {
     font-size: 1.5em;
   }
   #home .masthead.segment .information {
-    margin-left: 270px;
+    /*margin-left: 0;*/
   }
 
   #home .masthead.segment .button {
@@ -141,6 +145,23 @@ html {
   #home .selection.list .right.floated {
     display: none;
   }
+}
+
+@media only screen and (max-width: 480px) {
+    #home .masthead.segment .information {
+        /* margin-left: 0; */
+        width: 100%;
+        float: none;
+        margin: 1em;
+        font-size: 1.5em;
+    }
+
+    #home .masthead .image {
+        width: 30%;
+        float: none;
+        display: block;
+        margin: auto;
+    }
 }
 
 .preformatted {
