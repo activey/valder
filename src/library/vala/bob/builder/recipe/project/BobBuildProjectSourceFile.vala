@@ -10,7 +10,7 @@ namespace bob.builder.recipe.project {
 			get;
 			set;
 		}
-		
+
 		public BobBuildProjectSourceFile.fromFileSystem(File projectSourceFile) throws Error {
 			base(fileLocation: projectSourceFile.get_path());
 			FileInfo fileInfo = projectSourceFile.query_info("*", FileQueryInfoFlags.NONE);
@@ -18,8 +18,7 @@ namespace bob.builder.recipe.project {
 		}
 
 		public BobBuildProjectSourceFile.fromLocation(string sourceFileLocation) {
-			base(fileLocation: sourceFileLocation);
-			fileSize = -1;
+			this.fromFileSystem(File.new_for_path(sourceFileLocation));
 		}
 	}
 }

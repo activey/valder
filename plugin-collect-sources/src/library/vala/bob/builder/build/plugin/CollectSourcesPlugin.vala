@@ -8,10 +8,10 @@ namespace bob.builder.build.plugin {
 
 	public class CollectSourcesPlugin : AbstractBobBuildPlugin {
 
-        const string PLUGIN_NAME = "collect-sources";
-		const string SOURCE_MAIN_FOLDER_LOCATION = "./src/main/vala";
-        const string SOURCE_LIB_FOLDER_LOCATION = "./src/library/vala";
-        const string RECIPE_ENTRY_VERBOSE = "verbose";
+        private const string PLUGIN_NAME = "collect-sources";
+		private const string SOURCE_MAIN_FOLDER_LOCATION = "./src/main/vala";
+        private const string SOURCE_LIB_FOLDER_LOCATION = "./src/library/vala";
+        private const string RECIPE_ENTRY_VERBOSE = "verbose";
 
         private Logger LOGGER = Logger.getLogger("CollectSourcesPlugin");
 
@@ -55,7 +55,6 @@ namespace bob.builder.build.plugin {
 	    		currentProjectRecipe = projectRecipe;
 
 	    		collectValaSourceFiles();
-	    		printValaSourceFiles();
     		} catch (Error e) {
     			LOGGER.logError("An error occurred while collecting vala source files: %s", e.message);
     		}
@@ -64,25 +63,6 @@ namespace bob.builder.build.plugin {
 	    private void collectValaSourceFiles() throws Error {
 	    	valaLibVisitor.collectSourceFiles();
     		valaMainVisitor.collectSourceFiles();
-	    }
-
-	    private void printValaSourceFiles() {
-	    	if (!verbose) {
-	    		return;
-	    	}
-	    	int totalLength = 0;
-	    	uint64 totalSize = 0;
-	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.libSourceFiles) {
-    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
-	    		totalLength++;
-	    		totalSize = totalSize + file.fileSize;
-	    	}
-	    	foreach (BobBuildProjectSourceFile file in currentProjectRecipe.mainSourceFiles) {
-    			LOGGER.logInfo("%s (%d bytes)", file.fileLocation, file.fileSize);
-	    		totalLength++;
-	    		totalSize = totalSize + file.fileSize;
-	    	}
-	    	LOGGER.logInfo("Using %d project source files with %d bytes in total.", totalLength, totalSize);
 	    }
 	}
 }
