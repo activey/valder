@@ -28,27 +28,25 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <a class="item" href="#section_documentation">Documentation</a>
-          <a class="item" href="#section_examples">Examples</a>
-          <a class="item" href="#section_tools">Tools and recipies</a>
+          <a class="item" href="#section_plugins">Plugins and recipies</a>
           <a class="item" href="https://github.com/activey/valder">Code</a>
           <a class="item" href="#section_qa">Q&amp;A</a>
         </div>
       </div>
       <a class="item" href="#section_documentation">Documentation</a>
-      <a class="item" href="#section_examples">Examples</a>
       <div class="ui dropdown link item">
-        Tools
+        Plugins
         <div class="inverted blue menu">
-          <a class="item" href="#tool_initialize_structure">initialize:structure</a>
-          <a class="item" href="#tool_initialize_recipe">initialize:recipe</a>
-          <a class="item" href="#tool_collect_sources">collect-sources</a>
-          <a class="item" href="#tool_build">build</a>
-          <a class="item" href="#tool_repository_install">repository:install</a>
-          <a class="item" href="#tool_repository_scan">repository:scan</a>
-          <a class="item" href="#tool_repository_copy-libs">repository:copy-libs</a>
-          <a class="item" href="#tool_debian_package">debian:package</a>
-          <a class="item" href="#tool_debian_package-dev">debian:package-dev</a>
-          <a class="item" href="#tool_uncrustify">uncrustify</a>
+          <a class="item" href="#plugin_initialize_structure">initialize:structure</a>
+          <a class="item" href="#plugin_initialize_recipe">initialize:recipe</a>
+          <a class="item" href="#plugin_collect_sources">collect-sources</a>
+          <a class="item" href="#plugin_build">build</a>
+          <a class="item" href="#plugin_repository_install">repository:install</a>
+          <a class="item" href="#plugin_repository_scan">repository:scan</a>
+          <a class="item" href="#plugin_repository_copy-libs">repository:copy-libs</a>
+          <a class="item" href="#plugin_debian_package">debian:package</a>
+          <a class="item" href="#plugin_debian_package-dev">debian:package-dev</a>
+          <a class="item" href="#plugin_uncrustify">uncrustify</a>
         </div>
       </div>
       <a class="item" href="https://github.com/activey/valder">Code</a>
@@ -86,13 +84,6 @@
             <p>Read the latest documentation to see what Valder can do for you.</p>
           </div>
           <div class="column">
-            <a class="ui icon header" href="#section_examples">
-              <i class="circular code toolbar-element link icon"></i>
-              Examples
-            </a>
-            <p>Go through provided Valder usage scenarios showing a glimpse of possible applications.</p>
-          </div>
-          <div class="column">
             <a class="ui icon header" href="https://github.com/activey/valder">
               <i class="circular github toolbar-element link icon"></i>
               Code
@@ -119,10 +110,102 @@
           <h2 class="ui inverted header">Introduction</h2>
           <div class="content">
             <p>
-            Valder the Vala code welder is intended to be a general purpose build tool dedicated for <a href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Valder as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
+            Valder the Vala code welder is intended to be a general purpose build tool dedicated for <a class="link-bold" href="https://wiki.gnome.org/Projects/Vala">Vala</a> language based projects. We try to keep Valder as simple and intuitive as possible mantaining it's elastic and quite powerful design.</p>
             <p>
-            Valder is loosely inspired by <a href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
+            Valder is loosely inspired by <a class="link-bold" href="https://maven.apache.org/">Maven</a> build tool for Java using only it's general idea of plugins based architecture.
             </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="sixteen wide column">
+          <h2 class="ui inverted header">Build recipe</h2>
+          <div class="content">
+            <p>Having in mind further extensions and code readibility Valder introduces a common structure holding all data necessary to build an application with some gap left for custom extensions.</p>
+            <p>This structure, called later <strong>Recipe</strong>, consists of several essential elements describing whole build project:</p>
+
+            <div class="ui segment basic inverted">
+              <div class="ui inverted list">
+                <div class="item">
+                  <i class="code icon"></i>
+                  <div class="content">
+                    <div class="header">Project information</div>
+                    <div class="description"></div>
+
+                    <div class="ui list">
+                      <div class="item">
+                        <i class="folder icon"></i>
+                        <div class="content">
+                          <div class="header">Basic project information</div>
+                          <div class="description">Section covers some basic project information like name, version, etc</div>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <i class="folder icon"></i>
+                        <div class="content">
+                          <div class="header">Project dependencies</div>
+                          <div class="description">Consists of all dependend libraries</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item">
+                  <i class="folder icon"></i>
+                  <div class="content">
+                    <div class="header">Plugins configuration</div>
+                    <div class="description">A substructure with set of configuration entries for each of instantiated plugin.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p>In usual situations recipe structure is used internally by Valder to follow up with applicatio build process where whole recipe is deserialized from recipe file - <strong>recipe.bob</strong>. This is just a simple JSON file with very meaningful structure.</p>
+
+          <div class="ui violet inverted segment">
+            <div class="ui bottom inverted red right ribbon label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
+            <div class="preformatted">{
+    "project": {
+        "name": "Test project",
+        "shortName": "test",
+        "version": "0.0.1",
+        "dependencies" : [
+          {
+            "dependency" : "glib",
+            "<a class="display-popup link-bold" data-html="Optional attribute. Valder supports dependencies without explicit version.">version</a>" : "2.0"
+          },
+          {
+            "dependency" : "gobject",
+            "version" : "2.0",
+            "<a class="display-popup link-bold" data-html="By using this attribute you can tell Valder to restrict usage of given dependency to library or runtime binary only.">scope</a>" : "<a class="display-popup link-bold" data-html="<ul class='ui list'><li><strong>library</strong> - dependency will be used by Valder plugins only in terms of processing library related project part,</li><li><strong>runtime</strong> - Valder will honor this dependency while operating on runtime related stuff,</li><li><strong>both</strong> - as you can immagine ;)</li></ul>.">both</a>"
+          },
+          {
+            "dependency" : "gee",
+            "version" : "0.8",
+            "scope" : "library"
+          },
+          {
+            "dependency" : "gtk+",
+            "version" : "3.0",
+            "scope" : "runtime"
+          }
+        ]
+    },
+    "plugins": {
+        "collect-sources": {
+            "verbose": true
+        },
+        "build": {
+            "verbose": false
+        }
+    }
+}</div>
+            
+          </div>
           </div>
         </div>
       </div>
@@ -139,7 +222,7 @@
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">src</div>
-                  <div class="description">All the source code files, the "Input".</div>
+                  <div class="description">All the source code files, the <strong>Input</strong>.</div>
                   <div class="list">
                     <div class="item">
                       <i class="folder icon"></i>
@@ -199,13 +282,20 @@
                 <i class="folder icon"></i>
                 <div class="content">
                   <div class="header">target</div>
-                  <div class="description">Directory holds all files produced by Valder plugins, the "Output".</div>
+                  <div class="description">Directory holds all files produced by Valder plugins, the <strong>Output</strong>.</div>
                   <div class="list">
                     <div class="item">
                       <i class="folder icon"></i>
                       <div class="content">
                         <div class="header">lib</div>
                         <div class="description">This directory contains project library binary (.so) generated by Valder in process of library code compilation. Here lands also every library (.so) file that is directly referenced as dependency and could not be found in system libraries.</div>
+                      </div>
+                    </div>
+                    <div class="item">
+                      <i class="folder icon"></i>
+                      <div class="content">
+                        <div class="grey header">gir</div>
+                        <div class="description">Specific to <a href="#plugin_build" class="link-bold">build</a> plugin only - when <strong>generateGir</strong> is set to <strong>true</strong> directory will contain a library GIR bindings file generated in compile time.</div>
                       </div>
                     </div>
                     <div class="item">
@@ -219,26 +309,46 @@
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
 
       <div class="row">
         <div class="sixteen wide column">
-          <h2 class="ui inverted offset header" id="section_tools">Tools and recipies</h2>
-          <p>As stated earlier Valder design is created around a Plugin based approach, where each plugin, called later Tool, is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of tools shipped with Valder distribution package:</p>
+          <h2 class="ui inverted offset header" id="section_plugins">Plugins and recipies</h2>
+          <p>As stated earlier Valder design is created around a Plugin based approach, where each plugin, called later Plugin, is responsible for performing a dedicated action on a set of project source code files. Here you can find a list of plugins shipped with Valder distribution package:</p>
 
           <div class="ui inverted basic segment">
-            <h3 class="ui offset header" id="tool_initialize_structure">
+            <h3 class="ui offset header" id="plugin_initialize_structure">
               <i class="configure icon"></i>
               <div class="content">
                 initialize:structure
               </div>
             </h3>
 
-            <p>First tool used to initialize contents of a new Valder project. It's intented to be used on empty project directory by creating it's default structure. Tool honors all directories specified in "Valder project structure". Tool is totally safe and wont harm your current filesystem hierarchy.</p>
+            <p>First plugin used to initialize contents of a new Valder project. It's intented to be used on empty project directory by creating it's default structure. Plugin honors all directories specified in "Valder project structure". Plugin is totally safe and wont harm your current filesystem hierarchy.</p>
+
+            <h3>Plugin configuration options</h3>
+
+          <div class="ui violet inverted segment">
+            <div class="ui bottom inverted red right ribbon label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
+            <div class="preformatted">{
+  "project": {
+    ...
+  },
+  "plugins": {
+    "initialize:structure": {
+      "<a class="display-popup link-bold" data-html="Not really used yet.">verbose</a>": false
+    }
+  }
+}</div>
+            
+          </div>
+
+          <h3>Usage demonstration</h3>
           
             <div class="ui segments">
               <div class="ui center aligned inverted segment">
@@ -256,15 +366,36 @@
           <div class="ui inverted divider"></div>
 
           <div class="ui inverted segment">
-            <h3 class="ui offset header" id="tool_initialize_recipe">
+            <h3 class="ui offset header" id="plugin_initialize_recipe">
               <i class="configure icon"></i>
               <div class="content">
                 initialize:recipe
               </div>
             </h3>
 
-            <p>This particular tool is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
+            <p>This particular plugin is shipped with mechanism for creating an empty project recipe file with some default entries filled in. One can easily generate new recipe with some basic data like project name, version, base PKG Glib dependencies and so on.</p>
+
+            <h3>Plugin configuration options</h3>
+
+          <div class="ui violet inverted segment">
+            <div class="ui bottom inverted red right ribbon label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
+            <div class="preformatted">{
+  "project": {
+    ...
+  },
+  "plugins": {
+    "initialize:recipe": {
+      "<a class="display-popup link-bold" data-html="Not really used yet.">verbose</a>": false
+    }
+  }
+}</div>
             
+          </div>
+            
+            <h3>Usage demonstration</h3>
             <div class="ui segments">
               <div class="ui center aligned basic segment">
                 <script type="text/javascript" src="https://asciinema.org/a/22940.js" id="asciicast-22940" async></script>
@@ -281,15 +412,37 @@
           <div class="ui inverted divider"></div>
 
           <div class="ui inverted segment">
-            <h3 class="ui offset header" id="tool_collect_sources">
+            <h3 class="ui offset header" id="plugin_collect_sources">
               <i class="configure icon"></i>
               <div class="content">
                 collect-sources
               </div>
             </h3>
 
-            <p>Tool aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other tools.</p>
+            <p>Plugin aims to traverse recursively through project directory structure and collect a list of Vala source code files. Then the list is strored in project properties available for other plugins.</p>
           
+            <h3>Plugin configuration options</h3>
+
+          <div class="ui violet inverted segment">
+            <div class="ui bottom inverted red right ribbon label">
+              <i class="spinner icon"></i>
+              Work in progress
+            </div>
+            <div class="preformatted">{
+  "project": {
+    ...
+  },
+  "plugins": {
+    "collect-sources": {
+      "<a class="display-popup link-bold" data-html="Not really used yet.">verbose</a>": false
+    }
+  }
+}</div>
+            
+          </div>
+
+            <h3>Usage demonstration</h3>
+
             <div class="ui segments">
               <div class="ui center aligned basic segment">
                 <script type="text/javascript" src="https://asciinema.org/a/22925.js" id="asciicast-22925" async></script>
@@ -306,15 +459,34 @@
           <div class="ui inverted divider"></div>
 
           <div class="ui inverted segment">
-            <h3 class="ui offset header" id="tool_build">
+            <h3 class="ui offset header" id="plugin_build">
               <i class="configure icon"></i>
               <div class="content">
                 build
               </div>
             </h3>
 
-            <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Valder architecture. It uses Vala source code files found by collect-sources tool and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc). Usualy you will use this tool together with collect-sources.</p>
-          
+            <p>It's basically a refactored ValaCompiler source code tuned a little bit to fit Valder architecture. It uses Vala source code files found by collect-sources plugin and goes through Vala compiler procedure (generating C code, GIR bindings, VAPI files, etc). Usualy you will use this plugin together with collect-sources.</p>
+
+          <h3>Plugin configuration options</h3>
+
+          <div class="ui violet inverted segment">
+            <div class="preformatted">{
+  "project": {
+    ...
+  },
+  "plugins": {
+    "build": {
+      "<a class="display-popup link-bold" data-html="When set to <strong>true</strong> displays some additional information like: list of Vala files being compiled, C compiler logs, etc.">verbose</a>": false,
+      "<a class="display-popup link-bold" data-html="Tells compiler to use C debug flags and makes possible to access debug scoped assets in compiled binary.">debug</a>": false,
+      "<a class="display-popup link-bold" data-html="When set to <strong>true</strong> - compiler will generate GIR bindings file for compiled library code.">generate-gir</a>": false,
+    }
+  }
+}</div>
+            
+          </div>
+            <h3>Usage demonstration</h3>
+
             <div class="ui segments">
               <div class="ui center aligned basic segment">
                  <script type="text/javascript" src="https://asciinema.org/a/22938.js" id="asciicast-22938" async></script>
@@ -331,7 +503,7 @@
           <div class="ui inverted divider"></div>
 
           <div class="ui inverted tertiary segment">
-            <h3 class="ui offset header" id="tool_repository_install">
+            <h3 class="ui offset header" id="plugin_repository_install">
               <i class="configure icon"></i>
               <div class="content">
                 repository:install
@@ -352,7 +524,7 @@
           </div>
 
           <div class="ui inverted tertiary segment">
-            <h3 class="ui offset header" id="tool_repository_scan">
+            <h3 class="ui offset header" id="plugin_repository_scan">
               <i class="configure icon"></i>
               <div class="content">
                 repository:scan
@@ -373,7 +545,7 @@
           </div>
 
           <div class="ui tertiary inverted segment">
-            <h3 class="ui offset header" id="tool_repository_copy-libs">
+            <h3 class="ui offset header" id="plugin_repository_copy-libs">
               <i class="configure icon"></i>
               <div class="content">
                 repository:copy-libs
@@ -394,7 +566,7 @@
           </div>
 
           <div class="ui tertiary inverted segment">
-            <h3 class="ui offset header" id="tool_debian_package">
+            <h3 class="ui offset header" id="plugin_debian_package">
               <i class="configure icon"></i>
               <div class="content">
                 debian:package
@@ -415,7 +587,7 @@
           </div>
 
           <div class="ui tertiary inverted segment">
-            <h3 class="ui offset header" id="tool_debian_package-dev">
+            <h3 class="ui offset header" id="plugin_debian_package-dev">
               <i class="configure icon"></i>
               <div class="content">
                 debian:package-dev
@@ -436,7 +608,7 @@
           </div>
 
           <div class="ui tertiary inverted segment">
-            <h3 class="ui offset header" id="tool_uncrustify">
+            <h3 class="ui offset header" id="plugin_uncrustify">
               <i class="configure icon"></i>
               <div class="content">
                 uncrustify
@@ -454,53 +626,6 @@
                 <i class="github alternate right icon"></i>
               </a>
             </div>
-          </div>
-
-          <h3>Tools configuration</h3>
-          <p>While having in mind generic nature of all Valder tools (tool will work the same way no matter what code it's running against) there is an easy way one can configure their default behavior. For every Vala project managed by Valder you can provide a project configuration file called Project Recipe - <strong>recipe.valder</strong>. This is just a simple JSON file with very meaningful structure. Let's have a quick look at simple example project recipe file:</p>
-
-          <div class="ui violet inverted segment">
-            <div class="ui bottom inverted red right ribbon label">
-              <i class="spinner icon"></i>
-              Work in progress
-            </div>
-            <div class="preformatted">{
-    "project": {
-        "name": "Test project",
-        "shortName": "test",
-        "version": "0.0.1",
-        "dependencies" : [
-          {
-            "dependency" : "glib",
-            "<a class="display-popup" data-html="Optional attribute. Valder supports dependencies without explicit version.">version</a>" : "2.0"
-          },
-          {
-            "dependency" : "gobject",
-            "version" : "2.0",
-            "<a class="display-popup" data-html="By using this attribute you can tell Valder to restrict usage of given dependency to library or runtime binary only.">scope</a>" : "<a class="display-popup" data-html="<ul class='ui list'><li><strong>library</strong> - dependency will be used by Valder tools only in terms of processing library related project part,</li><li><strong>runtime</strong> - Valder will honor this dependency while operating on runtime related stuff,</li><li><strong>both</strong> - as you can immagine ;)</li></ul>.">both</a>"
-          },
-          {
-            "dependency" : "gee",
-            "version" : "0.8",
-            "scope" : "library"
-          },
-          {
-            "dependency" : "gtk+",
-            "version" : "3.0",
-            "scope" : "runtime"
-          }
-        ]
-    },
-    "tools": {
-        "collect-sources": {
-            "verbose": true
-        },
-        "build": {
-            "verbose": false
-        }
-    }
-}</div>
-            
           </div>
         </div>
       </div>
@@ -524,150 +649,53 @@
           </p>
           <div class="ui violet inverted preformatted segment">$/valder-source-code> ./build-cmdline.sh</div>
           <p>This one will result with a new runtime binary file located under <strong>target/valder</strong></p>
-          <p>When you are done with the base binaries you can go and build some tools shipped with Valder package. You can find a number of tools directories listed in main Valder directory:</p>
+          <p>When you are done with the base binaries you can go and build some plugins shipped with Valder package. You can find a number of plugins directories listed in main Valder directory:</p>
 
           <div class="ui segment basic inverted">
             <div class="ui list">
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
-                  tool-collect-sources
+                  plugin-collect-sources
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
-                  tool-build
+                  plugin-build
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
-                  tool-init
+                  plugin-init
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
-                  tool-repository
+                  plugin-repository
                 </div>
               </div>
               <div class="item">
                 <i class="folder icon"></i>
                 <div class="content">
-                  tool-uncrustify
+                  plugin-uncrustify
                 </div>
               </div>
             </div>
           </div>
           <p>
-            Each directory consists of a set of tool source files in a directory structure compatible with Valder. To compile a plugin source code run a dedicated script located
-            in each tool directory:
+            Each directory consists of a set of plugin source files in a directory structure compatible with Valder. To compile a plugin source code run a dedicated script located
+            in each plugin directory:
           </p>
-          <div class="ui violet inverted preformatted segment">$/tool-directory> ./build.sh</div>
+          <div class="ui violet inverted preformatted segment">$/plugin-directory> ./build.sh</div>
 
           <p>
-            Repeat the same script invocation for all plugins you are going to use and after library file for each of tool is generated you can now copy them over to Valder plugins directory by using provided shell script:
+            Repeat the same script invocation for all plugins you are going to use and after library file for each of plugin is generated you can now copy them over to Valder plugins directory by using provided shell script:
           </p>
 
           <div class="ui violet inverted preformatted segment">$/valder-source-code> ./update-plugins.sh</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="column">
-          <h1 id="section_examples" class="ui inverted dividing offset header">
-            Examples
-          </h1>
-        </div>
-      </div>
-      <div class="row">
-        <div class="sixteen wide column">
-          <h2 class="ui inverted header">Valder usage scenarios</h2>
-          <p>Valder usage is rather straightforward and does not require and specialized terminal user skills. To run Valder with default settings navigate to project directory and type in system shell console:</p>
-          <div class="ui violet inverted preformatted segment">$/project> valder</div>
-          <p>
-            By default Valder will only print out the list of parsed tools recipies and some version information as well:
-          </p>
-          <div class="ui violet inverted preformatted segment">[BobBuildProjectRecipe] Parsing project dependencies.
-[BobBuildRecipe] No plugins configuration found, skipping
-[BobBuildPluginsLoader] Loading plugins from directory: /valder/target/plugins
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-build.so
-[BobBuildPluginsLoader] Registering new plugin: build
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-collect-sources.so
-[BobBuildPluginsLoader] Registering new plugin: collect-sources
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-initialize.so
-[BobBuildPluginsLoader] Registering new plugin: initialize:structure
-[BobBuildPluginsLoader] Registering new plugin: initialize:recipe
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-repository.so
-[BobBuildPluginsLoader] Registering new plugin: repository:install
-[BobBuildPluginsLoader] Registering new plugin: repository:scan
-[BobBuildPluginsLoader] Registering new plugin: repository:copy-libs
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-uncrustify.so
-[BobBuildPluginsLoader] Registering new plugin: uncrustify
-[BobBuilder] Valder the Vala code welder, version = 0.0.1</div>
-          <p>To tell Valder to run any of available tool just pass a list of tools one as Valder executable parameters:
-          <div class="ui violet inverted preformatted segment">$/project> valder collect-sources build</div>
-          <p>Valder will then initialize passed tools with available receipe data generating output similar to this:</p>
-          <div class="ui violet inverted preformatted segment">[BobBuildProjectRecipe] Parsing project dependencies.
-[BobBuildRecipe] No plugins configuration found, skipping
-[BobBuildPluginsLoader] Loading plugins from directory: /valder/target/plugins
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-build.so
-[BobBuildPluginsLoader] Registering new plugin: build
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-collect-sources.so
-[BobBuildPluginsLoader] Registering new plugin: collect-sources
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-initialize.so
-[BobBuildPluginsLoader] Registering new plugin: initialize:structure
-[BobBuildPluginsLoader] Registering new plugin: initialize:recipe
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-repository.so
-[BobBuildPluginsLoader] Registering new plugin: repository:install
-[BobBuildPluginsLoader] Registering new plugin: repository:scan
-[BobBuildPluginsLoader] Registering new plugin: repository:copy-libs
-[BobBuildPluginsLoader] Loaded build plugin module: /valder/target/plugins/libplugin-uncrustify.so
-[BobBuildPluginsLoader] Registering new plugin: uncrustify
-[BobBuildPluginExecutionChain] Using build plugin: collect-sources.
-[BobBuildPluginExecutionChain] Using build plugin: build.
-[BobBuildContext] Building project: Test-0.0.1 (Test project)
-[BobBuildContext] Loading project plugins recipies...
-[BobBuildPluginExecutionChain] Initializing plugin 'collect-sources' with recipe data.
-[BobBuildPluginExecutionChain] Initializing plugin 'build' with recipe data.
-[BobBuildContext] Running project plugins
-[BobBuildPluginExecutionChain] Running plugin: collect-sources
-[CollectSourcesPlugin] /test-project/src/library/vala/test/Test.vala (47 bytes)
-[CollectSourcesPlugin] /test-project/src/main/vala/test/Test2.vala (126 bytes)
-[CollectSourcesPlugin] Using 2 project source files with 173 bytes in total.
-[BobBuildPluginExecutionChain] Running plugin: build
-[BuildApplicationPlugin] Generating library binary.
-[ValaCodeCompiler] Initializing CodeContext
-[ValaCodeCompiler] Initializing dependencies for scope: library.
-[ValaCodeCompiler] Using PKG dependency: glib-2.0.
-[ValaCodeCompiler] Using PKG dependency: gobject-2.0.
-[ValaCodeCompiler] Using PKG dependency: gee-0.8.
-[ValaCodeCompiler] Starting code compilation ...
-[ValaCodeCompiler] Running code parsers.
-[ValaCodeCompiler] Running general parser.
-[ValaCodeCompiler] Running GENIE parser.
-[ValaCodeCompiler] Running GIR parser.
-[ValaCodeCompiler] Generating VAPI file.
-[BuildApplicationPlugin] Library binary compilation finished.
-[BuildApplicationPlugin] Generating runtime binary.
-[BuildApplicationPlugin] Using generated library as dependency.
-[ValaCodeCompiler] Initializing CodeContext
-[ValaCodeCompiler] Using VAPI directory: src/library/vapi for dependency: Test-0.0.1.
-[ValaCodeCompiler] Using C headers directory: src/library/c for dependency: Test-0.0.1.
-[ValaCodeCompiler] Initializing dependencies for scope: runtime.
-[ValaCodeCompiler] Using PKG dependency: glib-2.0.
-[ValaCodeCompiler] Using PKG dependency: gobject-2.0.
-[ValaCodeCompiler] Using PKG dependency: gtk+-3.0.
-[ValaCodeCompiler] Using PKG dependency: Test-0.0.1.
-[ValaCodeCompiler] Starting code compilation ...
-[ValaCodeCompiler] Running code parsers.
-[ValaCodeCompiler] Running general parser.
-[ValaCodeCompiler] Running GENIE parser.
-[ValaCodeCompiler] Running GIR parser.
-[BuildApplicationPlugin] Runtime binary compilation finished.
-[BuildApplicationPlugin] Code compilation finished.
-[BobBuildContext] Took time: 0.889508 seconds.</div>
         </div>
       </div>
 

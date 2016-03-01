@@ -164,3 +164,7 @@ html {
 .ui.segments {
   border: 0px;
 }
+
+a.link-bold {
+  font-weight: bold;
+}
