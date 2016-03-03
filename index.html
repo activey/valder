@@ -135,14 +135,21 @@
 
                     <div class="ui list">
                       <div class="item">
-                        <i class="folder icon"></i>
+                        <i class="code icon"></i>
                         <div class="content">
                           <div class="header">Basic project information</div>
                           <div class="description">Section covers some basic project information like name, version, etc</div>
                         </div>
                       </div>
                       <div class="item">
-                        <i class="folder icon"></i>
+                        <i class="code icon"></i>
+                        <div class="content">
+                          <div class="header">Source code</div>
+                          <div class="description">Set of source code files both for library and runtime compiled binary</div>
+                        </div>
+                      </div>
+                      <div class="item">
+                        <i class="code icon"></i>
                         <div class="content">
                           <div class="header">Project dependencies</div>
                           <div class="description">Consists of all dependend libraries</div>
@@ -152,7 +159,7 @@
                   </div>
                 </div>
                 <div class="item">
-                  <i class="folder icon"></i>
+                  <i class="code icon"></i>
                   <div class="content">
                     <div class="header">Plugins configuration</div>
                     <div class="description">A substructure with set of configuration entries for each of instantiated plugin.</div>
@@ -161,7 +168,9 @@
               </div>
             </div>
 
-            <p>In usual situations recipe structure is used internally by Valder to follow up with applicatio build process where whole recipe is deserialized from recipe file - <strong>recipe.bob</strong>. This is just a simple JSON file with very meaningful structure.</p>
+            <p>In usual situations recipe structure is used internally by Valder and Valder plugins to fill project information in as much as possible automatic manner. Just before running build phase Valder scans current working directory for a configuration file.</p>
+
+            <p>Whole recipe is deserialized from recipe file - <strong>recipe.bob</strong>. This is just a simple JSON file with very meaningful structure.</p>
 
           <div class="ui violet inverted segment">
             <div class="ui bottom inverted red right ribbon label">
@@ -173,6 +182,14 @@
         "name": "Test project",
         "shortName": "test",
         "version": "0.0.1",
+        "<a class="display-popup link-bold" data-html="Optional attribute. Element defines a set of source files for both binaries being compiled: <strong>library</strong> and <strong>runtime</strong>.">sources</a>": {
+          "library": [
+              "./src/library/vala/Test.vala"
+              ],
+          "runtime": [
+              "./src/main/vala/TestMain.vala"
+          ]
+        },
         "dependencies" : [
           {
             "dependency" : "glib",
