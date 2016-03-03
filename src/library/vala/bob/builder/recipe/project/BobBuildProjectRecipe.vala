@@ -10,6 +10,9 @@ namespace bob.builder.recipe.project {
 		private const string MEMBER_VERSION = "version";
 		private const string MEMBER_DETAILS = "details";
 		private const string MEMBER_DEPENDENCIES = "dependencies";
+		private const string MEMBER_SOURCES = "sources";
+		private const string MEMBER_SOURCES_LIBRARY = "library";
+		private const string MEMBER_SOURCES_RUNTIME = "runtime";
 		private const string MEMBER_NAME_DEFAULT = "unknown";
 		private const string MEMBER_SHORTNAME_DEFAULT = "unknown";
 		private const string MEMBER_VERSION_DEFAULT = "0.0.1";
@@ -68,6 +71,7 @@ namespace bob.builder.recipe.project {
 	        version = jsonObject.getStringEntry(MEMBER_VERSION, MEMBER_VERSION_DEFAULT);
 
 	        parseProjectDetails(jsonObject);
+	        parseProjectSources(jsonObject);
 	        parseProjectDependencies(jsonObject);
 		}
 
@@ -92,6 +96,44 @@ namespace bob.builder.recipe.project {
 
 		private void parseProjectDependency(JsonObject dependencyJsonObject) {
 			addDependency(new BobBuildProjectDependency.fromJsonObject(dependencyJsonObject));
+		}
+
+		private void parseProjectSources(JsonObject projectJsonObject) {
+			if (projectJsonObject.keyMissing(MEMBER_SOURCES)) {
+				LOGGER.logInfo("No project sources defined.");
+				return;
+			}
+			LOGGER.logInfo("Parsing project source files.");
+
+			JsonObject sourcesJsonObject = projectJsonObject.getJsonObjectEntry(MEMBER_SOURCES);
+			parseProjectSourcesLibrary(sourcesJsonObject);
+			parseProjectSourcesRuntime(sourcesJsonObject);
+		}
+
+		private void parseProjectSourcesLibrary(JsonObject sourcesJsonObject) {
+			if (sourcesJsonObject.keyMissing(MEMBER_SOURCES_LIBRARY)) {
+				LOGGER.logInfo("No project sources for library defined.");
+				return;
+			}
+			JsonArray sourcesLibraryJsonArray = sourcesJsonObject.getObjectArrayEntry(MEMBER_SOURCES_LIBRARY);
+			sourcesLibraryJsonArray.forStringEachValue(parseLibrarySourceFile);
+		}
+
+		private void parseLibrarySourceFile(string librarySourceLocation) {
+			addLibSourceFile(new BobBuildProjectSourceFile.fromLocation(librarySourceLocation));
+		}
+
+		private void parseProjectSourcesRuntime(JsonObject sourcesJsonObject) {
+			if (sourcesJsonObject.keyMissing(MEMBER_SOURCES_RUNTIME)) {
+				LOGGER.logInfo("No project sources for runtime defined.");
+				return;
+			}
+			JsonArray sourcesRuntimeJsonArray = sourcesJsonObject.getObjectArrayEntry(MEMBER_SOURCES_RUNTIME);
+			sourcesRuntimeJsonArray.forStringEachValue(parseRuntimeSourceFile);
+		}
+
+		private void parseRuntimeSourceFile(string runtimeSourceLocation) {
+			addMainSourceFile(new BobBuildProjectSourceFile.fromLocation(runtimeSourceLocation));
 		}
 
 		public void addDependency(BobBuildProjectDependency dependency) {
@@ -125,14 +167,37 @@ namespace bob.builder.recipe.project {
 			jsonObject.setStringEntry(MEMBER_SHORTNAME, shortName);
 			jsonObject.setStringEntry(MEMBER_VERSION, version);
 
+			writeProjectDependencies(jsonObject);
+			writeProjectSources(jsonObject);
+
+			return jsonObject;
+		}
+
+		private void writeProjectDependencies(JsonObject outputJson) {
 			JsonArray dependenciesArray = new JsonArray();
 			foreach (BobBuildProjectDependency dependency in _dependencies) {
 				JsonObject dependencyJson = dependency.toJsonObject();
 				dependencyJson.addToArray(dependenciesArray);
 			}
-			dependenciesArray.addToParent(MEMBER_DEPENDENCIES, jsonObject);
+			dependenciesArray.addToParent(MEMBER_DEPENDENCIES, outputJson);
+		}
 
-			return jsonObject;
+		private void writeProjectSources(JsonObject outputJson) {
+			JsonObject projectSourcesObject = new JsonObject();
+
+			JsonArray librarySourcesArray = new JsonArray();
+			foreach (BobBuildProjectSourceFile sourceFile in _libSourceFiles) {
+				librarySourcesArray.addStringEntry(sourceFile.fileLocation);
+			}
+			librarySourcesArray.addToParent(MEMBER_SOURCES_LIBRARY, projectSourcesObject);
+
+			JsonArray runtimeSourcesArray = new JsonArray();
+			foreach (BobBuildProjectSourceFile sourceFile in _mainSourceFiles) {
+				runtimeSourcesArray.addStringEntry(sourceFile.fileLocation);
+			}
+			runtimeSourcesArray.addToParent(MEMBER_SOURCES_RUNTIME, projectSourcesObject);
+
+			projectSourcesObject.addToParent(MEMBER_SOURCES, outputJson);
 		}
 	}
 }

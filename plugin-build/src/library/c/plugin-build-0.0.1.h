@@ -82,7 +82,20 @@ typedef struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilderClass bo
 
 typedef struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder;
 typedef struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilderClass bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilderClass;
+typedef struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate;
 typedef struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilderPrivate bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilderPrivate;
+typedef struct _bobbuilderbuildpluginCCOptionsPrivate bobbuilderbuildpluginCCOptionsPrivate;
+
+#define BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR (bob_builder_build_plugin_gir_generator_get_type ())
+#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGenerator))
+#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGeneratorClass))
+#define BOB_BUILDER_BUILD_PLUGIN_IS_GIR_GENERATOR(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR))
+#define BOB_BUILDER_BUILD_PLUGIN_IS_GIR_GENERATOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR))
+#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGeneratorClass))
+
+typedef struct _bobbuilderbuildpluginGIRGenerator bobbuilderbuildpluginGIRGenerator;
+typedef struct _bobbuilderbuildpluginGIRGeneratorClass bobbuilderbuildpluginGIRGeneratorClass;
+typedef struct _bobbuilderbuildpluginGIRGeneratorPrivate bobbuilderbuildpluginGIRGeneratorPrivate;
 
 #define BOB_BUILDER_BUILD_PLUGIN_TYPE_VALA_CODE_COMPILER (bob_builder_build_plugin_vala_code_compiler_get_type ())
 #define BOB_BUILDER_BUILD_PLUGIN_VALA_CODE_COMPILER(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_VALA_CODE_COMPILER, bobbuilderbuildpluginValaCodeCompiler))
@@ -105,19 +118,6 @@ typedef struct _bobbuilderbuildpluginValaCodeCompilerPrivate bobbuilderbuildplug
 typedef struct _bobbuilderbuildpluginValaCodeCompilerOutcome bobbuilderbuildpluginValaCodeCompilerOutcome;
 typedef struct _bobbuilderbuildpluginValaCodeCompilerOutcomeClass bobbuilderbuildpluginValaCodeCompilerOutcomeClass;
 typedef struct _bobbuilderbuildpluginValaCodeCompilerOutcomePrivate bobbuilderbuildpluginValaCodeCompilerOutcomePrivate;
-typedef struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate;
-typedef struct _bobbuilderbuildpluginCCOptionsPrivate bobbuilderbuildpluginCCOptionsPrivate;
-
-#define BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR (bob_builder_build_plugin_gir_generator_get_type ())
-#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGenerator))
-#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGeneratorClass))
-#define BOB_BUILDER_BUILD_PLUGIN_IS_GIR_GENERATOR(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR))
-#define BOB_BUILDER_BUILD_PLUGIN_IS_GIR_GENERATOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR))
-#define BOB_BUILDER_BUILD_PLUGIN_GIR_GENERATOR_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), BOB_BUILDER_BUILD_PLUGIN_TYPE_GIR_GENERATOR, bobbuilderbuildpluginGIRGeneratorClass))
-
-typedef struct _bobbuilderbuildpluginGIRGenerator bobbuilderbuildpluginGIRGenerator;
-typedef struct _bobbuilderbuildpluginGIRGeneratorClass bobbuilderbuildpluginGIRGeneratorClass;
-typedef struct _bobbuilderbuildpluginGIRGeneratorPrivate bobbuilderbuildpluginGIRGeneratorPrivate;
 
 struct _bobbuilderbuildpluginBuildApplicationPlugin {
 	bobbuilderbuildpluginAbstractBobBuildPlugin parent_instance;
@@ -164,6 +164,17 @@ struct _bobbuilderbuildpluginBuildConfigurationBuilderClass {
 
 typedef void (*bobbuilderbuildpluginBuildConfigurationBuilderBuildConfigurationDependencyBuilderDelegate) (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* dependencyBuilder, void* user_data);
 typedef void (*bobbuilderbuildpluginBuildConfigurationBuilderBuildConfigurationLibraryUsageBuilderDelegate) (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* libraryUsageBuilder, void* user_data);
+struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilder {
+	GTypeInstance parent_instance;
+	volatile int ref_count;
+	bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate * priv;
+};
+
+struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilderClass {
+	GTypeClass parent_class;
+	void (*finalize) (bobbuilderbuildpluginBuildConfigurationDependencyBuilder *self);
+};
+
 struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder {
 	GTypeInstance parent_instance;
 	volatile int ref_count;
@@ -173,6 +184,28 @@ struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder {
 struct _bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilderClass {
 	GTypeClass parent_class;
 	void (*finalize) (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder *self);
+};
+
+struct _bobbuilderbuildpluginCCOptions {
+	GTypeInstance parent_instance;
+	volatile int ref_count;
+	bobbuilderbuildpluginCCOptionsPrivate * priv;
+};
+
+struct _bobbuilderbuildpluginCCOptionsClass {
+	GTypeClass parent_class;
+	void (*finalize) (bobbuilderbuildpluginCCOptions *self);
+};
+
+struct _bobbuilderbuildpluginGIRGenerator {
+	GTypeInstance parent_instance;
+	volatile int ref_count;
+	bobbuilderbuildpluginGIRGeneratorPrivate * priv;
+};
+
+struct _bobbuilderbuildpluginGIRGeneratorClass {
+	GTypeClass parent_class;
+	void (*finalize) (bobbuilderbuildpluginGIRGenerator *self);
 };
 
 typedef enum  {
@@ -198,39 +231,6 @@ struct _bobbuilderbuildpluginValaCodeCompilerOutcome {
 struct _bobbuilderbuildpluginValaCodeCompilerOutcomeClass {
 	GTypeClass parent_class;
 	void (*finalize) (bobbuilderbuildpluginValaCodeCompilerOutcome *self);
-};
-
-struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilder {
-	GTypeInstance parent_instance;
-	volatile int ref_count;
-	bobbuilderbuildpluginBuildConfigurationDependencyBuilderPrivate * priv;
-};
-
-struct _bobbuilderbuildpluginBuildConfigurationDependencyBuilderClass {
-	GTypeClass parent_class;
-	void (*finalize) (bobbuilderbuildpluginBuildConfigurationDependencyBuilder *self);
-};
-
-struct _bobbuilderbuildpluginCCOptions {
-	GTypeInstance parent_instance;
-	volatile int ref_count;
-	bobbuilderbuildpluginCCOptionsPrivate * priv;
-};
-
-struct _bobbuilderbuildpluginCCOptionsClass {
-	GTypeClass parent_class;
-	void (*finalize) (bobbuilderbuildpluginCCOptions *self);
-};
-
-struct _bobbuilderbuildpluginGIRGenerator {
-	GTypeInstance parent_instance;
-	volatile int ref_count;
-	bobbuilderbuildpluginGIRGeneratorPrivate * priv;
-};
-
-struct _bobbuilderbuildpluginGIRGeneratorClass {
-	GTypeClass parent_class;
-	void (*finalize) (bobbuilderbuildpluginGIRGenerator *self);
 };
 
 
@@ -328,6 +328,17 @@ bobbuilderbuildpluginBuildConfigurationBuilder* bob_builder_build_plugin_build_c
 bobbuilderbuildpluginBuildConfiguration* bob_builder_build_plugin_build_configuration_builder_build (bobbuilderbuildpluginBuildConfigurationBuilder* self);
 bobbuilderbuildpluginBuildConfigurationBuilder* bob_builder_build_plugin_build_configuration_builder_new (void);
 bobbuilderbuildpluginBuildConfigurationBuilder* bob_builder_build_plugin_build_configuration_builder_construct (GType object_type);
+bobbuilderrecipeprojectBobBuildProjectDependency* bob_builder_build_plugin_build_configuration_dependency_builder_build (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
+bobbuilderbuildpluginBuildConfigurationDependencyBuilder* bob_builder_build_plugin_build_configuration_dependency_builder_new (void);
+bobbuilderbuildpluginBuildConfigurationDependencyBuilder* bob_builder_build_plugin_build_configuration_dependency_builder_construct (GType object_type);
+const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_name (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
+void bob_builder_build_plugin_build_configuration_dependency_builder_set_name (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
+const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_version (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
+void bob_builder_build_plugin_build_configuration_dependency_builder_set_version (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
+const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_vapiDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
+void bob_builder_build_plugin_build_configuration_dependency_builder_set_vapiDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
+const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_cHeadersDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
+void bob_builder_build_plugin_build_configuration_dependency_builder_set_cHeadersDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
 void bob_builder_build_plugin_build_configuration_library_usage_builder_addLibraryUsageCcOptions (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self, bobbuilderbuildpluginBuildConfigurationBuilder* buildConfigurationBuilder);
 bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* bob_builder_build_plugin_build_configuration_library_usage_builder_new (void);
 bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* bob_builder_build_plugin_build_configuration_library_usage_builder_construct (GType object_type);
@@ -341,6 +352,23 @@ const gchar* bob_builder_build_plugin_build_configuration_library_usage_builder_
 void bob_builder_build_plugin_build_configuration_library_usage_builder_set_vapiDirectory (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self, const gchar* value);
 bobbuilderrecipeprojectBobBuildProjectDependencyScope bob_builder_build_plugin_build_configuration_library_usage_builder_get_scope (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self);
 void bob_builder_build_plugin_build_configuration_library_usage_builder_set_scope (bobbuilderbuildpluginBuildConfigurationLibraryUsageBuilder* self, bobbuilderrecipeprojectBobBuildProjectDependencyScope value);
+void bob_builder_build_plugin_cc_options_addCcOption (bobbuilderbuildpluginCCOptions* self, const gchar* ccOption);
+void bob_builder_build_plugin_cc_options_addCHeadersDirectoryLocation (bobbuilderbuildpluginCCOptions* self, const gchar* cHeadersDirectoryLocation);
+void bob_builder_build_plugin_cc_options_useLibrary (bobbuilderbuildpluginCCOptions* self, const gchar* name);
+void bob_builder_build_plugin_cc_options_addDebugFlag (bobbuilderbuildpluginCCOptions* self);
+gchar** bob_builder_build_plugin_cc_options_getCcOptions (bobbuilderbuildpluginCCOptions* self, int* result_length1);
+bobbuilderbuildpluginCCOptions* bob_builder_build_plugin_cc_options_new (void);
+bobbuilderbuildpluginCCOptions* bob_builder_build_plugin_cc_options_construct (GType object_type);
+gpointer bob_builder_build_plugin_gir_generator_ref (gpointer instance);
+void bob_builder_build_plugin_gir_generator_unref (gpointer instance);
+GParamSpec* bob_builder_build_plugin_param_spec_gir_generator (const gchar* name, const gchar* nick, const gchar* blurb, GType object_type, GParamFlags flags);
+void bob_builder_build_plugin_value_set_gir_generator (GValue* value, gpointer v_object);
+void bob_builder_build_plugin_value_take_gir_generator (GValue* value, gpointer v_object);
+gpointer bob_builder_build_plugin_value_get_gir_generator (const GValue* value);
+GType bob_builder_build_plugin_gir_generator_get_type (void) G_GNUC_CONST;
+void bob_builder_build_plugin_gir_generator_generateGIRRepositoryFile (bobbuilderbuildpluginGIRGenerator* self, ValaCodeContext* codeContext, bobbuilderbuildpluginGirConfiguration* girConfiguration);
+bobbuilderbuildpluginGIRGenerator* bob_builder_build_plugin_gir_generator_new (void);
+bobbuilderbuildpluginGIRGenerator* bob_builder_build_plugin_gir_generator_construct (GType object_type);
 GQuark bob_builder_build_plugin_compilation_error_quark (void);
 GType bob_builder_build_plugin_vala_code_compiler_get_type (void) G_GNUC_CONST;
 bobbuilderbuildpluginValaCodeCompiler* bob_builder_build_plugin_vala_code_compiler_new (bobbuilderbuildpluginBuildConfiguration* buildConfiguration);
@@ -363,34 +391,6 @@ gboolean bob_builder_build_plugin_vala_code_compiler_outcome_get_binaryGenerated
 void bob_builder_build_plugin_vala_code_compiler_outcome_set_binaryGenerated (bobbuilderbuildpluginValaCodeCompilerOutcome* self, gboolean value);
 void initializePlugin (bobbuilderbuildpluginBobBuildPluginLoader* pluginLoader);
 gchar** getDependencies (int* result_length1);
-bobbuilderrecipeprojectBobBuildProjectDependency* bob_builder_build_plugin_build_configuration_dependency_builder_build (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
-bobbuilderbuildpluginBuildConfigurationDependencyBuilder* bob_builder_build_plugin_build_configuration_dependency_builder_new (void);
-bobbuilderbuildpluginBuildConfigurationDependencyBuilder* bob_builder_build_plugin_build_configuration_dependency_builder_construct (GType object_type);
-const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_name (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
-void bob_builder_build_plugin_build_configuration_dependency_builder_set_name (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
-const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_version (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
-void bob_builder_build_plugin_build_configuration_dependency_builder_set_version (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
-const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_vapiDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
-void bob_builder_build_plugin_build_configuration_dependency_builder_set_vapiDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
-const gchar* bob_builder_build_plugin_build_configuration_dependency_builder_get_cHeadersDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self);
-void bob_builder_build_plugin_build_configuration_dependency_builder_set_cHeadersDirectory (bobbuilderbuildpluginBuildConfigurationDependencyBuilder* self, const gchar* value);
-void bob_builder_build_plugin_cc_options_addCcOption (bobbuilderbuildpluginCCOptions* self, const gchar* ccOption);
-void bob_builder_build_plugin_cc_options_addCHeadersDirectoryLocation (bobbuilderbuildpluginCCOptions* self, const gchar* cHeadersDirectoryLocation);
-void bob_builder_build_plugin_cc_options_useLibrary (bobbuilderbuildpluginCCOptions* self, const gchar* name);
-void bob_builder_build_plugin_cc_options_addDebugFlag (bobbuilderbuildpluginCCOptions* self);
-gchar** bob_builder_build_plugin_cc_options_getCcOptions (bobbuilderbuildpluginCCOptions* self, int* result_length1);
-bobbuilderbuildpluginCCOptions* bob_builder_build_plugin_cc_options_new (void);
-bobbuilderbuildpluginCCOptions* bob_builder_build_plugin_cc_options_construct (GType object_type);
-gpointer bob_builder_build_plugin_gir_generator_ref (gpointer instance);
-void bob_builder_build_plugin_gir_generator_unref (gpointer instance);
-GParamSpec* bob_builder_build_plugin_param_spec_gir_generator (const gchar* name, const gchar* nick, const gchar* blurb, GType object_type, GParamFlags flags);
-void bob_builder_build_plugin_value_set_gir_generator (GValue* value, gpointer v_object);
-void bob_builder_build_plugin_value_take_gir_generator (GValue* value, gpointer v_object);
-gpointer bob_builder_build_plugin_value_get_gir_generator (const GValue* value);
-GType bob_builder_build_plugin_gir_generator_get_type (void) G_GNUC_CONST;
-void bob_builder_build_plugin_gir_generator_generateGIRRepositoryFile (bobbuilderbuildpluginGIRGenerator* self, ValaCodeContext* codeContext, bobbuilderbuildpluginGirConfiguration* girConfiguration);
-bobbuilderbuildpluginGIRGenerator* bob_builder_build_plugin_gir_generator_new (void);
-bobbuilderbuildpluginGIRGenerator* bob_builder_build_plugin_gir_generator_construct (GType object_type);
 
 
 G_END_DECLS

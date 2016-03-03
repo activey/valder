@@ -23,6 +23,10 @@ namespace bob.builder.json {
 			jsonArray.add_object_element(entry);
 		}
 
+		public void addStringEntry(string entryValue) {
+			jsonArray.add_string_element(entryValue);
+		}
+
 		public void forEachMember(EachMemberDelegate eachMemberDelegate) {
 			foreach (Json.Node memberNode in jsonArray.get_elements()) {
 				JsonObject jsonObject = new JsonObject.fromJsonObject(memberNode.get_object());

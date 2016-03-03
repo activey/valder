@@ -116,7 +116,7 @@ namespace bob.builder.build.plugin {
                 if (codeContext.add_source_filename(buildSource.fileLocation, false, true)) {
                     
                     if (buildConfiguration.verbose) {
-                        LOGGER.logInfo(@"Using source file: $(buildSource.fileLocation).");
+                        LOGGER.logInfo("Using source file: %s (%d bytes)", buildSource.fileLocation, buildSource.fileSize);
                     }
                 }
             }
