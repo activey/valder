@@ -41,11 +41,11 @@ namespace bob.builder.filesystem {
 					File file = enumerator.get_child(fileInfo);
 					if (isDirectory(fileInfo)) {
 						DirectoryObject directory = new DirectoryObject(file);
+						directory.acceptDirectory(visitor);
 						if (recursive) {
 							directory.accept(visitor, true);
 							continue;
 						}
-						directory.acceptDirectory(visitor);
 						continue;
 					}
 					new FileObject(file).accept(visitor);

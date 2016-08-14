@@ -1,0 +1,2293 @@
+<?xml version="1.0"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+<include name="GLib" version="2.0"/>
+<include name="GObject" version="2.0"/>
+<include name="Gio" version="2.0"/>
+<include name="Json" version="1.0"/>
+<package name="bob"/>
+<c:include name="bob-0.0.1.h"/>
+<namespace name="bob" version="0.0.1" shared-library="bob" c:prefix="bob">
+	<record name="builderansiAbstractAnsiPrinterSession">
+		<method name="commit" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_commit">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="commit" invoker="commit">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="flush" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_flush">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="flush" invoker="flush">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="setColorRed" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setColorRed">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="setColorRed" invoker="setColorRed">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="setColorGreen" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setColorGreen">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="setColorGreen" invoker="setColorGreen">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="setColorBlue" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setColorBlue">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="setColorBlue" invoker="setColorBlue">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="setColorYellow" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setColorYellow">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="setColorYellow" invoker="setColorYellow">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="setColorDefault" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setColorDefault">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="setColorDefault" invoker="setColorDefault">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="setBold" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_setBold">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="bold" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="setBold" invoker="setBold">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="bold" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="reset" c:identifier="bob_builder_ansi_abstract_ansi_printer_session_reset">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="reset" invoker="reset">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="stream" transfer-ownership="none">
+					<type name="GLib.FileStream" c:type="FILE*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+	</record>
+	<record name="builderansiAnsiColorGenerator">
+		<method name="getRed" c:identifier="bob_builder_ansi_ansi_color_generator_getRed">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getGreen" c:identifier="bob_builder_ansi_ansi_color_generator_getGreen">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getYellow" c:identifier="bob_builder_ansi_ansi_color_generator_getYellow">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getBlue" c:identifier="bob_builder_ansi_ansi_color_generator_getBlue">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getDefault" c:identifier="bob_builder_ansi_ansi_color_generator_getDefault">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_ansi_ansi_color_generator_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderansiAnsiColorGenerator" c:type="bobbuilderansiAnsiColorGenerator*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<record name="builderansiAnsiPrinter">
+		<method name="startSession" c:identifier="bob_builder_ansi_ansi_printer_startSession">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderansiAbstractAnsiPrinterSession" c:type="bobbuilderansiAbstractAnsiPrinterSession*"/>
+			</return-value>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_ansi_ansi_printer_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderansiAnsiPrinter" c:type="bobbuilderansiAnsiPrinter*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<record name="builderansiAnsiPrinterSession">
+		<constructor name="new" c:identifier="bob_builder_ansi_ansi_printer_session_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderansiAnsiPrinterSession" c:type="bobbuilderansiAnsiPrinterSession*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<record name="builderansiPlainAnsiPrinterSession">
+		<constructor name="new" c:identifier="bob_builder_ansi_plain_ansi_printer_session_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderansiPlainAnsiPrinterSession" c:type="bobbuilderansiPlainAnsiPrinterSession*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<enumeration name="BobBuildPluginError" c:type="bobbuilderbuildpluginBobBuildPluginError" glib:error-domain="bob_builder_build_plugin_bob_build_plugin_error-quark">
+		<member name="initialization_error" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BOB_BUILD_PLUGIN_ERROR_INITIALIZATION_ERROR" value="0"/>
+		<member name="run_error" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BOB_BUILD_PLUGIN_ERROR_RUN_ERROR" value="1"/>
+	</enumeration>
+	<enumeration name="BuildPluginError" c:type="bobbuilderbuildpluginBuildPluginError" glib:error-domain="bob_builder_build_plugin_build_plugin_error-quark">
+		<member name="plugins_folder_missing" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BUILD_PLUGIN_ERROR_PLUGINS_FOLDER_MISSING" value="0"/>
+		<member name="module_not_found_error" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BUILD_PLUGIN_ERROR_MODULE_NOT_FOUND_ERROR" value="1"/>
+		<member name="module_type_function_missing_error" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BUILD_PLUGIN_ERROR_MODULE_TYPE_FUNCTION_MISSING_ERROR" value="2"/>
+		<member name="dependency_missing" c:identifier="BOB_BUILDER_BUILD_PLUGIN_BUILD_PLUGIN_ERROR_DEPENDENCY_MISSING" value="3"/>
+	</enumeration>
+	<class name="builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin" glib:type-name="bobbuilderbuildpluginAbstractBobBuildPlugin" glib:get-type="bob_builder_build_plugin_abstract_bob_build_plugin_get_type" glib:type-struct="builderbuildpluginAbstractBobBuildPluginClass" parent="GObject.Object" abstract="1">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderbuildpluginAbstractBobBuildPluginPrivate" c:type="bobbuilderbuildpluginAbstractBobBuildPluginPrivate*"/>
+		</field>
+		<method name="initialize" c:identifier="bob_builder_build_plugin_abstract_bob_build_plugin_initialize" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="initialize" invoker="initialize" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="run" c:identifier="bob_builder_build_plugin_abstract_bob_build_plugin_run" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+				</parameter>
+				<parameter name="projectDirectory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="run" invoker="run" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+				</parameter>
+				<parameter name="projectDirectory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<property name="name" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_name" c:identifier="bob_builder_build_plugin_abstract_bob_build_plugin_get_name">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_name" c:identifier="bob_builder_build_plugin_abstract_bob_build_plugin_set_name">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</class>
+	<record name="builderbuildpluginAbstractBobBuildPluginClass" c:type="bobbuilderbuildpluginAbstractBobBuildPluginClass" glib:is-gtype-struct-for="AbstractBobBuildPlugin">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+				<field name="initialize">
+			<callback name="initialize" c:type="initialize" throws="1">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="bob.builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin*"/>
+					</parameter>
+					<parameter name="pluginRecipe" transfer-ownership="none">
+						<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+				<field name="run">
+			<callback name="run" c:type="run" throws="1">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="bob.builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin*"/>
+					</parameter>
+					<parameter name="projectRecipe" transfer-ownership="none">
+						<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+					</parameter>
+					<parameter name="projectDirectory" transfer-ownership="none">
+						<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+	</record>
+	<record name="builderbuildpluginAbstractBobBuildPluginPrivate" c:type="bobbuilderbuildpluginAbstractBobBuildPluginPrivate" disguised="1"/>
+	<record name="builderbuildpluginBobBuildPluginExecutionChain">
+		<method name="usePlugin" c:identifier="bob_builder_build_plugin_bob_build_plugin_execution_chain_usePlugin">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginToRun" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="preparePlugins" c:identifier="bob_builder_build_plugin_bob_build_plugin_execution_chain_preparePlugins" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginToRunDelegate" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderbuildpluginBobBuildPluginExecutionChainPluginToRunDelegate" c:type="bobbuilderbuildpluginBobBuildPluginExecutionChainPluginToRunDelegate"/>
+				</parameter>
+				<parameter name="pluginToRunDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="runPlugins" c:identifier="bob_builder_build_plugin_bob_build_plugin_execution_chain_runPlugins" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_build_plugin_bob_build_plugin_execution_chain_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildpluginBobBuildPluginExecutionChain" c:type="bobbuilderbuildpluginBobBuildPluginExecutionChain*"/>
+			</return-value>
+		</constructor>
+		<callback name="PluginToRunDelegate" c:type="bobbuilderbuildpluginBobBuildPluginExecutionChainPluginToRunDelegate" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginToRun" transfer-ownership="none">
+					<type name="bob.builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</record>
+	<record name="builderbuildpluginBobBuildPluginLoader">
+		<constructor name="for_plugins_directory" c:identifier="bob_builder_build_plugin_bob_build_plugin_loader_new_for_plugins_directory">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildpluginBobBuildPluginLoader" c:type="bobbuilderbuildpluginBobBuildPluginLoader*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginsDirectoryLocation" transfer-ownership="none" allow-none="1">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="new" c:identifier="bob_builder_build_plugin_bob_build_plugin_loader_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildpluginBobBuildPluginLoader" c:type="bobbuilderbuildpluginBobBuildPluginLoader*"/>
+			</return-value>
+		</constructor>
+		<method name="addPlugin" c:identifier="bob_builder_build_plugin_bob_build_plugin_loader_addPlugin">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="buildPlugin" transfer-ownership="none">
+					<type name="bob.builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getPlugin" c:identifier="bob_builder_build_plugin_bob_build_plugin_loader_getPlugin">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderbuildpluginAbstractBobBuildPlugin" c:type="bobbuilderbuildpluginAbstractBobBuildPlugin*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</record>
+	<record name="builderbuildpluginBobBuildPluginVisitor">
+		<constructor name="new" c:identifier="bob_builder_build_plugin_bob_build_plugin_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildpluginBobBuildPluginVisitor" c:type="bobbuilderbuildpluginBobBuildPluginVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginLoader" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderbuildpluginBobBuildPluginVisitorLoadPluginLibraryFromFile" c:type="bobbuilderbuildpluginBobBuildPluginVisitorLoadPluginLibraryFromFile"/>
+				</parameter>
+				<parameter name="pluginLoader_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<callback name="LoadPluginLibraryFromFile" c:type="bobbuilderbuildpluginBobBuildPluginVisitorLoadPluginLibraryFromFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginLibraryFile" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</record>
+	<class name="builderbuildpluginLibraryFileFilter" c:type="bobbuilderbuildpluginLibraryFileFilter" glib:type-name="bobbuilderbuildpluginLibraryFileFilter" glib:get-type="bob_builder_build_plugin_library_file_filter_get_type" glib:type-struct="builderbuildpluginLibraryFileFilterClass" parent="bob.builderfilesystemFileExtensionFilter">
+		<field name="parent_instance">
+			<type name="bob.builderfilesystemFileExtensionFilter" c:type="bobbuilderfilesystemFileExtensionFilter"/>
+		</field>
+		<field name="priv">
+			<type name="builderbuildpluginLibraryFileFilterPrivate" c:type="bobbuilderbuildpluginLibraryFileFilterPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="bob_builder_build_plugin_library_file_filter_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildpluginLibraryFileFilter" c:type="bobbuilderbuildpluginLibraryFileFilter*"/>
+			</return-value>
+		</constructor>
+	</class>
+	<record name="builderbuildpluginLibraryFileFilterClass" c:type="bobbuilderbuildpluginLibraryFileFilterClass" glib:is-gtype-struct-for="LibraryFileFilter">
+		<field name="parent_class">
+			<type name="bob.builderfilesystemFileExtensionFilterClass" c:type="bobbuilderfilesystemFileExtensionFilterClass"/>
+		</field>
+	</record>
+	<record name="builderbuildpluginLibraryFileFilterPrivate" c:type="bobbuilderbuildpluginLibraryFileFilterPrivate" disguised="1"/>
+	<class name="builderbuildBobBuildContext" c:type="bobbuilderbuildBobBuildContext" glib:type-name="bobbuilderbuildBobBuildContext" glib:get-type="bob_builder_build_bob_build_context_get_type" glib:type-struct="builderbuildBobBuildContextClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderbuildBobBuildContextPrivate" c:type="bobbuilderbuildBobBuildContextPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="bob_builder_build_bob_build_context_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildBobBuildContext" c:type="bobbuilderbuildBobBuildContext*"/>
+			</return-value>
+		</constructor>
+		<constructor name="withRecipe" c:identifier="bob_builder_build_bob_build_context_new_withRecipe">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderbuildBobBuildContext" c:type="bobbuilderbuildBobBuildContext*"/>
+			</return-value>
+			<parameters>
+				<parameter name="buildRecipe" transfer-ownership="none">
+					<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="usePlugin" c:identifier="bob_builder_build_bob_build_context_usePlugin">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="buildPlugin" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="proceed" c:identifier="bob_builder_build_bob_build_context_proceed">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+	</class>
+	<record name="builderbuildBobBuildContextClass" c:type="bobbuilderbuildBobBuildContextClass" glib:is-gtype-struct-for="BobBuildContext">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderbuildBobBuildContextPrivate" c:type="bobbuilderbuildBobBuildContextPrivate" disguised="1"/>
+	<record name="builderenumsEnumReader">
+		<function name="readName" c:identifier="bob_builder_enums_enum_reader_readName">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fullEnumName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<function name="fromName" c:identifier="bob_builder_enums_enum_reader_fromName">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="GObject.EnumValue" c:type="GEnumValue*"/>
+			</return-value>
+			<parameters>
+				<parameter name="type" transfer-ownership="none">
+					<type name="GObject.Type" c:type="GType"/>
+				</parameter>
+				<parameter name="name" transfer-ownership="none" allow-none="1">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<constructor name="new" c:identifier="bob_builder_enums_enum_reader_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderenumsEnumReader" c:type="bobbuilderenumsEnumReader*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<record name="builderfilesystemcopyDirectoryCopier">
+		<constructor name="new" c:identifier="bob_builder_filesystem_copy_directory_copier_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemcopyDirectoryCopier" c:type="bobbuilderfilesystemcopyDirectoryCopier*"/>
+			</return-value>
+			<parameters>
+				<parameter name="from" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="to" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="overwrite" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="copy" c:identifier="bob_builder_filesystem_copy_directory_copier_copy">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+	</record>
+	<record name="builderfilesystemvisitorDirectoryObjectLookupVisitor">
+		<constructor name="new" c:identifier="bob_builder_filesystem_visitor_directory_object_lookup_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemvisitorDirectoryObjectLookupVisitor" c:type="bobbuilderfilesystemvisitorDirectoryObjectLookupVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getDirectory" c:identifier="bob_builder_filesystem_visitor_directory_object_lookup_visitor_getDirectory">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</method>
+	</record>
+	<record name="builderfilesystemvisitorFileDelegateVisitor">
+		<constructor name="new" c:identifier="bob_builder_filesystem_visitor_file_delegate_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemvisitorFileDelegateVisitor" c:type="bobbuilderfilesystemvisitorFileDelegateVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileDelegate" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderfilesystemvisitorFileDelegateVisitorFileDelegate" c:type="bobbuilderfilesystemvisitorFileDelegateVisitorFileDelegate"/>
+				</parameter>
+				<parameter name="fileDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<callback name="FileDelegate" c:type="bobbuilderfilesystemvisitorFileDelegateVisitorFileDelegate">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileObject" transfer-ownership="none">
+					<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</record>
+	<record name="builderfilesystemvisitorFileObjectLookupVisitor">
+		<constructor name="new" c:identifier="bob_builder_filesystem_visitor_file_object_lookup_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemvisitorFileObjectLookupVisitor" c:type="bobbuilderfilesystemvisitorFileObjectLookupVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="parent" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getFile" c:identifier="bob_builder_filesystem_visitor_file_object_lookup_visitor_getFile">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+			</return-value>
+		</method>
+	</record>
+	<record name="builderfilesystemvisitorFileSystemFilteringVisitor">
+		<method name="visitFileFiltered" c:identifier="bob_builder_filesystem_visitor_file_system_filtering_visitor_visitFileFiltered">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="visitFileFiltered" invoker="visitFileFiltered">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+	</record>
+	<record name="builderfilesystemvisitorObjectExistenceLookupVisitor">
+		<constructor name="new" c:identifier="bob_builder_filesystem_visitor_object_existence_lookup_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemvisitorObjectExistenceLookupVisitor" c:type="bobbuilderfilesystemvisitorObjectExistenceLookupVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="exists" c:identifier="bob_builder_filesystem_visitor_object_existence_lookup_visitor_exists">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+		</method>
+	</record>
+	<interface name="builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor" glib:type-name="bobbuilderfilesystemvisitorFileSystemVisitor" glib:get-type="bob_builder_filesystem_visitor_file_system_visitor_get_type" glib:type-struct="FileSystemVisitorIface">
+		<method name="visitFile" c:identifier="bob_builder_filesystem_visitor_file_system_visitor_visitFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="visitFile" invoker="visitFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="visitDirectory" c:identifier="bob_builder_filesystem_visitor_file_system_visitor_visitDirectory">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="visitDirectory" invoker="visitDirectory">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+	</interface>
+	<record name="FileSystemVisitorIface" c:type="bobbuilderfilesystemvisitorFileSystemVisitorIface" glib:is-gtype-struct-for="FileSystemVisitor">
+		<field name="parent_iface">
+			<type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+		</field>
+		<field name="visitFile">
+			<callback name="visitFile" c:type="visitFile">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+					</parameter>
+					<parameter name="file" transfer-ownership="none">
+						<type name="Gio.File" c:type="GFile*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+		<field name="visitDirectory">
+			<callback name="visitDirectory" c:type="visitDirectory">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+					</parameter>
+					<parameter name="directory" transfer-ownership="none">
+						<type name="Gio.File" c:type="GFile*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+	</record>
+	<record name="builderfilesystemDirectoryBuilder">
+		<constructor name="new" c:identifier="bob_builder_filesystem_directory_builder_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryBuilder" c:type="bobbuilderfilesystemDirectoryBuilder*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="parentDirectory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="readOnly" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="from" c:identifier="bob_builder_filesystem_directory_builder_new_from">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryBuilder" c:type="bobbuilderfilesystemDirectoryBuilder*"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="readOnly" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="directory" c:identifier="bob_builder_filesystem_directory_builder_directory">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="directoryBuilderDelegate" transfer-ownership="none" allow-none="1" closure="2" scope="call">
+					<type name="bob.builderfilesystemDirectoryBuilderDirectoryBuilderDelegate" c:type="bobbuilderfilesystemDirectoryBuilderDirectoryBuilderDelegate"/>
+				</parameter>
+				<parameter name="directoryBuilderDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="accept" c:identifier="bob_builder_filesystem_directory_builder_accept">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="visitor" transfer-ownership="none">
+					<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+				</parameter>
+				<parameter name="deep" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getOrCreate" c:identifier="bob_builder_filesystem_directory_builder_getOrCreate">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</method>
+		<callback name="DirectoryBuilderDelegate" c:type="bobbuilderfilesystemDirectoryBuilderDirectoryBuilderDelegate">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="directoryBuilder" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryBuilder" c:type="bobbuilderfilesystemDirectoryBuilder*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</record>
+	<record name="builderfilesystemDirectoryObject">
+		<constructor name="new" c:identifier="bob_builder_filesystem_directory_object_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromGivenLocation" c:identifier="bob_builder_filesystem_directory_object_new_fromGivenLocation">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="directoryLocation" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromCurrentLocation" c:identifier="bob_builder_filesystem_directory_object_new_fromCurrentLocation">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromUserHomeDirectory" c:identifier="bob_builder_filesystem_directory_object_new_fromUserHomeDirectory">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromTemporaryDirectory" c:identifier="bob_builder_filesystem_directory_object_new_fromTemporaryDirectory">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</constructor>
+		<method name="accept" c:identifier="bob_builder_filesystem_directory_object_accept">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="visitor" transfer-ownership="none">
+					<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+				</parameter>
+				<parameter name="recursive" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="acceptDirectory" c:identifier="bob_builder_filesystem_directory_object_acceptDirectory">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="visitor" transfer-ownership="none">
+					<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="createDirectory" c:identifier="bob_builder_filesystem_directory_object_createDirectory" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="hasChildWithName" c:identifier="bob_builder_filesystem_directory_object_hasChildWithName">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getDirectoryChild" c:identifier="bob_builder_filesystem_directory_object_getDirectoryChild">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getDirectoryChildAtLocation" c:identifier="bob_builder_filesystem_directory_object_getDirectoryChildAtLocation">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="relativeLocation" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="newDirectoryChild" c:identifier="bob_builder_filesystem_directory_object_newDirectoryChild">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFileChild" c:identifier="bob_builder_filesystem_directory_object_getFileChild">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="newFileChild" c:identifier="bob_builder_filesystem_directory_object_newFileChild">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="childName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="copyTo" c:identifier="bob_builder_filesystem_directory_object_copyTo">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="overwrite" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getRelativeLocation" c:identifier="bob_builder_filesystem_directory_object_getRelativeLocation">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileToLocate" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</record>
+	<class name="builderfilesystemFileExtensionFilter" c:type="bobbuilderfilesystemFileExtensionFilter" glib:type-name="bobbuilderfilesystemFileExtensionFilter" glib:get-type="bob_builder_filesystem_file_extension_filter_get_type" glib:type-struct="builderfilesystemFileExtensionFilterClass" parent="GObject.Object">
+		<implements name="bob.builderfilesystemFileFilter"/>
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderfilesystemFileExtensionFilterPrivate" c:type="bobbuilderfilesystemFileExtensionFilterPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="bob_builder_filesystem_file_extension_filter_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileExtensionFilter" c:type="bobbuilderfilesystemFileExtensionFilter*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileExtension" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+	</class>
+	<record name="builderfilesystemFileExtensionFilterClass" c:type="bobbuilderfilesystemFileExtensionFilterClass" glib:is-gtype-struct-for="FileExtensionFilter">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderfilesystemFileExtensionFilterPrivate" c:type="bobbuilderfilesystemFileExtensionFilterPrivate" disguised="1"/>
+	<record name="builderfilesystemFileObject">
+		<constructor name="new" c:identifier="bob_builder_filesystem_file_object_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromLocation" c:identifier="bob_builder_filesystem_file_object_new_fromLocation">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileLocation" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="accept" c:identifier="bob_builder_filesystem_file_object_accept">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="visitor" transfer-ownership="none">
+					<type name="bob.builderfilesystemvisitorFileSystemVisitor" c:type="bobbuilderfilesystemvisitorFileSystemVisitor*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getInputStream" c:identifier="bob_builder_filesystem_file_object_getInputStream" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="Gio.FileInputStream" c:type="GFileInputStream*"/>
+			</return-value>
+		</method>
+		<method name="getStream" c:identifier="bob_builder_filesystem_file_object_getStream" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="Gio.FileIOStream" c:type="GFileIOStream*"/>
+			</return-value>
+		</method>
+		<method name="getStreamOverwrite" c:identifier="bob_builder_filesystem_file_object_getStreamOverwrite" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="Gio.FileIOStream" c:type="GFileIOStream*"/>
+			</return-value>
+		</method>
+		<method name="copyTo" c:identifier="bob_builder_filesystem_file_object_copyTo" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="directory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+				<parameter name="overwrite" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="copyFrom" c:identifier="bob_builder_filesystem_file_object_copyFrom" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="originalFile" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+				<parameter name="overwrite" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getSize" c:identifier="bob_builder_filesystem_file_object_getSize">
+			<return-value transfer-ownership="full">
+				<type name="gint64" c:type="gint64"/>
+			</return-value>
+		</method>
+	</record>
+	<record name="builderfilesystemFileSystemObject">
+		<field name="file">
+			<type name="Gio.File" c:type="GFile*"/>
+		</field>
+		<method name="exists" c:identifier="bob_builder_filesystem_file_system_object_exists">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+		</method>
+		<method name="getLocation" c:identifier="bob_builder_filesystem_file_system_object_getLocation">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getLocationRelative" c:identifier="bob_builder_filesystem_file_system_object_getLocationRelative">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="relativeDirectory" transfer-ownership="none">
+					<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getName" c:identifier="bob_builder_filesystem_file_system_object_getName">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getParent" c:identifier="bob_builder_filesystem_file_system_object_getParent">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemDirectoryObject" c:type="bobbuilderfilesystemDirectoryObject*"/>
+			</return-value>
+		</method>
+	</record>
+	<record name="builderfilesystemRuntime">
+		<function name="getRuntimeDirectory" c:identifier="bob_builder_filesystem_runtime_getRuntimeDirectory">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</function>
+		<function name="resolveRuntimeRelativePath" c:identifier="bob_builder_filesystem_runtime_resolveRuntimeRelativePath">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="relativePath" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<function name="resolveRelativePath" c:identifier="bob_builder_filesystem_runtime_resolveRelativePath">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="relativePath" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<constructor name="new" c:identifier="bob_builder_filesystem_runtime_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderfilesystemRuntime" c:type="bobbuilderfilesystemRuntime*"/>
+			</return-value>
+		</constructor>
+	</record>
+	<interface name="builderfilesystemFileFilter" c:type="bobbuilderfilesystemFileFilter" glib:type-name="bobbuilderfilesystemFileFilter" glib:get-type="bob_builder_filesystem_file_filter_get_type" glib:type-struct="FileFilterIface">
+		<prerequisite name="GObject.Object"/>
+		<method name="fileMatchesCriteria" c:identifier="bob_builder_filesystem_file_filter_fileMatchesCriteria">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="fileMatchesCriteria" invoker="fileMatchesCriteria">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+	</interface>
+	<record name="FileFilterIface" c:type="bobbuilderfilesystemFileFilterIface" glib:is-gtype-struct-for="FileFilter">
+		<field name="parent_iface">
+			<type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+		</field>
+		<field name="fileMatchesCriteria">
+			<callback name="fileMatchesCriteria" c:type="fileMatchesCriteria">
+				<return-value transfer-ownership="full">
+					<type name="gboolean" c:type="gboolean"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="bob.builderfilesystemFileFilter" c:type="bobbuilderfilesystemFileFilter*"/>
+					</parameter>
+					<parameter name="file" transfer-ownership="none">
+						<type name="Gio.File" c:type="GFile*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+	</record>
+	<class name="builderjsonJsonArray" c:type="bobbuilderjsonJsonArray" glib:type-name="bobbuilderjsonJsonArray" glib:get-type="bob_builder_json_json_array_get_type" glib:type-struct="builderjsonJsonArrayClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderjsonJsonArrayPrivate" c:type="bobbuilderjsonJsonArrayPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="bob_builder_json_json_array_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonArray" c:type="bobbuilderjsonJsonArray*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromJsonArray" c:identifier="bob_builder_json_json_array_new_fromJsonArray">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonArray" c:type="bobbuilderjsonJsonArray*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonArray" transfer-ownership="none">
+					<type name="Json.Array" c:type="JsonArray*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="addToParent" c:identifier="bob_builder_json_json_array_addToParent">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="parent" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addEntry" c:identifier="bob_builder_json_json_array_addEntry">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="entry" transfer-ownership="none">
+					<type name="Json.Object" c:type="JsonObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addStringEntry" c:identifier="bob_builder_json_json_array_addStringEntry">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="entryValue" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="forEachMember" c:identifier="bob_builder_json_json_array_forEachMember">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="eachMemberDelegate" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderjsonJsonArrayEachMemberDelegate" c:type="bobbuilderjsonJsonArrayEachMemberDelegate"/>
+				</parameter>
+				<parameter name="eachMemberDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="forStringEachValue" c:identifier="bob_builder_json_json_array_forStringEachValue">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="eachValueDelegate" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderjsonJsonArrayEachStringValueDelegate" c:type="bobbuilderjsonJsonArrayEachStringValueDelegate"/>
+				</parameter>
+				<parameter name="eachValueDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<callback name="EachMemberDelegate" c:type="bobbuilderjsonJsonArrayEachMemberDelegate">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+		<callback name="EachStringValueDelegate" c:type="bobbuilderjsonJsonArrayEachStringValueDelegate">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</class>
+	<record name="builderjsonJsonArrayClass" c:type="bobbuilderjsonJsonArrayClass" glib:is-gtype-struct-for="JsonArray">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderjsonJsonArrayPrivate" c:type="bobbuilderjsonJsonArrayPrivate" disguised="1"/>
+	<class name="builderjsonJsonObject" c:type="bobbuilderjsonJsonObject" glib:type-name="bobbuilderjsonJsonObject" glib:get-type="bob_builder_json_json_object_get_type" glib:type-struct="builderjsonJsonObjectClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderjsonJsonObjectPrivate" c:type="bobbuilderjsonJsonObjectPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="bob_builder_json_json_object_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromJsonObject" c:identifier="bob_builder_json_json_object_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="Json.Object" c:type="JsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getStringEntry" c:identifier="bob_builder_json_json_object_getStringEntry">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="defaultIfNull" transfer-ownership="none" allow-none="1">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="setStringEntry" c:identifier="bob_builder_json_json_object_setStringEntry">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getBooleanEntry" c:identifier="bob_builder_json_json_object_getBooleanEntry">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="gboolean" c:type="gboolean*"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="defaultIfNull" transfer-ownership="none" allow-none="1">
+					<type name="gboolean" c:type="gboolean*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getJsonObjectEntry" c:identifier="bob_builder_json_json_object_getJsonObjectEntry">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addJsonObjectEntry" c:identifier="bob_builder_json_json_object_addJsonObjectEntry">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="object" transfer-ownership="none">
+					<type name="Json.Object" c:type="JsonObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addToParent" c:identifier="bob_builder_json_json_object_addToParent">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="parentJsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addToArray" c:identifier="bob_builder_json_json_object_addToArray">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonArray" transfer-ownership="none">
+					<type name="bob.builderjsonJsonArray" c:type="bobbuilderjsonJsonArray*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getObjectArrayEntry" c:identifier="bob_builder_json_json_object_getObjectArrayEntry">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderjsonJsonArray" c:type="bobbuilderjsonJsonArray*"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addObjectArrayEntry" c:identifier="bob_builder_json_json_object_addObjectArrayEntry">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="objectArray" transfer-ownership="none">
+					<type name="Json.Array" c:type="JsonArray*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="forEachMember" c:identifier="bob_builder_json_json_object_forEachMember">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="forEachMemberDelegate" transfer-ownership="none" closure="1" scope="call">
+					<type name="bob.builderjsonJsonObjectForEachMember" c:type="bobbuilderjsonJsonObjectForEachMember"/>
+				</parameter>
+				<parameter name="forEachMemberDelegate_target" transfer-ownership="none" allow-none="1">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="keyMissing" c:identifier="bob_builder_json_json_object_keyMissing">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="writeToFile" c:identifier="bob_builder_json_json_object_writeToFile" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="file" transfer-ownership="none">
+					<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<callback name="ForEachMember" c:type="bobbuilderjsonJsonObjectForEachMember">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="key" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="objectMember" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+				<parameter name="user_data" transfer-ownership="none" closure="2">
+					<type name="gpointer" c:type="void*"/>
+				</parameter>
+			</parameters>
+		</callback>
+	</class>
+	<record name="builderjsonJsonObjectClass" c:type="bobbuilderjsonJsonObjectClass" glib:is-gtype-struct-for="JsonObject">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderjsonJsonObjectPrivate" c:type="bobbuilderjsonJsonObjectPrivate" disguised="1"/>
+	<record name="builderlogLogger">
+		<function name="getLogger" c:identifier="bob_builder_log_logger_getLogger">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderlogLogger" c:type="bobbuilderlogLogger*"/>
+			</return-value>
+			<parameters>
+				<parameter name="loggerId" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</function>
+	</record>
+	<class name="builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe" glib:type-name="bobbuilderrecipepluginBobBuildPluginRecipe" glib:get-type="bob_builder_recipe_plugin_bob_build_plugin_recipe_get_type" glib:type-struct="builderrecipepluginBobBuildPluginRecipeClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderrecipepluginBobBuildPluginRecipePrivate" c:type="bobbuilderrecipepluginBobBuildPluginRecipePrivate*"/>
+		</field>
+		<constructor name="fromJsonObject" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="jsonConfiguration" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="default" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_new_default">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+			</return-value>
+		</constructor>
+		<constructor name="new" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+			</return-value>
+		</constructor>
+		<property name="name" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_name" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_get_name">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_name" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_set_name">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="jsonConfiguration" writable="1" construct="1">
+			<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+		</property>
+		<method name="get_jsonConfiguration" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_get_jsonConfiguration">
+			<return-value transfer-ownership="none">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+		</method>
+		<method name="set_jsonConfiguration" c:identifier="bob_builder_recipe_plugin_bob_build_plugin_recipe_set_jsonConfiguration">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</class>
+	<record name="builderrecipepluginBobBuildPluginRecipeClass" c:type="bobbuilderrecipepluginBobBuildPluginRecipeClass" glib:is-gtype-struct-for="BobBuildPluginRecipe">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderrecipepluginBobBuildPluginRecipePrivate" c:type="bobbuilderrecipepluginBobBuildPluginRecipePrivate" disguised="1"/>
+	<enumeration name="builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope" glib:type-name="bobbuilderrecipeprojectBobBuildProjectDependencyScope" glib:get-type="bob_builder_recipe_project_bob_build_project_dependency_scope_get_type">
+		<member name="both" c:identifier="BOB_BUILDER_RECIPE_PROJECT_BOB_BUILD_PROJECT_DEPENDENCY_SCOPE_BOTH" value="0"/>
+		<member name="library" c:identifier="BOB_BUILDER_RECIPE_PROJECT_BOB_BUILD_PROJECT_DEPENDENCY_SCOPE_LIBRARY" value="1"/>
+		<member name="runtime" c:identifier="BOB_BUILDER_RECIPE_PROJECT_BOB_BUILD_PROJECT_DEPENDENCY_SCOPE_RUNTIME" value="2"/>
+	</enumeration>
+	<function name="builder_recipe_project_bob_build_project_dependency_scope_fromName" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_scope_fromName">
+		<return-value transfer-ownership="full">
+			<type name="bob.builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope"/>
+		</return-value>
+		<parameters>
+			<parameter name="name" transfer-ownership="none" allow-none="1">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="builder_recipe_project_bob_build_project_dependency_scope_name" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_scope_name">
+		<return-value transfer-ownership="full">
+			<type name="utf8" c:type="gchar*"/>
+		</return-value>
+	</function>
+	<function name="builder_recipe_project_bob_build_project_dependency_scope_matches" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_scope_matches">
+		<return-value transfer-ownership="full">
+			<type name="gboolean" c:type="gboolean"/>
+		</return-value>
+		<parameters>
+			<parameter name="otherScope" transfer-ownership="none">
+				<type name="bob.builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope"/>
+			</parameter>
+		</parameters>
+	</function>
+	<record name="builderrecipeprojectBobBuildProjectDependency">
+		<constructor name="fromJsonObject" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="toString" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_toString">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="equals" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_equals">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="other" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="toJsonObject" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_toJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+			</return-value>
+		</constructor>
+		<property name="dependency" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_dependency" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_get_dependency">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_dependency" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_set_dependency">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="version" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_version" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_get_version">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_version" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_set_version">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="scope" writable="1">
+			<type name="bob.builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope"/>
+		</property>
+		<method name="get_scope" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_get_scope">
+			<return-value transfer-ownership="none">
+				<type name="bob.builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope"/>
+			</return-value>
+		</method>
+		<method name="set_scope" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_set_scope">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectDependencyScope" c:type="bobbuilderrecipeprojectBobBuildProjectDependencyScope"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="vapiDirectory" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_vapiDirectory" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_get_vapiDirectory">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_vapiDirectory" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_set_vapiDirectory">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="cHeadersDirectory" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_cHeadersDirectory" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_get_cHeadersDirectory">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_cHeadersDirectory" c:identifier="bob_builder_recipe_project_bob_build_project_dependency_set_cHeadersDirectory">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</record>
+	<record name="builderrecipeprojectBobBuildProjectDetails">
+		<constructor name="fromJsonObject" c:identifier="bob_builder_recipe_project_bob_build_project_details_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectDetails" c:type="bobbuilderrecipeprojectBobBuildProjectDetails*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="new" c:identifier="bob_builder_recipe_project_bob_build_project_details_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectDetails" c:type="bobbuilderrecipeprojectBobBuildProjectDetails*"/>
+			</return-value>
+		</constructor>
+		<property name="authors">
+			<array>
+				<type name="utf8" c:type="gchar*"/>
+			</array>
+		</property>
+		<method name="get_authors" c:identifier="bob_builder_recipe_project_bob_build_project_details_get_authors">
+			<return-value transfer-ownership="none">
+				<array length="0">
+					<type name="utf8" c:type="gchar*"/>
+				</array>
+			</return-value>
+			<parameters>
+				<parameter name="result_length1" direction="out" transfer-ownership="none">
+					<type name="gint" c:type="gint*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="section" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_section" c:identifier="bob_builder_recipe_project_bob_build_project_details_get_section">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_section" c:identifier="bob_builder_recipe_project_bob_build_project_details_set_section">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="architecture" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_architecture" c:identifier="bob_builder_recipe_project_bob_build_project_details_get_architecture">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_architecture" c:identifier="bob_builder_recipe_project_bob_build_project_details_set_architecture">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="description" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_description" c:identifier="bob_builder_recipe_project_bob_build_project_details_get_description">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_description" c:identifier="bob_builder_recipe_project_bob_build_project_details_set_description">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</record>
+	<record name="builderrecipeprojectBobBuildProjectRecipe">
+		<constructor name="fromJsonObject" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="addDependency" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_addDependency">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="dependency" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="hasDependency" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_hasDependency">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="dependency" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addLibSourceFile" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_addLibSourceFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectSourceFile" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addMainSourceFile" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_addMainSourceFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectSourceFile" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="toJsonObject" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_toJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+			</return-value>
+		</constructor>
+		<property name="name" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_name" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_name">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_name" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_set_name">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="shortName" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_shortName" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_shortName">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_shortName" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_set_shortName">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="version" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_version" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_version">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_version" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_set_version">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="details" writable="1">
+			<type name="bob.builderrecipeprojectBobBuildProjectDetails" c:type="bobbuilderrecipeprojectBobBuildProjectDetails*"/>
+		</property>
+		<method name="get_details" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_details">
+			<return-value transfer-ownership="none">
+				<type name="bob.builderrecipeprojectBobBuildProjectDetails" c:type="bobbuilderrecipeprojectBobBuildProjectDetails*"/>
+			</return-value>
+		</method>
+		<method name="set_details" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_set_details">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectDetails" c:type="bobbuilderrecipeprojectBobBuildProjectDetails*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="dependencies">
+			<type name="GLib.List" c:type="GList*">
+				<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+			</type>
+		</property>
+		<method name="get_dependencies" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_dependencies">
+			<return-value transfer-ownership="none">
+				<type name="GLib.List" c:type="GList*">
+					<type name="bob.builderrecipeprojectBobBuildProjectDependency" c:type="bobbuilderrecipeprojectBobBuildProjectDependency*"/>
+				</type>
+			</return-value>
+		</method>
+		<property name="libSourceFiles">
+			<type name="GLib.List" c:type="GList*">
+				<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+			</type>
+		</property>
+		<method name="get_libSourceFiles" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_libSourceFiles">
+			<return-value transfer-ownership="none">
+				<type name="GLib.List" c:type="GList*">
+					<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+				</type>
+			</return-value>
+		</method>
+		<property name="mainSourceFiles">
+			<type name="GLib.List" c:type="GList*">
+				<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+			</type>
+		</property>
+		<method name="get_mainSourceFiles" c:identifier="bob_builder_recipe_project_bob_build_project_recipe_get_mainSourceFiles">
+			<return-value transfer-ownership="none">
+				<type name="GLib.List" c:type="GList*">
+					<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+				</type>
+			</return-value>
+		</method>
+	</record>
+	<class name="builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile" glib:type-name="bobbuilderrecipeprojectBobBuildProjectSourceFile" glib:get-type="bob_builder_recipe_project_bob_build_project_source_file_get_type" glib:type-struct="builderrecipeprojectBobBuildProjectSourceFileClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderrecipeprojectBobBuildProjectSourceFilePrivate" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFilePrivate*"/>
+		</field>
+		<constructor name="fromFileSystem" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_new_fromFileSystem" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+			</return-value>
+			<parameters>
+				<parameter name="projectSourceFile" transfer-ownership="none">
+					<type name="Gio.File" c:type="GFile*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromLocation" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_new_fromLocation">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+			</return-value>
+			<parameters>
+				<parameter name="sourceFileLocation" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="new" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeprojectBobBuildProjectSourceFile" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFile*"/>
+			</return-value>
+		</constructor>
+		<property name="fileLocation" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<method name="get_fileLocation" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_get_fileLocation">
+			<return-value transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</return-value>
+		</method>
+		<method name="set_fileLocation" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_set_fileLocation">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="fileSize" writable="1">
+			<type name="gint64" c:type="gint64"/>
+		</property>
+		<method name="get_fileSize" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_get_fileSize">
+			<return-value transfer-ownership="none">
+				<type name="gint64" c:type="gint64"/>
+			</return-value>
+		</method>
+		<method name="set_fileSize" c:identifier="bob_builder_recipe_project_bob_build_project_source_file_set_fileSize">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="gint64" c:type="gint64"/>
+				</parameter>
+			</parameters>
+		</method>
+	</class>
+	<record name="builderrecipeprojectBobBuildProjectSourceFileClass" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFileClass" glib:is-gtype-struct-for="BobBuildProjectSourceFile">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderrecipeprojectBobBuildProjectSourceFilePrivate" c:type="bobbuilderrecipeprojectBobBuildProjectSourceFilePrivate" disguised="1"/>
+	<class name="builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe" glib:type-name="bobbuilderrecipeBobBuildRecipe" glib:get-type="bob_builder_recipe_bob_build_recipe_get_type" glib:type-struct="builderrecipeBobBuildRecipeClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="builderrecipeBobBuildRecipePrivate" c:type="bobbuilderrecipeBobBuildRecipePrivate*"/>
+		</field>
+		<constructor name="fromJsonObject" c:identifier="bob_builder_recipe_bob_build_recipe_new_fromJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonObject" transfer-ownership="none">
+					<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="default" c:identifier="bob_builder_recipe_bob_build_recipe_new_default">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+		</constructor>
+		<method name="addPluginRecipe" c:identifier="bob_builder_recipe_bob_build_recipe_addPluginRecipe">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="recipe" transfer-ownership="none">
+					<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getPluginRecipe" c:identifier="bob_builder_recipe_bob_build_recipe_getPluginRecipe">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderrecipepluginBobBuildPluginRecipe" c:type="bobbuilderrecipepluginBobBuildPluginRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pluginName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="toJsonObject" c:identifier="bob_builder_recipe_bob_build_recipe_toJsonObject">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderjsonJsonObject" c:type="bobbuilderjsonJsonObject*"/>
+			</return-value>
+		</method>
+		<method name="writeToFile" c:identifier="bob_builder_recipe_bob_build_recipe_writeToFile" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileObject" transfer-ownership="none">
+					<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<constructor name="new" c:identifier="bob_builder_recipe_bob_build_recipe_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+		</constructor>
+		<property name="project" writable="1">
+			<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+		</property>
+		<method name="get_project" c:identifier="bob_builder_recipe_bob_build_recipe_get_project">
+			<return-value transfer-ownership="none">
+				<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+			</return-value>
+		</method>
+		<method name="set_project" c:identifier="bob_builder_recipe_bob_build_recipe_set_project">
+			<return-value transfer-ownership="none">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="value" transfer-ownership="none">
+					<type name="bob.builderrecipeprojectBobBuildProjectRecipe" c:type="bobbuilderrecipeprojectBobBuildProjectRecipe*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</class>
+	<record name="builderrecipeBobBuildRecipeClass" c:type="bobbuilderrecipeBobBuildRecipeClass" glib:is-gtype-struct-for="BobBuildRecipe">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="builderrecipeBobBuildRecipePrivate" c:type="bobbuilderrecipeBobBuildRecipePrivate" disguised="1"/>
+	<record name="builderrecipeBobBuildRecipeLoader">
+		<function name="loadFromJSON" c:identifier="bob_builder_recipe_bob_build_recipe_loader_loadFromJSON" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+		</function>
+		<function name="loadFromJSONFileObject" c:identifier="bob_builder_recipe_bob_build_recipe_loader_loadFromJSONFileObject" throws="1">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="fileObject" transfer-ownership="none">
+					<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<method name="loadFromJSONFile" c:identifier="bob_builder_recipe_bob_build_recipe_loader_loadFromJSONFile" throws="1">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonFileObject" transfer-ownership="none">
+					<type name="bob.builderfilesystemFileObject" c:type="bobbuilderfilesystemFileObject*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="loadFromJSONFileName" c:identifier="bob_builder_recipe_bob_build_recipe_loader_loadFromJSONFileName" throws="1">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="bob.builderrecipeBobBuildRecipe" c:type="bobbuilderrecipeBobBuildRecipe*"/>
+			</return-value>
+			<parameters>
+				<parameter name="jsonFileName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+	</record>
+	<record name="builderrecipeBobBuildRecipeLocatingVisitor">
+		<constructor name="new" c:identifier="bob_builder_recipe_bob_build_recipe_locating_visitor_new">
+			<return-value transfer-ownership="full">
+				<type name="bob.builderrecipeBobBuildRecipeLocatingVisitor" c:type="bobbuilderrecipeBobBuildRecipeLocatingVisitor*"/>
+			</return-value>
+			<parameters>
+				<parameter name="recipeFileName" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getRecipeFile" c:identifier="bob_builder_recipe_bob_build_recipe_locating_visitor_getRecipeFile">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Gio.File" c:type="GFile*"/>
+			</return-value>
+		</method>
+	</record>
+	<interface name="builderBobDirectories" c:type="bobbuilderBobDirectories" glib:type-name="bobbuilderBobDirectories" glib:get-type="bob_builder_bob_directories_get_type" glib:type-struct="BobDirectoriesIface">
+		<constant name="PATH_SEPARATOR" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_PATH_SEPARATOR" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_LIB" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_LIB" value="lib">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_BIN" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_BIN" value="bin">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_GIR" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_GIR" value="gir">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_PLUGINS" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_PLUGINS" value="plugins">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE" value="src">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_NAME" value="library">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_VALA_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_VALA_NAME" value="vala">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_VAPI_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_VAPI_NAME" value="vapi">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_VAPI" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_VAPI" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_RESOURCES_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_RESOURCES_NAME" value="resources">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_RESOURCES" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_RESOURCES" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_C_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_C_NAME" value="c">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_LIBRARY_C" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_LIBRARY_C" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_RUNTIME_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_RUNTIME_NAME" value="main">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_RUNTIME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_RUNTIME" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_RUNTIME_VALA_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_RUNTIME_VALA_NAME" value="vala">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_RUNTIME_RESOURCES_NAME" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_RUNTIME_RESOURCES_NAME" value="resources">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_SOURCE_RUNTIME_RESOURCES" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_SOURCE_RUNTIME_RESOURCES" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_TARGET" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_TARGET" value="target">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_TARGET_GIR" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_TARGET_GIR" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_TARGET_LIB" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_TARGET_LIB" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="DIRECTORY_TARGET_BIN" c:identifier="BOB_BUILDER_BOB_DIRECTORIES_DIRECTORY_TARGET_BIN" value="(null)">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+	</interface>
+	<record name="BobDirectoriesIface" c:type="bobbuilderBobDirectoriesIface" glib:is-gtype-struct-for="BobDirectories">
+		<field name="parent_iface">
+			<type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+		</field>
+	</record>
+	<interface name="builderBobFiles" c:type="bobbuilderBobFiles" glib:type-name="bobbuilderBobFiles" glib:get-type="bob_builder_bob_files_get_type" glib:type-struct="BobFilesIface">
+		<constant name="FILE_PROJECT_RECIPE" c:identifier="BOB_BUILDER_BOB_FILES_FILE_PROJECT_RECIPE" value="recipe.bob">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="FILE_SOURCE_VAPI_NAME" c:identifier="BOB_BUILDER_BOB_FILES_FILE_SOURCE_VAPI_NAME" value="%s-%s.vapi">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="FILE_SOURCE_C_HEADER_NAME" c:identifier="BOB_BUILDER_BOB_FILES_FILE_SOURCE_C_HEADER_NAME" value="%s-%s.h">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="FILE_TARGET_GIR_NAME" c:identifier="BOB_BUILDER_BOB_FILES_FILE_TARGET_GIR_NAME" value="%s-%s.gir">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+		<constant name="FILE_TARGET_LIBRARY_NAME" c:identifier="BOB_BUILDER_BOB_FILES_FILE_TARGET_LIBRARY_NAME" value="lib%s.so">
+			<type name="utf8" c:type="const gchar*"/>
+		</constant>
+	</interface>
+	<record name="BobFilesIface" c:type="bobbuilderBobFilesIface" glib:is-gtype-struct-for="BobFiles">
+		<field name="parent_iface">
+			<type name="GObject.TypeInterface" c:type="GTypeInterface"/>
+		</field>
+	</record>
+</namespace>
+</repository>

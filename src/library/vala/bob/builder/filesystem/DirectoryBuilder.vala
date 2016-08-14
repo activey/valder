@@ -33,6 +33,10 @@ namespace bob.builder.filesystem {
 			return directoryBuilder.getOrCreate();
 		}
 
+		public void accept(FileSystemVisitor visitor, bool deep) {
+			getOrCreate().accept(visitor, deep);
+		}
+
 		public DirectoryObject getOrCreate() {
 			if (_directory != null) {
 				return _directory;

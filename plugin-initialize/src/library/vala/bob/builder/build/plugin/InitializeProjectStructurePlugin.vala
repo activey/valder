@@ -33,10 +33,12 @@ namespace bob.builder.build.plugin {
                         library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VALA_NAME, null);
                         library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_VAPI_NAME, null);
                         library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_C_NAME, null); 
+                        library.directory(BobDirectories.DIRECTORY_SOURCE_LIBRARY_RESOURCES_NAME, null);
                     });
 
                     src.directory(BobDirectories.DIRECTORY_SOURCE_RUNTIME_NAME, main => {
                         main.directory(BobDirectories.DIRECTORY_SOURCE_RUNTIME_VALA_NAME, null);
+                        main.directory(BobDirectories.DIRECTORY_SOURCE_RUNTIME_RESOURCES_NAME, null);
                     });
                 })
                 .directory(BobDirectories.DIRECTORY_TARGET, target => {

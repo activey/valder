@@ -12,6 +12,7 @@ namespace bob.builder.build.plugin {
 		private const string PROPERTY_VERBOSE = "verbose";
 		private const string PROPERTY_DEBUG = "debug";
 		private const string PROPERTY_GENERATE_GIR = "generate-gir";
+		private const string POPERTY_GETTEXT_PACKAGE = "gettext-package";
 
 		private string _targetDirectory = "";
 		private string _targetFileName = "";
@@ -29,7 +30,8 @@ namespace bob.builder.build.plugin {
 
 		public BuildConfigurationBuilder.fromJSONObject(JsonObject jsonObject) {
 			buildConfiguration = new BuildConfiguration();
-			readJsonProperties(jsonObject);		
+			
+			readJsonProperties(jsonObject);
 		}
 
 		private void readJsonProperties(JsonObject jsonObject) {
@@ -48,6 +50,7 @@ namespace bob.builder.build.plugin {
 
 		public BuildConfigurationBuilder runtimeScope() {
 			buildConfiguration.scope = BobBuildProjectDependencyScope.RUNTIME;
+			// probably should be moved to some separate method and update girConfiguration object as well, but fine for now ...
 			_generateGir = false;
 			return this;
 		}
@@ -136,14 +139,14 @@ namespace bob.builder.build.plugin {
 		}
 
 		public BuildConfiguration build() {
-			buildConfiguration.targetFile = "%s%C%s".printf(_targetDirectory, Path.DIR_SEPARATOR, _targetFileName);
-			
-			buildConfiguration.girConfiguration = GirConfiguration() {
-				generateGir = _generateGir,
-				libraryName = _girLibraryName,
-				libraryVersion = _girLibraryVersion,
-				outputDirectory = _outputGirDirectory
-			};
+			if (_generateGir) {
+				buildConfiguration.girConfiguration = GirConfiguration() {
+					generateGir = _generateGir,
+					libraryName = _girLibraryName,
+					libraryVersion = _girLibraryVersion,
+					outputDirectory = _outputGirDirectory
+				};
+			}
 			
 			if (_generateVapi) {
 				buildConfiguration.vapiConfiguration = VapiConfiguration() {
@@ -152,6 +155,8 @@ namespace bob.builder.build.plugin {
 				};
 				buildConfiguration.outputHFile = "%s%C%s".printf(_cOutputDirectory, Path.DIR_SEPARATOR, _cHeaderFileName);
 			}
+
+			buildConfiguration.targetFile = "%s%C%s".printf(_targetDirectory, Path.DIR_SEPARATOR, _targetFileName);
 			return buildConfiguration;
 		}
 	}

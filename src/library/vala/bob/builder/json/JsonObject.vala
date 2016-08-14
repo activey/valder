@@ -19,7 +19,7 @@ namespace bob.builder.json {
 			this.jsonObject = jsonObject;
 		}
 	
-		public string getStringEntry(string key, string? defaultIfNull) {
+		public string? getStringEntry(string key, string? defaultIfNull) {
 			if (!jsonObjectSet() || keyMissingOrNull(key)) {
 				return defaultIfNull;
 			}
@@ -33,7 +33,7 @@ namespace bob.builder.json {
 			jsonObject.set_string_member(key, value);
 		}
 
-		public bool getBooleanEntry(string key, bool defaultIfNull) {
+		public bool? getBooleanEntry(string key, bool? defaultIfNull) {
 			if (!jsonObjectSet() || keyMissingOrNull(key)) {
 				return defaultIfNull;
 			}
