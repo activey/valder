@@ -2,7 +2,7 @@
 set -x
 
 SOURCES=(`find src/main -type f -name "**.vala"`)
-PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'libvala-0.30' 'gmodule-2.0' 'gee-0.8' 'bob-0.0.1')
+PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'libvala-0.32' 'gmodule-2.0' 'gee-0.8' 'bob-0.0.1')
 VAPI_DIRS=('src/library/vapi')
 
 SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")

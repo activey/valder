@@ -22,13 +22,13 @@ namespace bob.builder.build.plugin {
 		private CCOptions _ccOptions = new CCOptions();
 		
 		public string targetFile { get; set; }
+		public string targetGlib { get; set; }
 		public GirConfiguration girConfiguration { get; set; default = GirConfiguration(); }
 		public VapiConfiguration vapiConfiguration { get; set; default = VapiConfiguration(); }
 
 		public string outputHFile { get; set; }
 
 		public bool verbose { get; set; default = false; }
-
 		public bool debug { get; set; default = false; }
 
 		public BobBuildProjectDependencyScope scope { get; set; default = BobBuildProjectDependencyScope.BOTH; }

@@ -30,7 +30,7 @@
                 "version": "1.0"
             }, {
                 "dependency": "libvala",
-                "version": "0.30"
+                "version": "0.32"
             }, {
                 "dependency": "gmodule",
                 "version": "2.0"

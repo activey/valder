@@ -12,6 +12,7 @@ namespace bob.builder.build.plugin {
 		private const string PROPERTY_VERBOSE = "verbose";
 		private const string PROPERTY_DEBUG = "debug";
 		private const string PROPERTY_GENERATE_GIR = "generate-gir";
+		private const string PROPERTY_TARGET_GLIB = "target-glib";
 
 		private string _targetDirectory = "";
 		private string _targetFileName = "";
@@ -35,6 +36,7 @@ namespace bob.builder.build.plugin {
 		private void readJsonProperties(JsonObject jsonObject) {
 			buildConfiguration.verbose = jsonObject.getBooleanEntry(PROPERTY_VERBOSE, false);
 			buildConfiguration.debug = jsonObject.getBooleanEntry(PROPERTY_DEBUG, false);
+			buildConfiguration.targetGlib = jsonObject.getStringEntry(PROPERTY_TARGET_GLIB, null);
 			
 			_generateGir = jsonObject.getBooleanEntry(PROPERTY_GENERATE_GIR, false);
 		}
