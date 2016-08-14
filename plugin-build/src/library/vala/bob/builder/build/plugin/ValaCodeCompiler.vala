@@ -66,6 +66,29 @@ namespace bob.builder.build.plugin {
 
             codeContext.profile = Profile.GOBJECT;
 			codeContext.add_define("GOBJECT");
+
+            defineGlibVersion(codeContext);
+        }
+
+        private void defineGlibVersion(CodeContext codeContext) {
+            int glibMajor = 2;
+            int glibMinor = 32;
+
+            if (buildConfiguration.targetGlib != null && buildConfiguration.targetGlib.scanf("%d.%d", out glibMajor, out glibMinor) != 2) {
+                LOGGER.logError("Invalid format for target-glib");
+                return;
+            }
+
+            codeContext.target_glib_major = glibMajor;
+            codeContext.target_glib_minor = glibMinor;
+            if (glibMajor != 2) {
+                LOGGER.logError("This version of valac only supports GLib 2");
+                return;
+            }
+
+            for (int glibVersion = 16; glibVersion <= glibMinor; glibVersion += 2) {
+                codeContext.add_define("GLIB_2_%d".printf(glibVersion));
+            }
         }
 
         private void initializeContextDebug() {

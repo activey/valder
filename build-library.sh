@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SOURCES=(`find src/library -type f -name "**.vala"`)
-PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'libvala-0.30' 'gmodule-2.0' 'gee-0.8')
+PACKAGES=('glib-2.0' 'gobject-2.0' 'gio-2.0' 'json-glib-1.0' 'libvala-0.32' 'gmodule-2.0' 'gee-0.8')
 
 SOURCES_PREFIXED=$(printf "%s " "${SOURCES[@]}")
 PACKAGES_PREFIXED=$(printf " --pkg %s" "${PACKAGES[@]}")
